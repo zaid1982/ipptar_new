@@ -1,0 +1,159 @@
+html {
+#background-color: #fff;
+#background-image: url(../images/celoreng.png);  
+
+background: #e8e8e4; /* For browsers that do not support gradients */
+/* For Safari 5.1 to 6.0 */
+background: -webkit-linear-gradient(top,#e8e8e4,#f2f2f0,#ededed);
+/* For Opera 11.1 to 12.0 */
+background: -o-linear-gradient(top,#e8e8e4,#f2f2f0,#ededed);
+/* For Fx 3.6 to 15 */
+background: -moz-linear-gradient(top,#e8e8e4,#f2f2f0,#ededed);
+/* Standard syntax */
+background: linear-gradient(to bottom,#e8e8e4,#f2f2f0,#ededed); 
+}
+
+body, table {
+#background-repeat: repeat;
+line-height: 20px;
+font-family: Helvetica, sans-serif;
+font-size: 12px;
+}
+
+#container {
+background-image: url(../images/celoreng.png);
+width: 960px;
+margin-left:auto;
+margin-right:auto;
+border-radius: 15px;
+border: 1px solid #ccc;
+padding: 20px;
+
+}
+
+#header{
+background-image: url(../images/bg_header.png);      
+background-repeat: no-repeat;
+background-position: left top;
+position:relative;
+height: 250px;
+z-index:10;
+border-radius: 15px;
+/*background: linear-gradient(141deg, #545454 0%, #6e6e6e 51%, #474747 75%); */
+}
+
+#topBar {
+height: 20px;
+width: 960px;
+position:absolute;
+top:0px;
+right: 0px;
+text-alignment:right;
+border-top-left-radius: 15px;
+border-top-right-radius: 15px;
+background: linear-gradient(141deg, #545454 0%, #6e6e6e 51%, #474747 75%);
+}
+
+#topBar table td {
+color:#fff;
+}
+
+#header-bar{
+position: absolute;
+height:120px;
+width:960px;
+top: 130px;
+left: 20px;
+}
+
+#navigation {
+height: 90px;
+width: 960px;
+position:relative;
+top: 0px;
+left: 0px;
+padding: 0px;
+}
+
+#navigation table td a:link img {
+border-radius: 15px;
+border: 2px solid #cdcdcd;
+
+background: #2a61c2; /* For browsers that do not support gradients */
+/* For Safari 5.1 to 6.0 */
+background: -webkit-linear-gradient(left,#2a61c2,#82b9f3,#2a61c2);
+/* For Opera 11.1 to 12.0 */
+background: -o-linear-gradient(left,#2a61c2,#82b9f3,#2a61c2);
+/* For Fx 3.6 to 15 */
+background: -moz-linear-gradient(left,#2a61c2,#82b9f3,#2a61c2);
+/* Standard syntax */
+background: linear-gradient(to right,#2a61c2,#82b9f3,#2a61c2); 
+}
+
+#navigation a:hover img {
+border-radius: 15px;
+background: #059df1; /* For browsers that do not support gradients */
+/* For Safari 5.1 to 6.0 */
+background: -webkit-linear-gradient(left,#059df1,#c7efff,#4ac5f5);
+/* For Opera 11.1 to 12.0 */
+background: -o-linear-gradient(left,#059df1,#c7efff,#4ac5f5);
+/* For Fx 3.6 to 15 */
+background: -moz-linear-gradient(left,#059df1,#c7efff,#4ac5f5);
+/* Standard syntax */
+background: linear-gradient(to right,#059df1,#c7efff,#4ac5f5); 
+}
+
+#nav_aktif {
+border-radius: 15px;
+border: 2px solid #575757;
+}
+
+#nav_x {
+border-radius: 15px;
+border: 2px solid #cdcdcd;
+}
+
+#admin_menu{
+top:10px;
+position:relative;
+padding:0px;
+}
+
+#admin_menu table {
+border-radius: 15px;
+background: linear-gradient(141deg, #545454 0%, #6e6e6e 51%, #474747 75%);
+}
+
+#content {
+top: 15px;
+position:relative;
+padding: 0px;
+}
+
+#content table {
+border-radius: 15px;
+}
+
+.tbl1 {
+background-color: #E6E6E6;
+padding: 4px;	
+}
+
+.tbl2 {
+background-color: #ffffff;
+padding: 4px;	
+}
+
+#footer {
+top:0px;
+position:relative;
+padding:0px;
+}
+
+#footer table { 
+color:#ebebeb;
+border-radius: 15px;
+padding:10px 10px 10px 10px;
+background: linear-gradient(141deg, #545454 0%, #6e6e6e 51%, #474747 75%);
+}
+

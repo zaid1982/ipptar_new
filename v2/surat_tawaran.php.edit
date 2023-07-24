@@ -1,0 +1,339 @@
+<?php
+include("conn.php");
+
+#SQL Injection fix
+$pid = $_GET["pid"];
+if (strlen($pid)>11){
+exit;
+}
+$pid = (int)$pid;
+
+$select = "
+SELECT *
+FROM pilih a, user b, kursus c, kluster d
+WHERE a.p_uid = b.u_id AND a.p_kid = c.k_id AND c.k_bid = d.b_id AND p_id LIKE '$pid' 
+ORDER BY p_id ASC
+LIMIT 1
+";
+$result = mysql_query($select) or die("Query failed");
+$row = mysql_fetch_assoc($result);
+
+$bid = $row[b_id] + 1;
+
+$select2 = "
+SELECT *
+FROM admin
+WHERE a_level = '$bid' 
+ORDER BY a_id ASC
+LIMIT 1
+";
+$result2 = mysql_query($select2) or die("Query failed");
+$row2 = mysql_fetch_assoc($result2);
+
+?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<title>Surat Tawaran Kursus @ IPPTAR</title>
+<style>
+div.PageBreak { page-break-after: always; }
+body,table {font-family:Arial, Helvetica, sans-serif;}
+</style>
+</head>
+<body>
+<!-- Mula Table untuk Header Surat -->
+<table width="90%" border="0" align="center">
+<tr>
+<td><img src="images/jata.png" height="70"></td>
+<td valign=top><b>INSTITUT PENYIARAN DAN PENERANGAN TUN ABDUL RAZAK (IPPTAR)</b><br/>Kementerian Komunikasi dan Multimedia Malaysia,<br/>Peti Surat 12163,<br/>Jalan Pantai Baharu,<br/>59700, Kuala Lumpur.</td>
+<td valign=bottom>&#9742; 03-22957555<br/>&#9742; 03-22957575 / 03-22824796<br/>&#9993; webmaster[at]ipptar[dot]gov[dot]my</td>
+<td><img src="images/ipptar.png" height="70"></td>
+</tr>
+<tr><td colspan=4><hr size=1></td></tr>
+</table>
+<!-- tamat table untuk header surat -->
+&nbsp;
+<!-- Mula table untuk rujukan surat -->
+<table width="30%" border="0" align="right">
+<tr>
+<td style="text-align: left">
+Ruj. Tuan	: 	<br/>
+Ruj. Kami	: 	IPPTAR/EK/<?php print $row[b_id]; ?>/<?php print $row[k_id]; ?>/<?php print $row[p_id]; ?><br />
+Tarikh		:	<?php print date("d F Y", strtotime($row["p_tkhlulus"])); ?>
+</td>
+</tr>
+</table>
+<!-- tamat table untuk rujukan surat -->
+<!-- Mula table untuk alamat peserta -->
+<table width="90%" border="0" align="center">
+<tr>
+<td>
+<b><?php print $row["u_nama"]; ?></b>
+<br />
+<br />
+Melalui :
+<br />
+<br />
+<?php print $row["u_kjwt"]; ?><br/>
+<?php print $row["u_jab"]; ?><br/>
+<?php print $row["u_jabaddr1"]; ?><br/>
+<?php print $row["u_jabaddr2"]; ?><br/>
+<?php print $row["u_jabpkod"]; ?> <?php print $row["u_jabbandar"]; ?><br/>
+<b><?php print $row["u_jabnegeri"]; ?></b><br/>
+<b>( No Faks : <?php print $row["u_jabfax"]; ?> )</b>
+<br/>
+<br/>
+Tuan/ Puan,
+<br/>
+<br/>
+<b><?php print $row['k_code'] ?> - <?php print $row['k_name'] ?></b> pada <b><?php print date("d", strtotime($row["k_sdate"])); ?></b>&nbsp;hingga&nbsp;<b><?php print date("d F Y", strtotime($row["k_edate"])); ?></b>
+<br/>
+<br/>
+Dengan hormatnya saya merujuk perkara di atas.
+<br/>
+<br/>
+2. Sukacita dimaklumkan, tuan/puan ditawarkan mengikuti <b><?php print $row['k_code'] ?> - <?php print $row['k_name'] ?></b> anjuran <b>Institut Penyiaran dan Penerangan Tun Abdul Razak (IPPTAR)</b> yang akan diadakan pada tarikh tersebut.
+</td>
+</tr>
+</table>
+<!-- tamat table untuk alamat pemohon dan para 2 -->
+<br/>
+<!-- Mula table untuk maklumat kursus -->
+<table width="90%" border="0" align="center">
+<tr>
+<td>
+3. Sehubungan itu, tuan/puan diminta melaporkan diri pada :    
+</td>
+</tr>    
+<tr>
+<td>
+<br/>
+<table width="90%" border="0" align="left" cellspacing="1">
+<tr>
+<td width="10%">&nbsp;</td>
+<td width="10%">Tarikh</td>
+<td width="1%">:</td>
+<td width="69%"><?php print date("d-m-Y", strtotime($row["k_sdate"])); ?></td>
+</tr>
+<tr>
+<td>&nbsp;</td>
+<td>Masa</td>
+<td>:</td>
+<td><?php print $row['k_time'] ?></td>
+</tr>
+<tr>
+<td>&nbsp;</td>
+<td>Tempat</td>
+<td>:</td>
+<td><?php print $row['k_loc'] ?></td>
+</tr>
+</table>
+</td>
+</tr>
+</table>
+<!-- Tamat table untuk maklumat kursus -->
+<br/>
+<!-- Mula untuk perenggan penginapan -->
+<table width="90%" border="0" align="center">
+<tr>
+<td>
+4. Tuan/puan dikehendaki membayar yuran pendaftaran sebanyak RM30.00 semasa melaporkan diri dan bayaran ini boleh dituntut kembali di jabatan masing-masing. Sepanjang tempoh kursus berlangsung tuan dikehendaki sentiasa berpakaian kemas dan sopan. Tuan/puan juga perlu mematuhi peraturan-peraturan kursus seperti berikut:
+<ol type="i">
+<li>Tidak dibenarkan bercuti rehat atau dipanggil balik ke pejabat.</li>
+<li>Sekiranya sakit, sijil cuti sakit mestilah disertakan dengan surat yang sah daripada pegawai perubatan.</li>
+</ol>
+</td>
+</tr>
+</table>
+<!-- Tamat table para penginapan -->
+<br/>
+<!-- Mula table untuk Para 4 -->
+<table width="90%" border="0" align="center">
+<tr>
+<td>
+5. Pihak IPPTAR ingin memberi peringatan mesra, bahawasanya, ketidakhadiran tuan ke kursus ini akan menyebabkan tindakan tatatertib oleh Bahagian Pengurusan Sumber Manusia, KKMM diambil terhadap tuan dan pegawai tuan berdasarkan <b>Minit Bebas Bahagian Pengurusan Sumber Manusia KKMM</b> bertarikh 23 Mac 2012:
+<ol type="i">
+<li>Pegawai yang tidak hadir kursus hendaklah membayar balik kos yang terlibat dan dikenakan tindakan tatatertib</li>
+<li>Ketua Jabatan/SUB yang menahan pegawai untuk berkursus juga dikenakan tindakan tatatertib</li>
+</ol>
+</td>
+</tr>
+</table>
+<!-- Tamat table para penginapan -->
+<br/>
+<!-- Mula table Para 5 -->
+<table width="90%" border="0" align="center">
+<tr>
+<td>
+6.  Bagi peserta yang datang dari luar Kuala Lumpur dan Petaling Jaya atau jarak melebihi 33km dari tempat tinggal ke IPPTAR atau jarak 33km dari tempat kerja ke IPPTAR kemudahan asrama disediakan. Walau bagaimanapun kemudahan ini tertakluk kepada kekosongan asrama. Peserta boleh melaporkan diri di Asrama IPPTAR sehari sebelum kursus bermula selepas pukul 2.00 petang hingga 10.00 malam. Kemudahan kudapan, makan tengah hari dan minum petang disediakan sepanjang tempoh kursus
+</td></tr></table>
+<!-- Tamat table Para 5  -->
+<br/>
+<?php if($row["k_terms"] != ""){ ?>
+<!-- Mula table Para 6a -->
+<table width="90%" border="0" align="center">
+<tr>
+<td>
+7.	Tuan perlu  membawa peralatan berikut semasa kursus:
+<?php print $row["k_terms"]; ?>
+</td></tr></table>
+<!-- Tamat table Para 6a  -->
+<br/>
+<!-- Mula table Para 6b -->
+<table width="90%" border="0" align="center">
+<tr>
+<td>
+8.  Sekiranya tuan mempunyai kemusykilan mengenai perkara ini, sila hubungi penyelaras kursus di talian:
+<br/>
+<ul type="none">
+<li><?php print $row["a_nama"]; ?> 	- 	<?php print $row["a_tel"]; ?><br />Penyelaras Kursus</li>
+<br />
+<li>Puan Saniah Abu		-	03-2295 7554<br />Penyelia Asrama</li>
+</ul>
+</td></tr></table>
+<!-- Tamat table Para 6b  -->
+<?php }else{ ?>
+<!-- Mula table Para 6b -->
+<table width="90%" border="0" align="center">
+<tr>
+<td>
+7.  Sekiranya tuan mempunyai kemusykilan mengenai perkara ini, sila hubungi penyelaras kursus di talian:
+<br/>
+<ul type="none">
+<li><?php print $row["a_nama"]; ?> 	- 	<?php print $row["a_tel"]; ?><br />Penyelaras Kursus</li>
+<br />
+<li>Puan Saniah Abu		-	03-2295 7554<br />Penyelia Asrama</li>
+</ul>
+</td></tr></table>
+<!-- Tamat table Para 6b  -->
+<?php } ?>
+<br />
+<!-- Mula table Para 7 -->
+<table width="90%" border="0" align="center">
+<tr>
+<td>
+Perhatian tuan berhubung perkara ini amat dihargai dan didahului dengan ucapan terima kasih.
+</td></tr></table>
+<!-- Tamat table Para 7  -->
+<br/>
+<table width="90%" border="0" align="center">
+<tr>
+<td>
+Sekian.
+<br/><br/>
+<strong>&quot;BERKHIDMAT UNTUK NEGARA&quot;</strong>
+<br/>
+<br/>
+Saya yang menurut perintah,
+<br/>
+<br/>
+<br/>
+<br/>
+<b>( <?php print $row["a_nama"]; ?> )</b><br/>
+<?php print $row["b_name"]; ?><br/>
+b.p. Pengarah<br/>
+Institut Penyiaran Dan Penerangan Tun  Abdul Razak (IPPTAR)<br/>
+Kementerian Komunikasi dan Multimedia Malaysia.
+</td>
+</tr>
+</table>
+<!-- Tamat table  -->
+<br/><br/>
+<!-- Page Break -->
+<div class="PageBreak">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<font size="-1"><i>Surat tawaran ini dijana menerusi sistem. Oleh itu, tanda tangan tidak diperlukan.</i></font>
+</div>
+<br/>
+<!-- Mula table Untuk Lampiran A -->
+<table width="90%" border="0" align="center">
+<tr>
+<td width="100%">
+Pengarah<br />
+Institut Penyiaran dan Penerangan Tun Abdul Razak (IPPTAR)<br />
+Peti Surat 12163<br />
+Jalan Pantai Baharu<br />
+59700 Kuala Lumpur<br />
+(u. p.: Encik Mohamad Kamal Bin Abdul Wahab)
+<br/>
+<br />
+Tuan / Puan,
+<br/>
+<br/>
+<b>PENGESAHAN KEHADIRAN KURSUS ANJURAN INSTITUT PENYIARAN DAN PENERANGAN TUN ABDUL RAZAK (IPPTAR)</b>
+<br/>
+<table cellspacing="0" width="100%" border="0" align="center">
+<tr>
+<td width="21%"><b>TAJUK KURSUS:</b></td>
+<td width="79%"><b><?php print $row['k_code'] ?> - <?php print $row['k_name'] ?></b></td>
+</tr>
+<tr>
+<td><b>TARIKH:</b></td>
+<td><b><?php print date("d-m-Y", strtotime($row["k_sdate"])); ?> sehingga <?php print date("d-m-Y", strtotime($row["k_edate"])); ?></b></td>
+</tr>
+<tr>
+<td><b>TEMPAT:</b></td>
+<td><b><?php print $row['k_loc'] ?></b></td>
+</tr>
+</table>
+<br />
+Dengan hormatnya saya merujuk kepada perkara di atas.
+<br />
+<br />
+2.	Dimaklumkan bahawa:
+<br/>
+<br />
+<table cellspacing="0" width="90%" border="0" align="center">
+<tr><td colspan="2">Nama: <?php print strtoupper($row['u_nama']) ?></td></tr>
+<tr><td colspan="2">Jawatan: <?php print $row['u_jwt'] ?></td></tr>
+<tr>
+<td width="59%">Akan hadir  ke kursus</td>
+<td width="41%" align="center">
+<table cellspacing="0" width="30%" border="1">
+<tr><td>&nbsp;</td></tr>
+</table>
+</td>
+</tr>
+<tr>
+<td>Tidak hadir (sila nyatakan sebab di ruang yang disediakan)</td>
+<td align="center">
+<table cellspacing="0" width="30%" border="1">
+<tr><td>&nbsp;</td></tr>
+</table>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+Sekian, terima kasih.
+<br/>
+<br/>
+<b>&quot;BERKHIDMAT UNTUK NEGARA&quot;</b>
+<br />
+<br />
+<br />
+Saya yang menurut perintah,
+<br />
+<br />
+<br />
+...........................................
+<table width="100%" border="0">
+<tr><td width="13%">Nama</td>
+<td width="87%">:</td>
+</tr>
+<tr><td>Jawatan / Gred</td><td> :</td></tr>
+<tr><td>Tarikh</td><td> :</td></tr>
+<tr><td>Cap Jabatan</td><td> :</td></tr>
+<tr><td>No. Tel & Faks</td><td> :</td></tr>
+</table>
+<br />
+<br />
+<b>*&nbsp; (SILA FAKSKAN KE 03-22824379 PADA ATAU SEBELUM <?php print strtoupper(date('d F Y', strtotime($row[k_sdate] . " -7 days"))); ?>)</b></td>
+</tr>
+</table>
+
+</body>
+</html>

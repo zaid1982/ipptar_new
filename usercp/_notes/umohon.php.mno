@@ -1,0 +1,6 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<info>
+	<infoitem key="UD_viewpro" value="name:u_name;datatype:string,name:u_idnum;datatype:string" />
+	<infoitem key="UD_uviewkatalog" value="name:co_id;datatype:int,name:co_coursecode;datatype:string,name:co_name;datatype:string,name:co_loc;datatype:string,name:co_fee;datatype:string,name:co_obj;datatype:string,name:co_sdate;datatype:string,name:co_edate;datatype:string,name:co_trggroup;datatype:string,name:co_catid;datatype:string,name:co_creatorid;datatype:string,name:co_quo;datatype:string,name:co_totalapp;datatype:string,name:co_attd;datatype:string,name:co_status;datatype:string,name:costa_id;datatype:string,name:costa_off1;datatype:string,name:costa_off1tel;datatype:string,name:costa_off1mail;datatype:string,name:costa_off2;datatype:string,name:costa_off2tel;datatype:string,name:costa_off2mail;datatype:string,name:costa_ttlapp;datatype:string,name:costa_att;datatype:string,name:cat_id;datatype:int,name:cat_name;datatype:string,name:cat_crtdate;datatype:string,name:cat_crttime;datatype:string,name:cat_stacat;datatype:string" />
+	<infoitem key="UD_Recordset1" value="name:cat_id;datatype:int,name:cat_name;datatype:string" />
+</info>

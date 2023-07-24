@@ -1,0 +1,146 @@
+<?php
+#emel start	
+include 'mailer/library.php'; // include the library file
+include "mailer/class.phpmailer.php"; // include the class name
+
+$mail = new PHPMailer; // call the class 
+$mail->IsSMTP(); 
+$mail->Host = SMTP_HOST; //Hostname of the mail server
+$mail->Port = SMTP_PORT; //Port of the SMTP like to be 25, 80, 465 or 587
+$mail->SMTPAuth = false; //Whether to use SMTP authentication
+$mail->Username = SMTP_UNAME; //Username for SMTP authentication any valid email created in your domain
+$mail->Password = SMTP_PWORD; //Password for SMTP authentication
+$mail->SetFrom("ekursus@ipptar.gov.my", "Webmaster eKursus IPPTAR"); //From address of the mail
+// put your while loop here like below,
+$mail->Subject = "Permohonan Mengikuti Kursus ".$_SESSION[k_name]; //Subject od your mail
+$mail->AddAddress("$_SESSION[u_emel]", "$_SESSION[u_nama]"); //To address who will receive this email
+//$mail->AddBCC("encikbakar@yahoo.com", "ADMIN IPPTAR");
+$mail->AddBCC("ekursus_support@ipptar.gov.my", "ADMIN IPPTAR");
+$mail->MsgHTML("
+<table width=100% border=0>
+  <tr>
+    <td>No. Kad Pengenalan</td>
+    <td>:</td>
+    <td>$_SESSION[u_idnum]</td>
+    <td>Tarikh</td>
+    <td>:</td>
+    <td>$tkhmohon</td>
+  </tr>
+  <tr>
+    <td>Nama</td>
+    <td>:</td>
+    <td>$_SESSION[u_nama]</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td>Jabatan</td>
+    <td>:</td>
+    <td>$_SESSION[u_jab]</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td colspan=6>Tuan/Puan,</td>
+  </tr>
+  <tr>
+    <td colspan=6>&nbsp;</td>
+  </tr>
+  <tr>
+    <td colspan=6><b>PERMOHONAN KURSUS/BENGKEL $_SESSION[k_code] - $_SESSION[k_name]</b></td>
+  </tr>
+  <tr>
+    <td colspan=6>&nbsp;</td>
+  </tr>
+  <tr>
+    <td><b>TARIKH</b></td>
+    <td>:</td>
+    <td colspan=4>$_SESSION[k_sdate] sehingga $_SESSION[k_edate]</td>
+  </tr>
+  <tr>
+    <td><b>TEMPAT</b></td>
+    <td>:</td>
+    <td colspan=4>$_SESSION[k_loc]</td>
+  </tr>
+  <tr>
+    <td colspan=6>&nbsp;</td>
+  </tr>
+  <tr>
+    <td colspan=6>Adalah dimaklumkan bahawa permohonan tuan/puan telah didaftar dan akan diproses. Sekiranya berjaya, <b>surat tawaran akan dikeluarkan</b>. </td>
+  </tr>
+  <tr>
+    <td colspan=6>&nbsp;</td>
+  </tr>
+  <tr>
+    <td colspan=6>2. Tuan/puan boleh menyemak status permohonan kursus yang dipohon melalui laman web Institut Penyiaran dan Penerangan Tun Abdul Razak (IPPTAR) di http://ekursus.ipptar.gov.my/v2/status.php seminggu sebelum tarikh kursus. </td>
+  </tr>
+  <tr>
+    <td colspan=6>&nbsp;</td>
+  </tr>
+  <tr>
+    <td colspan=6>Sekian, terima kasih. </td>
+  </tr>
+  <tr>
+    <td colspan=6>&nbsp;</td>
+  </tr>
+  <tr>
+    <td colspan=6><b>BERKHIDMAT UNTUK NEGARA</b></td>
+  </tr>
+  <tr>
+    <td colspan=6>&nbsp;</td>
+  </tr>
+  <tr>
+    <td colspan=6>Urusetia Kursus</td>
+  </tr>
+  <tr>
+    <td colspan=6>IPPTAR</td>
+  </tr>
+  <tr>
+    <td colspan=6>&nbsp;</td>
+  </tr>
+  <tr>
+    <td colspan=6><b>Nota:</b></td>
+  </tr>
+  <tr>
+    <td colspan=6>Sebarang pertanyaan mengenai permohonan ini sila hubungi: </td>
+  </tr>
+  <tr>
+    <td colspan=6>No.Tel : 03-22957555 </td>
+  </tr>
+  <tr>
+    <td colspan=6>Emel : webmaster[at]ipptar[dot]gov[dot]my</td>
+  </tr>
+</table>
+"); //Put your body of the message you can place html code here
+$send = $mail->Send(); //Send the mails
+if($send){
+	
+	#$_SESSION['alert'] = "Your submission is successful. Please check your email ($usr_emel) to verify. Thank you.";
+	#$_SESSION['redirek'] = "../index.php";
+	#$pageTitle   = 'Subscribe';
+	#include("kosong.php");
+	#exit;
+	$_SESSION['xxx'] = "ok";
+		
+}else{
+	
+	#$_SESSION['alert'] = "Error! Message could not be sent. Mailer Error:$mail->ErrorInfo; Please try again.";
+	#$_SESSION['redirek'] = "../index.php";
+	#$pageTitle   = 'Subscribe';
+	#include("kosong.php");
+	#exit;
+	$_SESSION['xxx'] = "xok";
+	
+}
+#emel end
+?>

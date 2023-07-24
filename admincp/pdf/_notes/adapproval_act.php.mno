@@ -1,0 +1,4 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<info>
+	<infoitem key="UD_viewad" value="name:ad_id;datatype:int,name:ad_name;datatype:string,name:ad_pos;datatype:string,name:ad_gred;datatype:string,name:ad_department;datatype:string,name:ad_ic;datatype:string,name:ad_levelpos;datatype:string,name:ad_status;datatype:string,name:ad_idstaff;datatype:string,name:ad_telhp;datatype:string,name:ad_teloff;datatype:string,name:ad_pwd;datatype:string,name:ad_email;datatype:string,name:ad_date;datatype:string,name:ad_time;datatype:string,name:ad_akses;datatype:string,name:ad_creator;datatype:string" />
+</info>

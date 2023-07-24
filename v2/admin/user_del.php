@@ -1,0 +1,71 @@
+<?php session_start(); ?>
+<html>
+<head>
+<title>eKURSUS @ Institut Penyiaran dan Penerangan Tun Abdul Razak (IPPTAR)</title>
+<link rel="stylesheet" type="text/css" href="../css/style.css">
+</head>
+<body>
+<div id="container2">
+<?php
+include("../conn.php");
+
+if(isset($_SESSION['terai']) && $_SESSION['terai'] == "usrdel"){
+
+$tkhedit = date('Y-m-d H:i:s');
+
+$sql = "UPDATE user SET u_status = '3' WHERE u_id = '$_SESSION[uid]'";
+$result = mysql_query($sql) or die(mysql_error());
+
+	unset($_SESSION['terai']);
+
+	$_SESSION['alert'] = "Proses padam maklumat user berjaya.";
+	$_SESSION['redirek'] = "user_list.php";
+	$_SESSION['toplus'] = "";
+	$pageTitle = 'Kemaskini User';
+	include("../kosong.php");
+	exit;
+
+}else{
+
+#SQL Injection fix
+$uid = $_GET["uid"];
+if (strlen($uid)>11){
+exit;
+}
+$uid = (int)$uid;
+	
+$select = "
+SELECT u_id
+FROM user
+WHERE u_id LIKE '$uid'
+ORDER BY u_id ASC
+";
+$result = mysql_query($select) or die("Query failed");
+$row = mysql_fetch_assoc($result);
+
+}
+?>
+<div id="content"> 
+
+<form id="form1" name="form1" method="POST" action="user_list.php">
+<table align="center" width="90%" border="0" cellpadding="3" cellspacing="1">
+<tr><td height="100">&nbsp;</td></tr>
+<tr><td align="center" style="font-weight:bold">PADAM MAKLUMAT USER</td></tr>
+<tr><td>&nbsp;</td></tr>
+<tr>
+<td align="center">
+<input type="hidden" name="terai" id="terai" value="usrdel" />
+<input type="hidden" name="uid" id="uid" value="<?php print $uid; ?>">
+<input type="submit" name="submit" id="submit" value="  PADAM  ">
+<input type="button" name="button2" id="button2" value="  BATAL  " onclick="window.parent.location.reload();window.close()">
+</td>
+</tr>
+</table>
+
+</form>
+
+</div><!--close content-->
+
+</div><!--close container-->
+
+<?php include("bottom.php"); ?>

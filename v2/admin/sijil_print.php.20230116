@@ -1,0 +1,89 @@
+<?php
+include("../conn.php");
+
+$pid = (int)$_GET['pid'];
+
+$select = "
+SELECT *
+FROM pilih a, user b, kursus c, kluster d
+WHERE a.p_uid = b.u_id AND a.p_kid = c.k_id AND c.k_bid = d.b_id AND p_id LIKE '$pid' 
+ORDER BY p_id ASC
+LIMIT 1
+";
+$result = mysql_query($select) or die("Query failed");
+$row = mysql_fetch_assoc($result);
+
+$select2 = "
+SELECT *
+FROM pengarah 
+ORDER BY p_id ASC
+LIMIT 1
+";
+$result2 = mysql_query($select2) or die("Query failed");
+$row2 = mysql_fetch_assoc($result2);
+?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<title>Sijil Peserta Kursus @ IPPTAR</title>
+<style type="text/css" media="print">
+
+</style>
+
+<style>
+@media screen {
+   #printbr {display: none;}
+              }
+@media print {
+   #printbr {display: block; margin-top: 100px;}
+   .dontprint { display: none; }
+             }
+</style>
+</head>
+<body onload="window.print()">
+<table width="90%" border="0" align="center">
+<tr>
+<td align="center">
+<div id="printbr">&nbsp;</div>
+<div id="printbr">&nbsp;</div>
+<br/>
+<div style="font-family:Palatino Linotype;font-size:18px;"><b><i>Dengan ini disahkan bahawa</i></b></div>
+<br/>
+<br/>
+<div style="font-family:Britannic Bold;font-size:22px;font-weight:bold"><?php print $row['u_nama'] ?></div>
+<br/>
+<br/>
+<br/>
+<div style="font-family:Palatino Linotype;font-size:18px;"><b><i>telah menghadiri</i></b></div>
+<br/>
+<br/>
+<div style="font-family:Britannic Bold;font-size:22px;font-weight:bold"><?php print strtoupper($row['k_name']) ?></div>
+<br/>
+<br/>
+<div style="font-family:Palatino Linotype;font-size:18px;"><b><i>yang dianjurkan oleh</i><br/><i>Institut Penyiaran dan Penerangan Tun Abdul Razak</i></b></div>
+<br/>
+<br/>
+<br/>
+<div style="font-family:Palatino Linotype;font-size:18px;"><b><i>pada</i></b></div>
+<br/>
+<br/>
+<!--br/-->
+<div style="font-family:Britannic Bold;font-size:22px;font-weight:bold"><?php print date("d", strtotime($row["k_sdate"])); ?>&nbsp;-&nbsp;<?php $terai = date("d F Y", strtotime($row["k_edate"]));print str_replace("October","Oktober",$terai); ?></div>
+<div id="printbr">&nbsp;</div>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<!--<br/>-->
+<!--<div style=padding-left:320px;padding-top:5px><img src="images/<?php print strtolower($row2['p_sign']) ?>" border="0" width="200"></div>-->
+<div style=padding-left:320px;padding-top:5px><?php print strtoupper($row2['p_nama']) ?></div>
+</td>
+</tr>
+</table>
+<br/>
+<br/>
+<br/>
+</body>
+</html>

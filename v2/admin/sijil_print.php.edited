@@ -1,0 +1,74 @@
+<?php
+include("../conn.php");
+
+$pid = (int)$_GET['pid'];
+
+$select = "
+SELECT *
+FROM pilih a, user b, kursus c, kluster d
+WHERE a.p_uid = b.u_id AND a.p_kid = c.k_id AND c.k_bid = d.b_id AND p_id LIKE '$pid' 
+ORDER BY p_id ASC
+LIMIT 1
+";
+$result = mysql_query($select) or die("Query failed");
+$row = mysql_fetch_assoc($result);
+
+$select2 = "
+SELECT *
+FROM pengarah 
+ORDER BY p_id ASC
+LIMIT 1
+";
+$result2 = mysql_query($select2) or die("Query failed");
+$row2 = mysql_fetch_assoc($result2);
+?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<title>Sijil Peserta Kursus @ IPPTAR</title>
+<style>
+@media screen {
+   #printbr {display: none;}
+   .dontshow { display: none; }
+}
+@media print {
+   #printbr {display: block; margin-top: 115px;}
+   #printbr2 {display: block; margin-top: 3px;}
+   .dontprint { display: none; }
+   .blkg {
+	background-image: url('http://ekursus.ipptar.gov.my/v2/admin/images/sijil5.png');
+	background-repeat: no-repeat;
+   }
+}
+</style>
+</head>
+<body>
+<table width="100%" border="0" align="center" class="blkg dontprint">
+<tr>
+<td align="left" style="padding-left:50px">
+<div style="font-size:22px;"><i>refresh</i> laman ini untuk cetak (sekiranya tiada paparan latar belakang sijil di <i>window print</i>)</div>
+</td>
+</tr>
+</table>
+
+<?php
+require_once 'dompdf/autoload.inc.php'; //we've assumed that the dompdf directory is in the same directory as your PHP file. If not, adjust your autoload.inc.php i.e. first line of code accordingly.
+// reference the Dompdf namespace
+use Dompdf\Dompdf;
+// instantiate and use the dompdf class
+$dompdf = new Dompdf();
+$dompdf->loadHtml('
+
+print
+
+');
+// (Optional) Setup the paper size and orientation
+$dompdf->setPaper('A4', 'landscape');
+// Render the HTML as PDF
+$dompdf->render();
+// Output the generated PDF to Browser
+$dompdf->stream();
+?>
+</body>
+</html>

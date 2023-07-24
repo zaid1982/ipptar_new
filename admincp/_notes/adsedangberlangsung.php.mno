@@ -1,0 +1,5 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<info>
+	<infoitem key="UD_langsung" value="name:co_id;datatype:int,name:co_sdate;datatype:string,name:co_edate;datatype:string,name:co_langsung;datatype:string" />
+	<infoitem key="UD_ser" value="name:co_id;datatype:int,name:co_name;datatype:string,name:co_sdate;datatype:string,name:co_edate;datatype:string,name:co_langsung;datatype:string" />
+</info>

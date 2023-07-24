@@ -1,0 +1,319 @@
+/* css for UserCP */
+
+/* clear standard element 1st */ 
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, font, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	outline: 0;
+	font-size: 100%;
+	vertical-align: baseline;
+	background: transparent;
+}
+
+body {
+	margin: 0;
+	padding: 0;
+	font-family: Tahoma, Verdana, Arial;
+	font-size: 1.0em;
+	color: #000000;
+	line-height: 1.4em;
+	background: #5eaeb7 url(images/bg.jpg) no-repeat center top;
+	background-attachment: fixed;
+}
+
+/* code start */
+
+header, section, footer { display: block;}
+
+a { color: #000000; text-decoration: none; }
+a:hover { color: #88d4f8; }
+.clear { clear: both; }
+
+#wrapper { 
+  width: 100%;
+}
+.shadow-drop {
+  -moz-box-shadow:    1px 1px 3px 3px #000000;
+  -webkit-box-shadow: 1px 1px 3px 3px #000000;
+  box-shadow: 1px 1px 3px 3px #000000;
+}
+.shadow-inside {
+   -moz-box-shadow:    inset 0 0 5px #000000;
+   -webkit-box-shadow: inset 0 0 5px #000000;
+   box-shadow:         inset 0 0 5px #000000;
+}
+
+/* ++++++++++++++++++++++++++++++++ HEADER PART +++ */
+header { 
+  width: 100%;
+  height:  92px;
+  background: url(images/bg-header.jpg) repeat-x center top;
+  font-size: 0.8em;
+  color: #FFFFFF;
+  text-shadow: 1px 1px 1px #000000;
+  overflow: hidden;
+}
+header a { 
+  color: #FFFFFF;
+}
+#header-in { 
+  clear: both;
+  min-width: 800px;
+  max-width: 960px;
+  height: 68px;
+  margin: auto;
+  overflow: hidden;
+ }
+#header-shade {
+  clear: both;
+  width: 100%;
+  height: 24px;
+  background: url(images/bg-shadow.png) repeat-x center bottom;
+  border-top: 1px solid #000000;
+}
+#header-l {
+  padding-top: 10px;
+  float: left;
+  width: 30%;
+}
+#header-r {
+  padding-top: 20px;
+  float: right;
+  width: 70%;
+  text-align: right;
+}
+.logout { 
+  display: block inline;
+  background-color: #171717;
+  padding: 5px;
+  webkit-border-radius: 4px;
+	-moz-border-radius: 4px;
+	border-radius: 4px;
+}
+a:hover.logout {
+  background-color: #666666;
+}
+#header-l h1 {
+  display: block;
+  width: 150px;
+  margin-top: 5px;
+  padding: 10px 20px 10px 50px;
+  background: #171717 url(images/icon-usercp.png) no-repeat top left;
+  background-position: 6px 6px;
+  font-size: 1.4em;
+  font-family: 'Oswald', Arial, Tahoma;
+  font-weight: normal;
+  text-decoration: none;
+  webkit-border-radius: 8px;
+	-moz-border-radius: 8px;
+	border-radius: 8px;
+	border-bottom: 1px solid #666666;
+}
+
+/* ++++++++++++++++++++++++++++++++ MIDDLE PART +++ */
+
+#mid {
+  clear: both;
+  margin: 0 auto 10px auto;
+  min-width: 800px;
+  max-width: 940px;
+  padding: 10px 0 20px 0;
+}
+#mid-l { float: left; width: 45%; padding-top: 30px;}
+#mid-r { float: right; width: 45%; text-align: right;}
+
+#mid-l h3 { 
+  font-family: 'Oswald', Arial, Tahoma;
+  font-size: 2.8em;
+  font-weight: normal;
+  letter-spacing: -2px;
+  color: #FFFFFF;
+  text-shadow: 2px 2px 0 #336699;
+}
+#mid-l strong { 
+  padding-left: 20px;
+}
+a.mohon-link {
+  float: right;
+  display: block;
+  width: 250px;
+  height: 65px;
+  text-align: left;
+  text-indent: -300px;
+  overflow: hidden;
+  background: url(images/button-mohon.png);
+  box-shadow: 2px 2px 2px #336699;  
+  webkit-border-radius: 10px;
+	-moz-border-radius: 10px;
+	border-radius: 10px;    
+}
+a:hover.mohon-link {
+  background-position: 0px 130px;
+}
+a:active.mohon-link {
+  background-position: 0px 65px;
+}
+.hrx {
+  clear: both;
+  margin-top: 20px;
+	height: 1px;
+	background-color: #336699;
+	border-bottom: 1px solid #88d4f8;
+	margin-bottom: 10px;
+}
+/* ++++++++++++++++++++++++++++++++ CONTENT PART +++ */
+
+#content {
+  clear: both;
+  margin: 0 auto 20px auto;
+  min-width: 800px;
+  max-width: 940px;
+  font-size: 0.8em;
+  line-height: 16px;
+}
+#content-l {
+  /* main content area */
+  float: left;
+  width: 650px;
+  height: 500px;
+  padding: 10px;
+  background: url(images/bg-black50.png);
+  webkit-border-radius: 8px;
+	-moz-border-radius: 8px;
+	border-radius: 8px;  
+  -moz-box-shadow:    inset 0 0 10px #003366;
+  -webkit-box-shadow: inset 0 0 10px #003366;
+   box-shadow:         inset 0 0 10px #003366;
+}
+/* menu parts */
+.loop-cpmenu {
+  float: left;
+  display:block;
+  width: 180px;
+  height: 50px;
+  padding: 10px;
+  margin: 8px;
+  overflow: hidden;
+  background-color: #FFFFFF;
+  webkit-border-radius: 4px;
+	-moz-border-radius: 4px;
+	border-radius: 4px;    
+  -moz-box-shadow:    1px 1px 5px #003366;
+  -webkit-box-shadow: 1px 1px 5px #003366;
+  box-shadow: 1px 1px 5px #003366;	
+  background: url(images/bg-cpmenu.png) repeat-x bottom center;  
+  color: #666666;
+  font-size: 1em;
+  text-shadow: 1px 1px 0 #FFFFFF;
+}
+span.icon {
+  float: left;
+  display: block;
+  width: 25px;
+  height: 25px;
+  padding: 5px;
+  text-align: center;
+  webkit-border-radius: 7px;
+	-moz-border-radius: 7px;
+	border-radius: 7px;    
+	background-color: #333333;
+	margin-right: 10px;
+	/* add some inner shadow */
+  -moz-box-shadow: inset 0 0 10px #000000;
+  -webkit-box-shadow: inset 0 0 10px #000000;
+  box-shadow: inset 0 0 10px #000000;
+}
+span.icon:hover {
+  background-color: #666666;
+}
+.loop-cpmenu a {
+  clear: both;
+    font-size: 1.1em;
+    text-shadow: 1px 1px 0 #CCCCCC;
+}
+.loop-cpmenu a:hover {  
+  text-shadow: 1px 1px 0 #FFFFFF; 
+  color: #333366;
+}
+.menudesc {
+  color: #CCCCCC;
+  font-size: 0.8em;
+}
+
+
+
+
+/* ++++++++++++++++++++++++++++++++ SIDEBAR PART +++ */
+#sidebar {
+  float: right;
+  width: 250px;
+  text-align: right;
+}
+#sidebar h4 {
+  font-family: 'Oswald', Arial, Tahoma;
+  font-size: 1.8em;
+  font-weight: normal;  
+/*   letter-spacing: -2px; */
+  color: #FFFFFF;
+  text-transform: uppercase;
+  line-height: 24px;
+  text-shadow: 1px 1px 0 #336699;
+  text-align: left;
+}
+#sidelist {
+  margin-top: 20px;
+  padding: 10px;
+  /* height: 200px; */
+  background: url(images/bg-black50.png);  
+  text-align: left;
+  webkit-border-radius: 8px;
+	-moz-border-radius: 8px;
+	border-radius: 8px;  
+	border-top: 1px solid #3d7076;
+	border-left: 1px solid #3d7076;
+  border-lright: 1px solid #CCCCCC;
+  border-bottom: 1px solid #CCCCCC;
+}
+#sidelist ul, #sidelist li { list-style-type: none; color: #FFFFFF;}
+#sidelist li {
+  display: block;
+  padding: 5px;
+  border-bottom: 1px solid #3d7076;
+  font-size: 0.8em;
+  color: #99ccff;
+}
+#sidelist strong {
+  clear: both;
+  display: block;
+  font-weight: normal;
+  font-size: 1.1em;
+  color: #FFFFFF;
+}
+
+/* ++++++++++++++++++++++++++++++++ FOOTER PART +++ */
+footer {
+  margin-top: 50px;
+  height: 83px;
+  background: url(images/bg-footer.png) repeat-x bottom center;  
+  border-top: 5px solid #000000;
+}
+footer .credit {
+  padding-top: 30px;
+  text-align: center;
+  font-size: 0.8em;
+  color: #000000;
+  text-shadow: 1px 1px 0 #666666;
+}
+
+
+

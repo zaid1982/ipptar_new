@@ -1,0 +1,50 @@
+
+div.pagination {
+	padding: 1px;
+	margin: 1px;
+	font-family: "Calibri", monospace;
+	font-size: small;
+	
+}
+
+div.pagination a {
+	padding: 0px 4px 0px 4px;
+	margin: 2px;
+	border: 1px solid #AAAADD;
+	zoom: 100%;
+	text-decoration: none; /* no underline */
+	color: #000099;
+}
+div.pagination a:hover, div.pagination a:active {
+	border: 1px solid #000099;
+
+	color: #000;
+}
+div.pagination span.current {
+	padding: 0px 4px 0px 4px;
+	margin: 2px;
+	border: 1px solid #000099;
+	
+	* zoom: 100%; 
+	
+	font-weight: bold;
+	background-color: #000099;
+	color: #FFF;
+}
+div.pagination span.disabled {
+	padding: 0px 4px 0px 4px;
+	margin: 2px;
+	border: 1px solid #EEE;
+	
+	* zoom: 100%;
+	
+	color: #DDD;
+}
+
+* span.elipsis {zoom:100%}
+</style>
+<style type="text/css">
+<!--
+.style6 {color: #2582A4}
+.style7 {color: #FFFFFF}
+-->

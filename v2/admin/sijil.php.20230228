@@ -1,0 +1,80 @@
+<?php
+include("../conn.php");
+
+$pid = (int)$_GET['pid'];
+
+$select = "
+SELECT *
+FROM pilih a, user b, kursus c, kluster d
+WHERE a.p_uid = b.u_id AND a.p_kid = c.k_id AND c.k_bid = d.b_id AND p_id LIKE '$pid' 
+ORDER BY p_id ASC
+LIMIT 1
+";
+$result = mysql_query($select) or die("Query failed");
+$row = mysql_fetch_assoc($result);
+
+$select2 = "
+SELECT *
+FROM pengarah 
+ORDER BY p_id ASC
+LIMIT 1
+";
+$result2 = mysql_query($select2) or die("Query failed");
+$row2 = mysql_fetch_assoc($result2);
+?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<title>Surat Tawaran Kursus @ IPPTAR</title>
+<style>
+@media screen {
+   #printbr {display: none;}
+              }
+@media print {
+   #printbr {display: block; margin-top: 100px;}
+   .dontprint { display: none; }
+             }
+</style>
+</head>
+<body>
+<table width="100%" border="0" align="center">
+<tr>
+<td align="center">
+<div id="printbr">&nbsp;</div>
+<div id="printbr">&nbsp;</div>
+<div style="font-family:Palatino Linotype;font-size:16px;">Sijil ini dianugerahkan kepada
+<br/><br/>
+<div style="font-family:Britannic Bold;font-size:19px;font-weight:bold"><?php print $row['u_nama'] ?></div>
+<br/>
+<div style="font-family:Palatino Linotype;font-size:16px;">telah menghadiri
+<br/><br/>
+<div style="font-family:Britannic Bold;font-size:19px;font-weight:bold"><?php print strtoupper($row['k_name']) ?></div>
+<br/>
+<div style="font-family:Palatino Linotype;font-size:16px;">pada <?php print date("d", strtotime($row["k_sdate"])); ?>&nbsp;-&nbsp;<?php $terai = date("d F Y", strtotime($row["k_edate"]));$terai = str_replace("October","Oktober",$terai);$terai = str_replace("February","Februari",$terai); echo $terai; ?>,</div>
+<div style="font-family:Palatino Linotype;font-size:16px;">dianjurkan oleh<br/>Institut Penyiaran dan Penerangan Tun Abdul Razak<br/>Angkasapuri, Kuala Lumpur, Malaysia</div>
+<br/>
+<div id="printbr">&nbsp;</div>
+<br/>
+<div><!--<img src="images/<?php print strtolower($row2['p_sign']) ?>" border="0" width="200">--><br/>...........................................................................<br/>(<?php print strtoupper($row2['p_nama']) ?>)</div>
+<div style="font-family:Palatino Linotype;font-size:12px;">b.p PENGARAH</div>
+<div style="font-family:Palatino Linotype;font-size:12px;">INSTITUT PENYIARAN DAN PENERANGAN TUN ABDUL RAZAK</div>
+<div style="font-family:Palatino Linotype;font-size:12px;">KEMENTERIAN KOMUNIKASI DAN DIGITAL</div>
+</td>
+</tr>
+</table>
+<br/>
+<br/>
+<br/>
+<!-- mula butang cetak -->
+<table width="90%" border="0" align="center">
+<tr>
+<td align="center">
+<!--<input type="button" value="   PRINT   " onClick="window.print()" class="dontprint">-->
+<a href="http://ekursus.ipptar.gov.my/v2/admin/sijil_print.php?pid=<?php print $pid; ?>" target="_blank"><button class="dontprint">   PRINT   </button></a>
+</td>
+</tr>
+</table>
+<!-- end butang cetak -->
+</body>
+</html>

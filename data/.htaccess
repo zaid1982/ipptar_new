@@ -1,0 +1,7 @@
+AuthType Basic
+AuthName "Secure Area"
+AuthUserFile "/var/www/data/.htpasswd"
+Require valid-user
+Order deny,allow
+Deny from all
+Satisfy Any

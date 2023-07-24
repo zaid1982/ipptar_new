@@ -1,0 +1,6 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<info>
+	<infoitem key="UD_Recordset1" value="name:u_idnum;datatype:string,name:u_id;datatype:int" />
+	<infoitem key="UD_viewpro" value="name:u_name;datatype:string,name:u_idnum;datatype:string,name:u_id;datatype:int" />
+	<infoitem key="UD_cek" value="name:costu_appid;datatype:int,name:costu_id;datatype:string,name:costu_uid;datatype:string,name:costu_numid;datatype:string,name:costu_date;datatype:string,name:costu_time;datatype:string,name:costu_sdate;datatype:string" />
+</info>
