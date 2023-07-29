@@ -18,22 +18,20 @@ $id=$row_viewpro['u_id'];
 $totalRows_viewpro = mysql_num_rows($viewpro);
 
 
-$nama=strtoupper($_POST['nama']);
-//$nokadpengenalan=$_POST['nokadpengenalan'];
-$emel=$_POST['emel'];
-//$umur=strtoupper($_POST['umur']);
-$notelefon=strtoupper($_POST['notelefon']);
-$alamat=strtoupper($_POST['alamat']);
-$kementerian=strtoupper($_POST['kementerian']);
+$nama         = strtoupper(addslashes($_POST['nama']));
+$emel         = addslashes($_POST['emel']);
+$notelefon    = strtoupper(addslashes($_POST['notelefon']));
+$alamat       = strtoupper(addslashes($_POST['alamat']));
+$kementerian  = strtoupper(addslashes($_POST['kementerian']));
 
 //alamat jabatan
 
-$alamatjabatan1=strtoupper($_POST['alamatjabatan1']);
-$alamatjabatan2=strtoupper($_POST['alamatjabatan2']);
-$poskodjabatan=strtoupper($_POST['poskodalamatjabatan']);
-$negerijabatanform=strtoupper($_POST['negerijabatanform']);
+$alamatjabatan1     = strtoupper(addslashes($_POST['alamatjabatan1']));
+$alamatjabatan2     = strtoupper(addslashes($_POST['alamatjabatan2']));
+$poskodjabatan      = strtoupper(addslashes($_POST['poskodalamatjabatan']));
+$negerijabatanform  = strtoupper(addslashes($_POST['negerijabatanform']));
 
-$negerialamatjabatan=strtoupper($_POST['negeri']);
+$negerialamatjabatan = strtoupper(addslashes($_POST['negeri']));
 
 if ($negerialamatjabatan!="")
 {
@@ -47,24 +45,23 @@ $negerijabatan=$negerijabatanform;
 
 
 // end of department
-$notelpejabat=strtoupper($_POST['notelpejabat']);
-$fakspejabat=strtoupper($_POST['fakspejabat']);
-$jawatansekarang=strtoupper($_POST['jawatansekarang']);
-$tarafjawatan=strtoupper($_POST['tarafjawatan']);
-$tempohberkhidmat=strtoupper($_POST['tempohberkhidmat']);
-$khidmatkerajaan=strtoupper($_POST['khidmatkerajaan']);
-$tugas=strtoupper($_POST['tugas']);
-$akademik=strtoupper($_POST['akademik']);
-$pusatakademik=strtoupper($_POST['pusatakademik']);
-//$a=$_POST[''];
+$notelpejabat     = strtoupper(addslashes($_POST['notelpejabat']));
+$fakspejabat      = strtoupper(addslashes($_POST['fakspejabat']));
+$jawatansekarang  = strtoupper(addslashes($_POST['jawatansekarang']));
+$tarafjawatan     = strtoupper(addslashes($_POST['tarafjawatan']));
+$tempohberkhidmat = strtoupper(addslashes($_POST['tempohberkhidmat']));
+$khidmatkerajaan  = strtoupper(addslashes($_POST['khidmatkerajaan']));
+$tugas            = strtoupper(addslashes($_POST['tugas']));
+$akademik         = strtoupper(addslashes($_POST['akademik']));
+$pusatakademik    = strtoupper(addslashes($_POST['pusatakademik']));
 
 //update user profile
 
-$day= substr($nokadpengenalan,4,-6);
-$month = substr($nokadpengenalan,2,-8);
-$year = substr($nokadpengenalan,0,-10);
-$fullborn=$day.'/'.$month.'/'.'19'.$year;
-$gender= substr($nokadpengenalan,11);
+$day      = substr($nokadpengenalan,4,-6);
+$month    = substr($nokadpengenalan,2,-8);
+$year     = substr($nokadpengenalan,0,-10);
+$fullborn = $day.'/'.$month.'/'.'19'.$year;
+$gender   = substr($nokadpengenalan,11);
 //echo $gender;
 
 if ( $gender!="1" || $gender!="3"  || $gender!="5" || $gender!="7" || $gender!="9" )

@@ -16,7 +16,7 @@ $row_viewpro = mysql_fetch_assoc($viewpro);
 $id=$row_viewpro['u_id'];
 
 $totalRows_viewpro = mysql_num_rows($viewpro);
-$iduser=$_GET['iduser'];
+$iduser = addslashes($_GET['iduser']);
 
 if ($id==$iduser){
 //echo werawawesome;

@@ -34,7 +34,7 @@ $result = mysql_query($sql) or die(mysql_error());
 }else{
 
 #SQL Injection fix
-$pid = $_GET["pid"];
+$pid = addslashes($_GET["pid"]);
 if (strlen($pid)>11){
 exit;
 }

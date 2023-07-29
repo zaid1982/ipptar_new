@@ -13,8 +13,8 @@ $query_viewad = sprintf("SELECT * FROM a_pro WHERE ad_idstaff = '%s'", $colname_
 $viewad = mysql_query($query_viewad, $coonect) or die(mysql_error());
 $row_viewad = mysql_fetch_assoc($viewad);
 $totalRows_viewad = mysql_num_rows($viewad);
-$catid=$_POST['catid'];
-$appid=$_POST['hiddenappid'];
+$catid  = addslashes($_POST['catid']);
+$appid  = addslashes($_POST['hiddenappid']);
 //echo $appid;
 $adminakses=$row_viewad['ad_akses'];
  
@@ -22,7 +22,7 @@ if ($_POST['Tidak']) // first if
 { 
 if ($adminakses==$catid) 
 {
-$appid=$_POST['hiddenappid'];
+$appid = addslashes($_POST['hiddenappid']);
 $sqlupdatecstatus="UPDATE costu_all SET costu_att='TIDAK HADIR' where costu_all.costu_appid='$appid'";
 $resultrejectcourse=mysql_query($sqlupdatecstatus);
 echo "<script>alert('Proses Selesai')</script>";
@@ -40,7 +40,7 @@ if ($_POST['Hadir']) // first if
 
 if ($adminakses==$catid) 
 {
-$appid=$_POST['hiddenappid'];
+$appid = addslashes($_POST['hiddenappid']);
 $sqlapprove="UPDATE costu_all SET costu_att='HADIR' where costu_all.costu_appid='$appid'";
 $resultapprove=mysql_query($sqlapprove);
 echo "<script>alert('Proses Selesai')</script>";

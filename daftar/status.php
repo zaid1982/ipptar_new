@@ -94,7 +94,7 @@ mysql_select_db("$db_name")or die("cannot select DB");
 	/* Setup vars for query. */
 	$targetpage = "status.php"; 	//your file name  (the name of this file)
 	$limit = 5; 								//how many items to show per page
-	$page = $_GET['page'];
+	$page = addslashes($_GET['page']);
 	if($page) 
 		$start = ($page - 1) * $limit; 			//first item to display on this page
 	else

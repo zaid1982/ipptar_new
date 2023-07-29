@@ -22,7 +22,7 @@ $queryb = mysql_query("SELECT b_id, b_name FROM kluster $lvl ORDER BY b_id ASC")
 
 #2nd
 #SQL Injection fix
-$b_id = $_GET["b_id"];
+$b_id = addslashes($_GET["b_id"]);
 if (strlen($b_id)>11){
 exit;
 }
@@ -36,7 +36,7 @@ if(isset($b_id) && $b_id != ""){
 
 #start cari tahun
 #SQL Injection fix
-$tahun = $_GET["tahun"];
+$tahun = addslashes($_GET["tahun"]);
 if (strlen($tahun)>4){
 exit;
 }
@@ -59,7 +59,7 @@ if(strlen($b_id) > 0){
  
 #start cari keyword
 if(isset($_GET['search']) && $_GET['search'] != ""){
-	$search = $_GET['search'];
+	$search = addslashes($_GET['search']);
 	$cond01 = " AND (u_nama LIKE '%$search%' OR b_name LIKE '%$search%' OR k_code LIKE '%$search%' OR k_name LIKE '%$search%')";
 }else{
 	$search = "";
@@ -69,7 +69,7 @@ if(isset($_GET['search']) && $_GET['search'] != ""){
 
 #start cari kluster
 #SQL Injection fix
-$kluster = $_GET["kluster"];
+$kluster = addslashes($_GET["kluster "]);
 if (strlen($kluster)>11){
 exit;
 }
@@ -86,7 +86,7 @@ if(isset($kluster) && ($kluster >= 1 && $kluster <= 10)){
 
 #start cari kursus
 #SQL Injection fix
-$kursus = $_GET["kursus"];
+$kursus = addslashes($_GET["kursus"]);
 if (strlen($kursus)>11){
 exit;
 }
@@ -103,7 +103,7 @@ if(isset($kursus) && ($kursus >= 1 && $kursus <= 500)){
 
 #start cari bulan
 #SQL Injection fix
-$bulan = $_GET["bulan"];
+$bulan = addslashes($_GET["bulan"]);
 if (strlen($bulan)>2){
 exit;
 }
@@ -120,7 +120,7 @@ if(isset($bulan) && ($bulan >= 1 && $bulan <= 12)){
 
 #start cari status
 #SQL Injection fix
-$status = $_GET["status"];
+$status = addslashes($_GET["status"]);
 if (strlen($status)>11){
 exit;
 }
@@ -137,7 +137,7 @@ if(isset($status) && ($status >= 3 && $status <= 6)){
 
 #start cari hadir
 #SQL Injection fix
-$hadir = $_GET["hadir"];
+$hadir = addslashes($_GET["hadir"]);
 if (strlen($hadir)>11){
 exit;
 }

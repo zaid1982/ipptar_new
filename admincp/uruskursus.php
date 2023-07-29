@@ -135,8 +135,8 @@ $totalRows_viewad = mysql_num_rows($viewad);
 		
 		  <?php	
 
-$kategori=$_GET['cat'];
-$nokursus=$_POST['searchnokursus'];
+$kategori = addslashes($_GET['cat']);
+$nokursus = addslashes($_POST['searchnokursus']);
 if ( $kategori=="1" || $kategori=="2" || $kategori=="3" || $kategori=="4" || $kategori=="5" || $kategori=="6" || $kategori=="7" || $kategori=="8"){
 
 include '../configpagi.php';
@@ -163,7 +163,7 @@ mysql_select_db("$db_name")or die("cannot select DB");
 	/* Setup vars for query. */
 	$targetpage = "uruskursus.php? cat=$kategori&"; 	//your file name  (the name of this file)
 	$limit = 15; 								//how many items to show per page
-	$page = $_GET['page'];
+	$page = addslashes($_GET['page']);
 	if($page) 
 		$start = ($page - 1) * $limit; 			//first item to display on this page
 	else
@@ -316,7 +316,7 @@ mysql_select_db("$db_name")or die("cannot select DB");
 		<? 
 		
 		if ($nokursus!=''){
-		$nokursus=$_POST['searchnokursus'];
+		$nokursus = addslashes($_POST['searchnokursus']);
 			mysql_select_db($database_coonect, $coonect);
 $query_secrecord = "SELECT * FROM co_info where co_coursecode='$nokursus'";
 $secrecord = mysql_query($query_secrecord, $coonect) or die(mysql_error());

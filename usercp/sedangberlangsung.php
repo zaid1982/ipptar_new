@@ -3,14 +3,14 @@
 $maxRows_ser = 10;
 $pageNum_ser = 0;
 if (isset($_GET['pageNum_ser'])) {
-  $pageNum_ser = $_GET['pageNum_ser'];
+  $pageNum_ser = addslashes($_GET['pageNum_ser']);
 }
 $startRow_ser = $pageNum_ser * $maxRows_ser;
 $holder="Berlangsung";
 $maxRows_ser = 10;
 $pageNum_ser = 0;
 if (isset($_GET['pageNum_ser'])) {
-  $pageNum_ser = $_GET['pageNum_ser'];
+  $pageNum_ser = addslashes($_GET['pageNum_ser']);
 }
 $startRow_ser = $pageNum_ser * $maxRows_ser;
 
@@ -21,7 +21,7 @@ $ser = mysql_query($query_limit_ser, $coonect) or die(mysql_error());
 $row_ser = mysql_fetch_assoc($ser);
 
 if (isset($_GET['totalRows_ser'])) {
-  $totalRows_ser = $_GET['totalRows_ser'];
+  $totalRows_ser = addslashes($_GET['totalRows_ser']);
 } else {
   $all_ser = mysql_query($query_ser);
   $totalRows_ser = mysql_num_rows($all_ser);

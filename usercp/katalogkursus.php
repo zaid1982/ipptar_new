@@ -32,7 +32,7 @@
   <div id="title">
     <p>
       <? 
-	$val=$_GET['val']; 
+	$val = addslashes($_GET['val']); 
 	//echo $val;
 	if( $val=="true" ) 
 	{	echo "<script>alert('Sila log masuk untuk memohon kursus')</script>";}
@@ -66,7 +66,7 @@ mysql_select_db("$db_name")or die("cannot select DB");
 	/* Setup vars for query. */
 	$targetpage = "katalogkursus.php?"; 	//your file name  (the name of this file)
 		$limit =100; 							//how many items to show per page
-	$page = $_GET['page'];
+	$page = addslashes($_GET['page']);
 	if($page) 
 		$start = ($page - 1) * $limit; 			//first item to display on this page
 	else

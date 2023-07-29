@@ -4,15 +4,15 @@ include("../conn.php");
 
 if(isset($_POST['terai']) && $_POST['terai'] == "admprofil"){
 	
-$_SESSION['terai'] = $_POST['terai'];
+$_SESSION['terai']  = addslashes($_POST['terai']);
 	
-$_SESSION['aid']	=	$_POST['aid'];
-$_SESSION['idnum']	=	$_POST['idnum'];
-$_SESSION['pwd']	=	$_POST['pwd'];
-$_SESSION['nama']	=	$_POST['nama'];
-$_SESSION['tel']	=	$_POST['tel'];
-$_SESSION['emel']	=	$_POST['emel'];
-$_SESSION['level']	=	$_POST['level'];
+$_SESSION['aid']	= addslashes($_POST['aid']);
+$_SESSION['idnum']	= addslashes($_POST['idnum']);
+$_SESSION['pwd']	= $_POST['pwd'];
+$_SESSION['nama']	= addslashes($_POST['nama']);
+$_SESSION['tel']	= addslashes($_POST['tel']);
+$_SESSION['emel']	= addslashes($_POST['emel']);
+$_SESSION['level']	= addslashes($_POST['level']);
 
 ?>
 <script type='text/javascript'>//<![CDATA[

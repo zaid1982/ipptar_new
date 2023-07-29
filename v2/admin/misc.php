@@ -7,7 +7,7 @@ $rawak = substr(str_shuffle('abcdefghijklmnopqrstuvwxyz1234567890'), 0, 6); //se
 <?php
 #start cari keyword
 if(isset($_POST['search']) && $_POST['search'] != ""){
-	$search = $_POST['search'];
+	$search = addslashes($_POST['search']);
 	$cond01 = "WHERE p_nama LIKE '%$search%'";
 }else{
 	$search = "";
@@ -30,13 +30,13 @@ else {
 
 if(isset($_POST['terai']) && $_POST['terai'] == "penedit"){
 	
-$_SESSION['terai'] = $_POST['terai'];
-$_SESSION['kodrawak'] = $_POST['kodrawak']; 
-$_SESSION['vercode'] = $_POST['vercode'];
+$_SESSION['terai']    = addslashes($_POST['terai']);	
+$_SESSION['kodrawak'] = addslashes($_POST['kodrawak']); 
+$_SESSION['vercode']  = addslashes($_POST['vercode']);
 	
-$_SESSION['pid']	=	$_POST['pid'];
-$_SESSION['nama']	=	$_POST['nama'];
-$_SESSION['sign']	=	$_POST['sign'];
+$_SESSION['pid']	    = addslashes($_POST['pid']);
+$_SESSION['nama']	    = addslashes($_POST['nama']);
+$_SESSION['sign']	    = addslashes($_POST['sign']);
 
 ?>
 <script type='text/javascript'>//<![CDATA[

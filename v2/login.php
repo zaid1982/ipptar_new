@@ -2,7 +2,7 @@
 include("header.php");
 include("conn.php");
 
-$qstr=$_SERVER['QUERY_STRING'];
+$qstr = $_SERVER['QUERY_STRING'];
 if(strlen($qstr) > 9){
 	exit;
 }
@@ -25,14 +25,14 @@ $(document).ready(function () {
 });//]]> 
 </script>
 <?php
-}elseif(isset($_POST['terai']) && $_POST['terai'] == "login"){
+} elseif(isset($_POST['terai']) && $_POST['terai'] == "login"){
 
-$_SESSION['terai'] = $_POST['terai'];	
-$_SESSION['kodrawak'] = $_POST['kodrawak']; 
-$_SESSION['vercode'] = $_POST['vercode'];
+$_SESSION['terai']      = addslashes($_POST['terai']);	
+$_SESSION['kodrawak']   = addslashes($_POST['kodrawak']); 
+$_SESSION['vercode']    = addslashes($_POST['vercode']);
 
-$_SESSION['ID'] = $_POST['ID'];
-$_SESSION['PWord'] = $_POST['PWord'];
+$_SESSION['ID']         = addslashes($_POST['ID']);
+$_SESSION['PWord']      = addslashes($_POST['PWord']);
 ?>
 <script type='text/javascript'>//<![CDATA[
 $(window).load(function(){
@@ -46,13 +46,13 @@ $(document).ready(function () {
 });//]]> 
 </script>
 <?php
-}elseif(isset($_POST['terai']) && $_POST['terai'] == "forgot"){
+} elseif(isset($_POST['terai']) && $_POST['terai'] == "forgot"){
 
-$_SESSION['terai'] = $_POST['terai'];	
-$_SESSION['kodrawak'] = $_POST['kodrawak']; 
-$_SESSION['vercode'] = $_POST['vercode'];
-$_SESSION['ID'] = $_POST['ID'];
-$_SESSION['nokp'] = $_POST['nokp'];
+$_SESSION['terai']      = addslashes($_POST['terai']);	
+$_SESSION['kodrawak']   = addslashes($_POST['kodrawak']); 
+$_SESSION['vercode']    = addslashes($_POST['vercode']);
+$_SESSION['ID']         = addslashes($_POST['ID']);
+$_SESSION['nokp']       = addslashes($_POST['nokp']);
 
 ?>
 <script type='text/javascript'>//<![CDATA[
@@ -69,45 +69,45 @@ $(document).ready(function () {
 <?php
 }elseif(isset($_POST['terai']) && $_POST['terai'] == "register"){
 
-$_POST['nama'] = str_replace("'", "&#39;", $_POST['nama']); #add on 20170710
-$_POST['ketua'] = str_replace("'", "&#39;", $_POST['ketua']); #add on 20170710
+$_POST['nama']              = str_replace("'", "&#39;", $_POST['nama']); #add on 20170710
+$_POST['ketua']             = str_replace("'", "&#39;", $_POST['ketua']); #add on 20170710
 	
-$_SESSION['terai'] = $_POST['terai'];
-$_SESSION['kodrawak'] = $_POST['kodrawak']; 
-$_SESSION['vercode'] = $_POST['vercode'];
+$_SESSION['terai']          = addslashes($_POST['terai']);
+$_SESSION['kodrawak']       = addslashes($_POST['kodrawak']); 
+$_SESSION['vercode']        = addslashes($_POST['vercode']);
 	
-$_SESSION['idnum']	=	$_POST['idnum'];
-$_SESSION['pwd']	=	$_POST['pwd'];
-$_SESSION['nama']	=	$_POST['nama'];
-$_SESSION['jantina']	=	$_POST['jantina'];
-$_SESSION['tltahun']	=	$_POST['tltahun'];
-$_SESSION['tlbulan']	=	$_POST['tlbulan'];
-$_SESSION['tlhari']	=	$_POST['tlhari'];
-$_SESSION['tel']	=	$_POST['tel'];
-$_SESSION['jawatan']	=	$_POST['jawatan'];
-$_SESSION['skop']	=	$_POST['skop'];
-$_SESSION['peringkat']	=	$_POST['peringkat'];
-$_SESSION['klasifikasi']	=	$_POST['klasifikasi'];
-$_SESSION['gred']	=	$_POST['gred'];
-$_SESSION['taraf']	=	$_POST['taraf'];
-$_SESSION['khidmat']	=	$_POST['khidmat'];
-$_SESSION['tahun_lantik']	=	$_POST['tahun_lantik'];
-$_SESSION['bulan_lantik']	=	$_POST['bulan_lantik'];
-$_SESSION['hari_lantik']	=	$_POST['hari_lantik'];
-$_SESSION['emel']	=	$_POST['emel'];
-$_SESSION['ketua']	=	$_POST['ketua'];
-$_SESSION['ketuajwt']	=	$_POST['ketuajwt'];
-$_SESSION['ketuaemel']	=	$_POST['ketuaemel'];
-$_SESSION['alamatkjab']	=	$_POST['alamatkjab'];
-$_SESSION['bhgn']	=	$_POST['bhgn'];
-$_SESSION['jab']	=	$_POST['jab'];
-$_SESSION['jabaddr1']	=	$_POST['jabaddr1'];
-$_SESSION['jabaddr2']	=	$_POST['jabaddr2'];
-$_SESSION['jabpkod']	=	$_POST['jabpkod'];
-$_SESSION['jabbandar']	=	$_POST['jabbandar'];
-$_SESSION['jabnegeri']	=	$_POST['jabnegeri'];
-$_SESSION['jabtel']	=	$_POST['jabtel'];
-$_SESSION['jabfax']	=	$_POST['jabfax'];
+$_SESSION['idnum']	        = addslashes($_POST['idnum']);
+$_SESSION['pwd']	        = $_POST['pwd'];
+$_SESSION['nama']	        = addslashes($_POST['nama']);
+$_SESSION['jantina']	    = addslashes($_POST['jantina']);
+$_SESSION['tltahun']	    = addslashes($_POST['tltahun']);
+$_SESSION['tlbulan']	    = addslashes($_POST['tlbulan']);
+$_SESSION['tlhari']	        = addslashes($_POST['tlhari']);
+$_SESSION['tel']	        = addslashes($_POST['tel']);
+$_SESSION['jawatan']	    = addslashes($_POST['jawatan']);
+$_SESSION['skop']	        = addslashes($_POST['skop']);
+$_SESSION['peringkat']	    = addslashes($_POST['peringkat']);
+$_SESSION['klasifikasi']	= addslashes($_POST['klasifikasi']);
+$_SESSION['gred']	        = addslashes($_POST['gred']);
+$_SESSION['taraf']	        = addslashes($_POST['taraf']);
+$_SESSION['khidmat']	    = addslashes($_POST['khidmat']);
+$_SESSION['tahun_lantik']	= addslashes($_POST['tahun_lantik']);
+$_SESSION['bulan_lantik']	= addslashes($_POST['bulan_lantik']);
+$_SESSION['hari_lantik']	= addslashes($_POST['hari_lantik']);
+$_SESSION['emel']	        = addslashes($_POST['emel']);
+$_SESSION['ketua']	        = addslashes($_POST['ketua']);
+$_SESSION['ketuajwt']	    = addslashes($_POST['ketuajwt']);
+$_SESSION['ketuaemel']	    = addslashes($_POST['ketuaemel']);
+$_SESSION['alamatkjab']	    = addslashes($_POST['alamatkjab']);
+$_SESSION['bhgn']	        = addslashes($_POST['bhgn']);
+$_SESSION['jab']	        = addslashes($_POST['jab']);
+$_SESSION['jabaddr1']	    = addslashes($_POST['jabaddr1']);
+$_SESSION['jabaddr2']	    = addslashes($_POST['jabaddr2']);
+$_SESSION['jabpkod']	    = addslashes($_POST['jabpkod']);
+$_SESSION['jabbandar']	    = addslashes($_POST['jabbandar']);
+$_SESSION['jabnegeri']	    = addslashes($_POST['jabnegeri']);
+$_SESSION['jabtel']	        = addslashes($_POST['jabtel']);
+$_SESSION['jabfax']	        = addslashes($_POST['jabfax']);
 
 ?>
 <script type='text/javascript'>//<![CDATA[

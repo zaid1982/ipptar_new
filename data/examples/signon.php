@@ -21,10 +21,10 @@ session_start();
 /* Was data posted? */
 if (isset($_POST['user'])) {
     /* Store there credentials */
-    $_SESSION['PMA_single_signon_user'] = $_POST['user'];
+    $_SESSION['PMA_single_signon_user']     = addslashes($_POST['user']);
     $_SESSION['PMA_single_signon_password'] = $_POST['password'];
-    $_SESSION['PMA_single_signon_host'] = $_POST['host'];
-    $_SESSION['PMA_single_signon_port'] = $_POST['port'];
+    $_SESSION['PMA_single_signon_host']     = addslashes($_POST['host']);
+    $_SESSION['PMA_single_signon_port']     = addslashes($_POST['port']);
     /* Update another field of server configuration */
     $_SESSION['PMA_single_signon_cfgupdate'] = array('verbose' => 'Signon test');
     $id = session_id();

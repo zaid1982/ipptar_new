@@ -32,9 +32,9 @@ $colname_cek = "-1";
 if (isset($_SESSION['MM_User'])) {
   $colname_cek = (get_magic_quotes_gpc()) ? $_SESSION['MM_User'] : addslashes($_SESSION['MM_User']);
 }
-$sdate=$_POST['sdate'];
-$courseid=$_POST['idkurhidden'];
-$kodkursus=$_POST['idcodehidden'];
+$sdate      = addslashes($_POST['sdate']);
+$courseid   = addslashes($_POST['idkurhidden']);
+$kodkursus  = addslashes($_POST['idcodehidden']);
 $status="Proses";
 $iduser=$row_Recordset1['u_idnum'];
 $username=$row_viewpro['u_name'];
@@ -59,19 +59,19 @@ if (($idkursus=="") && ($idusercek=="")) {
 
 
 <? 
-$sdate=$_POST['sdate'];
-$courseid=$_POST['idkurhidden'];
-$kodkursus=$_POST['idcodehidden'];
-$namapegawai=strtoupper($_POST['namapegawai']);
-$jawatanpegawai=strtoupper($_POST['jawatanpegawai']);
-$emelpegawai=$_POST['emelpegawai'];
-$asrama=strtoupper($_POST['asrama']);
-$status="PROSES";
-$iduser=$row_Recordset1['u_idnum'];
-$username=$row_viewpro['u_name'];
-$costu_numid=$row_viewpro['u_id'];
+$sdate          = addslashes($_POST['sdate']);
+$courseid       = addslashes($_POST['idkurhidden']);
+$kodkursus      = addslashes($_POST['idcodehidden']);
+$namapegawai    = strtoupper(addslashes($_POST['namapegawai']));
+$jawatanpegawai = strtoupper(addslashes($_POST['jawatanpegawai']));
+$emelpegawai    = addslashes($_POST['emelpegawai']);
+$asrama         = strtoupper(addslashes($_POST['asrama']));
+$status         ="PROSES";
+$iduser         = $row_Recordset1['u_idnum'];
+$username       = $row_viewpro['u_name'];
+$costu_numid    = $row_viewpro['u_id'];
 //echo $sdate;
-$month = substr($sdate,3,-5);
+$month          = substr($sdate,3,-5);
 //echo $month;
 $sqlall="insert into costu_all (costu_numid, costu_id,costu_coursecode,costu_uname,costu_uid,costu_status,costu_date,costu_time,costu_sdate,costu_mth,costu_pegnama,costu_pegjawatan,costu_pegemail,costu_asrama) values ('$costu_numid','$courseid','$kodkursus','$username','$iduser','$status','$date','$time','$sdate','$month','$namapegawai','$jawatanpegawai','$emelpegawai','$asrama')";
 

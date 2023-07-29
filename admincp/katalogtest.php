@@ -109,7 +109,7 @@ $totalRows_viewpro = mysql_num_rows($viewpro);
 		  <?php	
 		  
 
-$kategori=$_GET['cat'];
+$kategori = addslashes($_GET['cat']);
 if ( $kategori=="1" || $kategori=="2" || $kategori=="3" || $kategori=="4" || $kategori=="5" || $kategori=="6" || $kategori=="7" || $kategori=="8"){
 $host="localhost"; // Host name 
 $username="root"; // Mysql username 
@@ -138,7 +138,7 @@ mysql_select_db("$db_name")or die("cannot select DB");
 	/* Setup vars for query. */
 	$targetpage = "katalogtest.php? cat=$kategori&"; 	//your file name  (the name of this file)
 	$limit = 1; 								//how many items to show per page
-	$page = $_GET['page'];
+	$page = addslashes($_GET['page']);
 	if($page) 
 		$start = ($page - 1) * $limit; 			//first item to display on this page
 	else

@@ -458,7 +458,7 @@ function AddFont($family, $style='', $file='')
 		$file=str_replace(' ','',$family).strtolower($style).'.php';
 	if($family=='arial')
 		$family='helvetica';
-	$style=strtoupper($style);
+	$style = strtoupper($style);
 	if($style=='IB')
 		$style='BI';
 	$fontkey=$family.$style;
@@ -510,7 +510,7 @@ function SetFont($family, $style='', $size=0)
 		$family='helvetica';
 	elseif($family=='symbol' || $family=='zapfdingbats')
 		$style='';
-	$style=strtoupper($style);
+	$style = strtoupper($style);
 	if(strpos($style,'U')!==false)
 	{
 		$this->underline=true;
@@ -994,7 +994,7 @@ function Output($name='', $dest='')
 	//Output PDF to some destination
 	if($this->state<3)
 		$this->Close();
-	$dest=strtoupper($dest);
+	$dest = strtoupper($dest);
 	if($dest=='')
 	{
 		if($name=='')
@@ -1102,7 +1102,7 @@ function _beginpage($orientation, $format)
 	if($orientation=='')
 		$orientation=$this->DefOrientation;
 	else
-		$orientation=strtoupper($orientation[0]);
+		$orientation = strtoupper($orientation[0]);
 	if($format=='')
 		$format=$this->DefPageFormat;
 	else

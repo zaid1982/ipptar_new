@@ -14,7 +14,7 @@ $viewad = mysql_query($query_viewad, $coonect) or die(mysql_error());
 $row_viewad = mysql_fetch_assoc($viewad);
 $totalRows_viewad = mysql_num_rows($viewad);
 
-$idpermohonan=$_GET['idapp'];
+$idpermohonan = addslashes($_GET['idapp']);
 mysql_select_db($database_coonect, $coonect);
 $query_serapp = "SELECT * FROM costu_all where costu_appid='$idpermohonan'";
 $serapp = mysql_query($query_serapp, $coonect) or die(mysql_error());
@@ -113,7 +113,7 @@ $totalRows_category = mysql_num_rows($category);
       </table>
 						</label>
 						<? 
-						$page=$_GET['page'];
+						$page= addslashes($_GET['page']);
 						if ($page=="2") {?>
 						<table width="92%" border="0">
                           <tr>

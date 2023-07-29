@@ -97,7 +97,7 @@ print "<option value='$rowm01[m_code]' $tunjukm01>$rowm01[m_name]</option>";
 }
 ?>
 </select>
-<input type="number" name="tltahun" id="tltahun" value="<?php print $dtahun; ?>" size="3" maxlength="4"  placeholder="&nbsp;Tahun">
+<input type="number" name="tltahun" id="tltahun" value="<?php print $dtahun; ?>" size="8" maxlength="4"  placeholder="&nbsp;Tahun">
 </td>
 </tr>
 <tr>
@@ -264,7 +264,7 @@ print "<option value='$rowm02[m_code]' $tunjukm02>$rowm02[m_name]</option>";
 }
 ?>
 </select>
-<input type="number" name="tahun_lantik" id="tahun_lantik" value="<?php print $ltahun; ?>" size="3" maxlength="4"  placeholder="&nbsp;Tahun">
+<input type="number" name="tahun_lantik" id="tahun_lantik" value="<?php print $ltahun; ?>" size="8" maxlength="4"  placeholder="&nbsp;Tahun">
 </td>
 </tr>
 <tr>

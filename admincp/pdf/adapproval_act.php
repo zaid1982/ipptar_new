@@ -13,8 +13,8 @@ $query_viewad = sprintf("SELECT * FROM a_pro WHERE ad_idstaff = '%s'", $colname_
 $viewad = mysql_query($query_viewad, $coonect) or die(mysql_error());
 $row_viewad = mysql_fetch_assoc($viewad);
 $totalRows_viewad = mysql_num_rows($viewad);
-$appid=$_POST['hiddenappid'];
-$catid=$_POST['catid'];
+$appid = addslashes($_POST['hiddenappid']);
+$catid = addslashes($_POST['catid']);
 $adminakses=$row_viewad['ad_akses']
 //echo $appid;
 ?>
@@ -24,7 +24,7 @@ if ($_POST['tolak']) // first if
 
 if ($adminakses==$catid) 
 {
-$appid=$_POST['hiddenappid'];
+$appid = addslashes($_POST['hiddenappid']);
 //echo $appid;
 $sqlupdatecstatus="UPDATE costu_all SET costu_status='DITOLAK' where costu_all.costu_appid='$appid'";
 $resultrejectcourse=mysql_query($sqlupdatecstatus);
@@ -47,8 +47,8 @@ if ($_POST['lulus']) // first if
 
 if ($adminakses==$catid) 
 {
-$appid=$_POST['hiddenappid'];
-$nopermohonanuser=$_POST['hiddenappid'];
+$appid = addslashes($_POST['hiddenappid']);
+$nopermohonanuser = addslashes($_POST['hiddenappid']);
 $sqlapprove="UPDATE costu_all SET costu_status='LULUS' where costu_all.costu_appid='$appid'";
 $resultapprove=mysql_query($sqlapprove);
 

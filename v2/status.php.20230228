@@ -14,7 +14,7 @@ else {
 }
 
 if(isset($_GET['search']) && $_GET['search'] != ""){
-	$search = $_GET['search'];
+	$search = addslashes($_GET['search']);
 	$cond01 = "(b_name LIKE '%$search%' OR k_code LIKE '%$search%' OR k_name LIKE '%$search%') AND";
 }else{
 	$search = "";
@@ -22,7 +22,7 @@ if(isset($_GET['search']) && $_GET['search'] != ""){
 }
 
 if(isset($_GET['kluster']) && $_GET['kluster'] != ""){
-	$kluster = (int)$_GET['kluster'];
+	$kluster = (int)addslashes($_GET['kluster']);
 	$cond02 = "f.b_id LIKE $kluster AND";
 }else{
 	$kluster = "";
@@ -30,7 +30,7 @@ if(isset($_GET['kluster']) && $_GET['kluster'] != ""){
 }
 
 if(isset($_GET['bulan']) && ($_GET['bulan'] >= 1 && $_GET['bulan'] <= 12)){
-	$bulan = $_GET['bulan'];
+	$bulan = addslashes($_GET['bulan']);
 	$cond03 = "SUBSTR(k_sdate,6,2) LIKE '$bulan' AND";	
 }else{
 	$bulan = "";

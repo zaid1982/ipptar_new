@@ -2,8 +2,8 @@
 include("header2.php");
 include("../conn.php");
 
-$qstr=$_SERVER['QUERY_STRING'];
-$kid=$_GET['kid'];
+$qstr   = $_SERVER['QUERY_STRING'];
+$kid    = addslashes($_GET['kid']);
 ?>
 <div id="content">
 

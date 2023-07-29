@@ -113,8 +113,8 @@ $totalRows_viewad = mysql_num_rows($viewad);
 	    <div class="clear"></div>
 			 <?php	
 
-//$kategori=$_GET['cat'];
-$nokp=$_GET['nokp'];
+// $kategori = addslashes($_GET['cat']);
+$nokp = addslashes($_GET['nokp']);
 if ( $nokp=='') { 
 include '../configpagi.php';
 $tbl_name="a_pro"; // Table name 
@@ -140,7 +140,7 @@ mysql_select_db("$db_name")or die("cannot select DB");
 	/* Setup vars for query. */
 	$targetpage = "makadmin.php?"; 	//your file name  (the name of this file)
 	$limit = 15; 								//how many items to show per page
-	$page = $_GET['page'];
+	$page = addslashes($_GET['page']);
 	if($page) 
 		$start = ($page - 1) * $limit; 			//first item to display on this page
 	else
@@ -286,7 +286,7 @@ mysql_select_db("$db_name")or die("cannot select DB");
         </table>
 		<?  } ?>
 		  	<? 
-$nokp=$_GET['nokp'];		
+$nokp = addslashes($_GET['nokp']);		
 mysql_select_db($database_coonect, $coonect);
 $query_serupro = "SELECT ad_id, ad_status,ad_ic, ad_name, ad_idstaff FROM a_pro where ad_ic='$nokp' AND ad_idstaff!='MASTER'";
 $serupro = mysql_query($query_serupro, $coonect) or die(mysql_error());

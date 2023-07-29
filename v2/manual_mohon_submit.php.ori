@@ -16,7 +16,7 @@ $result = mysql_query($select) or die("Query failed");
 $row = mysql_fetch_assoc($result);
 $numrows = mysql_num_rows($result);
 
-$pid = $_GET[pid];
+$pid = addslashes($_GET[pid]);
 
 $select1 = "
 SELECT u_id, u_nama, u_emel, u_idnum, u_jab, u_knama, u_kemel

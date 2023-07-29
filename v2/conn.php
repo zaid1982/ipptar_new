@@ -15,16 +15,16 @@ try {
     $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_WARNING);
     $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     $conn->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
-    echo "Connected successfully";
+    // echo "Connected successfully";
     //$stmt = $conn->query("Select * from gred where g_code = '01'");
     $stmt = $conn->prepare('Select * from gred where g_code = ?'); //
     $preparedValues =  array('01');
     $stmt->execute($preparedValues);
     $results = $stmt->fetchAll();
     $stmt = null;
-    foreach ($results as $result) {
+    /* foreach ($results as $result) {
        echo($result[1]) ;
-    }
+    } */
 
 } catch(PDOException $e) {
     echo "Connection failed: " . $e->getMessage();

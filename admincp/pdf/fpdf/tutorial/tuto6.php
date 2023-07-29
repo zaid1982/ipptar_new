@@ -43,7 +43,7 @@ function WriteHTML($html)
 			{
 				//Extract attributes
 				$a2=explode(' ',$e);
-				$tag=strtoupper(array_shift($a2));
+				$tag = strtoupper(array_shift($a2));
 				$attr=array();
 				foreach($a2 as $v)
 				{

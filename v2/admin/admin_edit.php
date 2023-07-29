@@ -55,7 +55,7 @@ $numrows = mysql_num_rows($result);
 }else{	
 	
 #SQL Injection fix
-$aid = $_GET["aid"];
+$aid = addslashes($_GET["aid"]);
 if (strlen($aid)>11){
 exit;
 }

@@ -28,7 +28,7 @@ $result = mysql_query($sql) or die(mysql_error());
 }else{
 
 #SQL Injection fix
-$tid = $_GET["tid"];
+$tid = addslashes($_GET["tid"]);
 if (strlen($tid)>11){
 exit;
 }

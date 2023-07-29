@@ -18,8 +18,8 @@
 	
 	/* Setup vars for query. */
 	$targetpage = "filename.php"; 	//your file name  (the name of this file)
-	$limit = 2; 								//how many items to show per page
-	$page = $_GET['page'];
+	$limit = 2; 							//how many items to show per page
+	$page = addslashes($_GET['page']);
 	if($page) 
 		$start = ($page - 1) * $limit; 			//first item to display on this page
 	else
@@ -46,9 +46,9 @@
 		$pagination .= "<div class=\"pagination\">";
 		//previous button
 		if ($page > 1) 
-			$pagination.= "<a href=\"$targetpage?page=$prev\">« previous</a>";
+			$pagination.= "<a href=\"$targetpage?page=$prev\">ï¿½ previous</a>";
 		else
-			$pagination.= "<span class=\"disabled\">« previous</span>";	
+			$pagination.= "<span class=\"disabled\">ï¿½ previous</span>";	
 		
 		//pages	
 		if ($lastpage < 7 + ($adjacents * 2))	//not enough pages to bother breaking it up
@@ -112,9 +112,9 @@
 		
 		//next button
 		if ($page < $counter - 1) 
-			$pagination.= "<a href=\"$targetpage?page=$next\">next »</a>";
+			$pagination.= "<a href=\"$targetpage?page=$next\">next ï¿½</a>";
 		else
-			$pagination.= "<span class=\"disabled\">next »</span>";
+			$pagination.= "<span class=\"disabled\">next ï¿½</span>";
 		$pagination.= "</div>\n";		
 	}
 ?>

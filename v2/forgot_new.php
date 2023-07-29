@@ -57,7 +57,7 @@ exit;
 }else{
 
 #SQL Injection fix
-$id = $_GET["id"];
+$id = addslashes($_GET["id"]);
 if (strlen($id)>12){
 exit;
 }

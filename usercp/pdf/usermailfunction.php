@@ -1,10 +1,10 @@
 <?
-$namapegawai=strtoupper($_POST['namapegawai']);
+$namapegawai = strtoupper($_POST['namapegawai']);
 // JAWATAN KETUA JABATAN
-$jawatanpegawai=strtoupper($_POST['jawatanpegawai']);
+$jawatanpegawai = strtoupper($_POST['jawatanpegawai']);
 // EMEL KETUA JABATAN
-$emelpegawai=$_POST['emelpegawai'];
-$asrama=strtoupper($_POST['asrama']);
+$emelpegawai= $_POST['emelpegawai'];
+$asrama = strtoupper($_POST['asrama']);
 // NAMA PEMOHON
 $namauser=$rows_seausername['u_name'];
 // NO KP PEMOHON

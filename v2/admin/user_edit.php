@@ -77,7 +77,7 @@ $numrows = mysql_num_rows($result);
 $rawak = substr(str_shuffle('abcdefghijklmnopqrstuvwxyz1234567890'), 0, 6); //set your characters or numbers and the amount of text here.
 
 #SQL Injection fix
-$uid = $_GET["uid"];
+$uid = addslashes($_GET["uid"]);
 if (strlen($uid)>11){
 exit;
 }

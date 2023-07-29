@@ -27,12 +27,12 @@ $(document).ready(function () {
 <?php
 }elseif(isset($_POST['terai']) && $_POST['terai'] == "login"){
 
-$_SESSION['terai'] = $_POST['terai'];	
-$_SESSION['kodrawak'] = $_POST['kodrawak']; 
-$_SESSION['vercode'] = $_POST['vercode'];
+$_SESSION['terai']      = addslashes($_POST['terai']);	
+$_SESSION['kodrawak']   = addslashes($_POST['kodrawak']); 
+$_SESSION['vercode']    = addslashes($_POST['vercode']);
 
-$_SESSION['ID'] = $_POST['ID'];
-$_SESSION['PWord'] = $_POST['PWord'];
+$_SESSION['ID']         = addslashes($_POST['ID']);
+$_SESSION['PWord']      = $_POST['PWord'];
 ?>
 <script type='text/javascript'>//<![CDATA[
 $(window).load(function(){
@@ -48,11 +48,11 @@ $(document).ready(function () {
 <?php
 }elseif(isset($_POST['terai']) && $_POST['terai'] == "forgot"){
 
-$_SESSION['terai'] = $_POST['terai'];	
-$_SESSION['kodrawak'] = $_POST['kodrawak']; 
-$_SESSION['vercode'] = $_POST['vercode'];
+$_SESSION['terai']      = addslashes($_POST['terai']);	
+$_SESSION['kodrawak']   = addslashes($_POST['kodrawak']); 
+$_SESSION['vercode']    = addslashes($_POST['vercode']);
 
-$_SESSION['emel'] = $_POST['emel'];
+$_SESSION['emel']       = addslashes($_POST['emel']);
 
 ?>
 <script type='text/javascript'>//<![CDATA[

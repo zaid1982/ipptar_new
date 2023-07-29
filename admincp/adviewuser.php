@@ -14,7 +14,7 @@ $viewad = mysql_query($query_viewad, $coonect) or die(mysql_error());
 $row_viewad = mysql_fetch_assoc($viewad);
 $totalRows_viewad = mysql_num_rows($viewad);
 
-$iduser=$_GET['iduser'];
+$iduser = addslashes($_GET['iduser']);
 mysql_select_db($database_coonect, $coonect);
 $query_viewprouser = "SELECT * FROM u_profile, ua_academic, win_info where u_profile.u_id='$iduser' AND ua_academic.ua_acd_id='$iduser' AND win_info.win_id='$iduser'";
 $viewprouser = mysql_query($query_viewprouser, $coonect) or die(mysql_error());

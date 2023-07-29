@@ -56,7 +56,7 @@ $numrows = mysql_num_rows($result);
 		
 		session_destroy();
 	       
-        	$_SESSION['alert'] = "Rekod pengguna telah wujud. Sila Log In.";
+        $_SESSION['alert'] = "Rekod pengguna telah wujud. Sila Log In.";
 		$_SESSION['redirek'] = "login.php";
 		$_SESSION['toplus'] = "";
 		$pageTitle = 'Rekod Pengguna Telah Wujud';
@@ -78,7 +78,7 @@ $numrows = mysql_num_rows($result);
 		
 		session_destroy();
 	       
-        	$_SESSION['alert'] = "Maklumat anda telah direkodkan.";
+        $_SESSION['alert'] = "Maklumat anda telah direkodkan.";
 		$_SESSION['redirek'] = "login.php";
 		$_SESSION['toplus'] = "";
 		$pageTitle = 'Tambah Pengguna Baru';
@@ -94,7 +94,7 @@ $numrows = mysql_num_rows($result);
 <form id="form1" name="form1" method="POST" action="login.php">
 <table width="100%" border="0" align="center" cellpadding="3" cellspacing="1">
 <tr><td colspan="3" align="center" style="font-weight:bold">MAKLUMAT PEMOHON (Sila Klik Butang HANTAR Untuk Proses Seterusnya)</td></tr>
-<tr><td colspan="3" align="center" style="background-color:#ccc">Maklumat Pemohon</td></tr>
+<tr><td colspan="3" align="center" style="background-color:#ccc">Maklumat Pemohon <?php echo $_SESSION['tltahun']; ?></td></tr>
 <tr>
 <td align="right" width="20%">No K/P Baru</td>
 <td> : </td>
@@ -168,7 +168,7 @@ print "<option value='$rowm01[m_code]' $tunjukm01>$rowm01[m_name]</option>";
 }
 ?>
 </select>
-<input type="number" name="tltahun" id="tltahun" value="<?php print $dtahun; ?>" size="3" maxlength="4"  placeholder="&nbsp;tahun" required>
+<input type="number" name="tltahun" id="tltahun" value="<?php print $dtahun; ?>" size="8" maxlength="4"  placeholder="&nbsp;tahun" required>
 </td>
 </tr>
 <tr>
@@ -335,7 +335,7 @@ print "<option value='$rowm02[m_code]' $tunjukm02>$rowm02[m_name]</option>";
 }
 ?>
 </select>
-<input type="number" name="tahun_lantik" id="tahun_lantik" value="" size="3" maxlength="4" placeholder="&nbsp;tahun" required>
+<input type="number" name="tahun_lantik" id="tahun_lantik" value="" size="8" maxlength="4" placeholder="&nbsp;tahun" required>
 
 
 </td>

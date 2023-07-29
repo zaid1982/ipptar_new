@@ -15,7 +15,7 @@ else {
 }
 
 if(isset($_GET['search']) && $_GET['search'] != ""){
-	$search = $_GET['search'];
+	$search = addslashes($_GET['search']);
 	$cond01 = "(b_name LIKE '%$search%' OR k_code LIKE '%$search%' OR k_name LIKE '%$search%') AND";
 }else{
 	$search = "";
@@ -23,7 +23,7 @@ if(isset($_GET['search']) && $_GET['search'] != ""){
 }
 
 if(isset($_GET['kluster']) && $_GET['kluster'] != ""){
-	$kluster = (int)$_GET['kluster'];
+	$kluster = (int)addslashes($_GET['kluster']);
 	$cond02 = "b_id LIKE $kluster AND";
 }else{
 	$kluster = "";
@@ -33,9 +33,9 @@ if(isset($_GET['kluster']) && $_GET['kluster'] != ""){
 
 if(isset($_GET['terai']) && $_GET['terai'] == "pentic"){
 
-$_SESSION['terai'] = $_GET['terai'];	
-$_SESSION['kid'] = $_GET['kid']; 
-$_SESSION['tid'] = $_GET['tid'];
+$_SESSION['terai']  = addslashes($_GET['terai']);	
+$_SESSION['kid']    = addslashes($_GET['kid']); 
+$_SESSION['tid']    = addslashes($_GET['tid']);
 ?>
 <script type='text/javascript'>//<![CDATA[
 $(window).load(function(){

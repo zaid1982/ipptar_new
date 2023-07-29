@@ -4,40 +4,39 @@ include("conn.php");
 
 if(isset($_POST['terai']) && $_POST['terai'] == "profil"){
 	
-$_SESSION['terai'] = $_POST['terai'];
-$_SESSION['kodrawak'] = $_POST['kodrawak']; 
-$_SESSION['vercode'] = $_POST['vercode'];
-	
-$_SESSION['idnum']	=	$_POST['idnum'];
-$_SESSION['pwd']	=	$_POST['pwd'];
-$_SESSION['nama']	=	$_POST['nama'];
-$_SESSION['jantina']	=	$_POST['jantina'];
-$_SESSION['tltahun']	=	$_POST['tltahun'];
-$_SESSION['tlbulan']	=	$_POST['tlbulan'];
-$_SESSION['tlhari']	=	$_POST['tlhari'];
-$_SESSION['tel']	=	$_POST['tel'];
-$_SESSION['jawatan']	=	$_POST['jawatan'];
-$_SESSION['peringkat']	=	$_POST['peringkat'];
-$_SESSION['klasifikasi']	=	$_POST['klasifikasi'];
-$_SESSION['gred']	=	$_POST['gred'];
-$_SESSION['taraf']	=	$_POST['taraf'];
-$_SESSION['khidmat']	=	$_POST['khidmat'];
-$_SESSION['tahun_lantik']	=	$_POST['tahun_lantik'];
-$_SESSION['bulan_lantik']	=	$_POST['bulan_lantik'];
-$_SESSION['hari_lantik']	=	$_POST['hari_lantik'];
-$_SESSION['emel']	=	$_POST['emel'];
-$_SESSION['ketua']	=	$_POST['ketua'];
-$_SESSION['ketuajwt']	=	$_POST['ketuajwt'];
-$_SESSION['ketuaemel']	=	$_POST['ketuaemel'];
-$_SESSION['alamatkjab']	=	$_POST['alamatkjab'];
-$_SESSION['jab']	=	$_POST['jab'];
-$_SESSION['jabaddr1']	=	$_POST['jabaddr1'];
-$_SESSION['jabaddr2']	=	$_POST['jabaddr2'];
-$_SESSION['jabpkod']	=	$_POST['jabpkod'];
-$_SESSION['jabbandar']	=	$_POST['jabbandar'];
-$_SESSION['jabnegeri']	=	$_POST['jabnegeri'];
-$_SESSION['jabtel']	=	$_POST['jabtel'];
-$_SESSION['jabfax']	=	$_POST['jabfax'];
+	$_SESSION['terai'] 			=	addslashes($_POST['terai']);
+	$_SESSION['kodrawak'] 		= 	addslashes($_POST['kodrawak']); 
+	$_SESSION['vercode'] 		= 	addslashes($_POST['vercode']);
+		
+	$_SESSION['idnum']			=	addslashes($_POST['idnum']);
+	$_SESSION['pwd']			=	$_POST['pwd'];
+	$_SESSION['nama']			=	addslashes($_POST['nama']);
+	$_SESSION['jantina']		=	addslashes($_POST['jantina']);
+	$_SESSION['tltahun']		=	addslashes($_POST['tltahun']);
+	$_SESSION['tlbulan']		=	addslashes($_POST['tlbulan']);
+	$_SESSION['tlhari']			=	addslashes($_POST['tlhari']);
+	$_SESSION['tel']			=	addslashes($_POST['tel']);
+	$_SESSION['jawatan']		=	addslashes($_POST['jawatan']);
+	$_SESSION['peringkat']		=	addslashes($_POST['peringkat']);
+	$_SESSION['klasifikasi']	=	addslashes($_POST['klasifikasi']);
+	$_SESSION['gred']			=	addslashes($_POST['gred']);
+	$_SESSION['taraf']			=	addslashes($_POST['taraf']);
+	$_SESSION['khidmat']		=	addslashes($_POST['khidmat']);
+	$_SESSION['tahun_lantik']	=	addslashes($_POST['tahun_lantik']);
+	$_SESSION['bulan_lantik']	=	addslashes($_POST['bulan_lantik']);
+	$_SESSION['hari_lantik']	=	addslashes($_POST['hari_lantik']);
+	$_SESSION['emel']			=	addslashes($_POST['emel']);
+	$_SESSION['ketua']			=	addslashes($_POST['ketua']);
+	$_SESSION['ketuajwt']		=	addslashes($_POST['ketuajwt']);
+	$_SESSION['ketuaemel']		=	addslashes($_POST['ketuaemel']);
+	$_SESSION['alamatkjab']		=	addslashes($_POST['alamatkjab']);
+	$_SESSION['jab']			=	addslashes($_POST['jab']);
+	$_SESSION['jabaddr1']		=	addslashes($_POST['jabaddr1']);
+	$_SESSION['jabaddr2']		=	addslashes($_POST['jabaddr2']);
+	$_SESSION['jabpkod']		=	addslashes($_POST['jabpkod']);
+	$_SESSION['jabbandar']		=	addslashes($_POST['jabbandar']);
+	$_SESSION['jabnegeri']		=	addslashes($_POST['jabnegeri']);
+	$_SESSION['jabtel']			=	addslashes($_POST['jabtel']);
 
 ?>
 <script type='text/javascript'>//<![CDATA[
@@ -152,7 +151,7 @@ print "<option value='$rowm01[m_code]' $tunjukm01>$rowm01[m_name]</option>";
 }
 ?>
 </select>
-<input type="number" name="tltahun" id="tltahun" value="<?php print $dtahun; ?>" size="3" maxlength="4"  placeholder="&nbsp;Tahun" required>
+<input type="number" name="tltahun" id="tltahun" value="<?php print $dtahun; ?>" size="8" maxlength="4"  placeholder="&nbsp;Tahun" required>
 </td>
 </tr>
 <tr>
@@ -313,7 +312,7 @@ print "<option value='$rowm02[m_code]' $tunjukm02>$rowm02[m_name]</option>";
 }
 ?>
 </select>
-<input type="number" name="tahun_lantik" id="tahun_lantik" value="<?php print $ltahun; ?>" size="3" maxlength="4" placeholder="&nbsp;Tahun" required>
+<input type="number" name="tahun_lantik" id="tahun_lantik" value="<?php print $ltahun; ?>" size="8" maxlength="4" placeholder="&nbsp;Tahun" required>
 </td>
 </tr>
 <tr>
