@@ -17,8 +17,8 @@ $totalRows_viewpro = mysql_num_rows($viewpro);
 <? 
 $kpuser=$row_viewpro['u_idnum'];
 $passnow=$row_viewpro['u_pwd'];
-$passold=$_POST['asal'];
-$passnew=$_POST['baru'];
+$passold= $_POST['asal'];
+$passnew= $_POST['baru'];
 //echo $passold;
 //echo $passnow;
 if ($passnow==$passold)

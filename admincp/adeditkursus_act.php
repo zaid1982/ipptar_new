@@ -17,46 +17,38 @@ $totalRows_viewad = mysql_num_rows($viewad);
 $adminakses=$row_viewad['ad_akses'];
 ?>
 <?php
-
-if ($_POST['krsup']) // first if 
-{
-
-$co_catid=$_POST['kategori'];
-$cat=$_POST['catid'];
-$hiddencat=$cat;
-if ($co_catid!="")
-{ 
-$kategorikursus=$co_catid; 
+// first if 
+if ($_POST['krsup']) {
+  $co_catid   = addslashes($_POST['kategori']);
+  $cat        = addslashes($_POST['catid']);
+  $hiddencat  = $cat;
+if ($co_catid != "") { 
+  $kategorikursus = $co_catid; 
 }
-elseif ($co_catid=="")
-{ 
-$kategorikursus=$hiddencat;
+elseif ($co_catid == "") { 
+  $kategorikursus = $hiddencat;
 }
 
+$carryid        = addslashes($_POST['carryid']);
+$co_name        = strtoupper(addslashes($_POST['tajukkursus']));
+$co_sdate       = strtoupper(addslashes($_POST['tarikhmula']));
+$co_edate       = strtoupper(addslashes($_POST['tarikhakhir']));
+$co_trggroup    = strtoupper(addslashes($_POST['kumpsasaran']));
+$co_loc         = strtoupper(addslashes($_POST['lokasi']));
+$co_fee         = strtoupper(addslashes($_POST['yuran']));
+$co_quo         = strtoupper(addslashes($_POST['kuota']));
+$co_obj         = strtoupper(addslashes($_POST['objektif']));
+$co_waktulapor  = strtoupper(addslashes($_POST['melapor']));
+$co_creatorid   = "MASTER";
 
-$carryid=$_POST['carryid'];
-//echo $carryid;
-$co_name=strtoupper($_POST['tajukkursus']);
-$co_sdate=strtoupper($_POST['tarikhmula']);
-$co_edate=strtoupper($_POST['tarikhakhir']);
-$co_trggroup=strtoupper($_POST['kumpsasaran']);
-$co_loc=strtoupper($_POST['lokasi']);
-$co_fee=strtoupper($_POST['yuran']);
-$co_quo=strtoupper($_POST['kuota']);
-$co_obj=strtoupper($_POST['objektif']);
-$co_waktulapor=strtoupper($_POST['melapor']);
-$co_creatorid="MASTER";
-
-$costa_off1=strtoupper($_POST['npegawai1']);
-$costa_off1tel=strtoupper($_POST['telpegawai1']);
-$costa_off1mail=$_POST['emelpegawai1'];
-$costa_off2=strtoupper($_POST['npegawai2']);
-$costa_off2tel=strtoupper($_POST['telpegawai2']);
-$costa_off2mail=$_POST['emelpegawai2'];
-//echo $co_name;
+$costa_off1     = strtoupper(addslashes($_POST['npegawai1']));
+$costa_off1tel  = strtoupper(addslashes($_POST['telpegawai1']));
+$costa_off1mail = addslashes($_POST['emelpegawai1']);
+$costa_off2     = strtoupper(addslashes($_POST['npegawai2']));
+$costa_off2tel  = strtoupper(addslashes($_POST['telpegawai2']));
+$costa_off2mail = addslashes($_POST['emelpegawai2']);
 
 // DATE TIMESTAMP
-
 $am='am';
 $dateorder=(date("d/m/Y")); 
 $timeorder=(date("H:i:s"));
@@ -68,7 +60,6 @@ $result1=mysql_query($sqlupdatecourse);
 $sqlupdateoff="UPDATE costa_off SET costa_off1='$costa_off1',costa_off1tel='$costa_off1tel',costa_off1mail='$costa_off1mail',costa_off2='$costa_off2',costa_off2tel='$costa_off2tel',costa_off2mail='$costa_off2mail' where costa_id='$carryid'";
 
 $result2=mysql_query($sqlupdateoff);
-
 
 mysql_free_result($viewad);
 echo "<script>alert('Proses Selesai')</script>";

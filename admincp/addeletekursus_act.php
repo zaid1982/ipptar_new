@@ -20,11 +20,11 @@ $adminakses=$row_viewad['ad_akses'];
 
 if ($_POST['closekursus']) // first if 
 {
-$am='am';
-$dateorder=(date("d/m/Y")); 
-$timeorder=(date("H:i:s"));
-$co_id=$_POST['idkursus'];
-$idcat=$_POST['idcat'];
+$am         ='am';
+$dateorder  =(date("d/m/Y")); 
+$timeorder  =(date("H:i:s"));
+$co_id      = addslashes($_POST['idkursus']);
+$idcat      = addslashes($_POST['idcat']);
 
 if ($adminakses==$idcat) // first if 
 {

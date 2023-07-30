@@ -20,18 +20,18 @@ $totalRows_viewad = mysql_num_rows($viewad);
 if ($_POST['addftadmin']) // first if 
 {
 
-$adnama=strtoupper($_POST['adnama']);
-$adjawatan=strtoupper($_POST['adjawatan']);
-$adgred=strtoupper($_POST['adgred']);
-$adjabatan=strtoupper($_POST['adjabatan']);
-$adkp=strtoupper($_POST['adkp']);
-$adids=strtoupper($_POST['adids']);
-$ademel=$_POST['ademel'];
-$adhp=strtoupper($_POST['adhp']);
-$adoff=strtoupper($_POST['adoff']);
-$adakses=strtoupper($_POST['adakses']);
-$adpass=strtoupper($_POST['adpass']);
-$co_creatorid=strtoupper($row_viewad['ad_ic']);
+$adnama       = strtoupper(addslashes($_POST['adnama']));
+$adjawatan    = strtoupper(addslashes($_POST['adjawatan']));
+$adgred       = strtoupper(addslashes($_POST['adgred']));
+$adjabatan    = strtoupper(addslashes($_POST['adjabatan']));
+$adkp         = strtoupper(addslashes($_POST['adkp']));
+$adids        = strtoupper(addslashes($_POST['adids']));
+$ademel       = addslashes($_POST['ademel']);
+$adhp         = strtoupper(addslashes($_POST['adhp']));
+$adoff        = strtoupper(addslashes($_POST['adoff']));
+$adakses      = strtoupper(addslashes($_POST['adakses']));
+$adpass       = strtoupper(addslashes($_POST['adpass']));
+$co_creatorid = strtoupper(addslashes($row_viewad['ad_ic']));
 //$randompassword= rand(5000, 100000);
 
 mysql_select_db($database_coonect, $coonect);

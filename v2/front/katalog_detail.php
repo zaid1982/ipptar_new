@@ -4,7 +4,7 @@
   $yToday=date('Y');
 
 if (isset($_GET['id_cat'])) {
-    $id_cat= $_GET['id_cat'];  
+    $id_cat = addslashes($_GET['id_cat']);  
 }
 
   

@@ -11,16 +11,16 @@ if (!isset($_SESSION)) {
 
 $loginFormAction = $_SERVER['PHP_SELF'];
 if (isset($_GET['accesscheck'])) {
-  $_SESSION['PrevUrl'] = $_GET['accesscheck'];
+  $_SESSION['PrevUrl'] = addslashes($_GET['accesscheck']);
 }
 
 if (isset($_POST['kp'])) {
-  $loginUsername=$_POST['kp'];
-  $password=$_POST['password'];
-  $MM_fldUserAuthorization = "";
-  $MM_redirectLoginSuccess = "usercp/index.php";
-  $MM_redirectLoginFailed = "index.php?pass=false";
-  $MM_redirecttoReferrer = false;
+  $loginUsername			= addslashes($_POST['kp']);
+  $password					= $_POST['password'];
+  $MM_fldUserAuthorization 	= "";
+  $MM_redirectLoginSuccess 	= "usercp/index.php";
+  $MM_redirectLoginFailed 	= "index.php?pass=false";
+  $MM_redirecttoReferrer 	= false;
   mysql_select_db($database_coonect, $coonect);
   
   $LoginRS__query=sprintf("SELECT u_idnum, u_pwd FROM u_profile WHERE u_idnum='%s' AND u_pwd='%s'",
@@ -32,11 +32,11 @@ if (isset($_POST['kp'])) {
      $loginStrGroup = "";
     
     //declare two session variables and assign them
-    $_SESSION['MM_User'] = $loginUsername;
-    $_SESSION['MM_UserG'] = $loginStrGroup;	      
+    $_SESSION['MM_User'] 	= $loginUsername;
+    $_SESSION['MM_UserG'] 	= $loginStrGroup;	      
 
     if (isset($_SESSION['PrevUrl']) && false) {
-      $MM_redirectLoginSuccess = $_SESSION['PrevUrl'];	
+      $MM_redirectLoginSuccess = addslashes($_SESSION['PrevUrl']);	
     }
     header("Location: " . $MM_redirectLoginSuccess );
   }
@@ -203,7 +203,7 @@ Kemas kini profil anda dan maklumat permohonan kursus akan di isi dengan makluma
 		<div class="content right">
 	
 			<form ACTION="<?php echo $loginFormAction; ?>" id="form1" method="POST">
-			<? $value=$_GET['pass'];
+			<? $value = addslashes($_GET['pass']);
 			if ($value=="false"){
 			?>
 			    <label for="site-address"><span class="style2 style1">No. Kad Pengenalan atau Kata Laluan salah. Sila cuba lagi.</span></label>

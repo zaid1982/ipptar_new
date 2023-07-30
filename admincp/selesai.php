@@ -16,7 +16,7 @@ $totalRows_viewad = mysql_num_rows($viewad);
 $adminakses=$row_viewad['ad_akses'];
 
 
-$idkursus=$_GET['idkur'];
+$idkursus = addslashes($_GET['idkur']);
 mysql_select_db($database_coonect, $coonect);
 $query_uviewkatalog = "SELECT * FROM co_info, costa_off, cat_category where co_info.co_id='$idkursus' AND costa_off.costa_id='$idkursus'";
 $uviewkatalog = mysql_query($query_uviewkatalog, $coonect) or die(mysql_error());

@@ -13,7 +13,7 @@ $query_viewad = sprintf("SELECT * FROM a_pro WHERE ad_idstaff = '%s'", $colname_
 $viewad = mysql_query($query_viewad, $coonect) or die(mysql_error());
 $row_viewad = mysql_fetch_assoc($viewad);
 $totalRows_viewad = mysql_num_rows($viewad);
-$nokursus=$_GET['nokursus'];
+$nokursus = addslashes($_GET['nokursus']);
 mysql_select_db($database_coonect, $coonect);
 $query_sercourse = "SELECT co_id, co_coursecode, co_name FROM co_info where co_coursecode='$nokursus'";
 $sercourse = mysql_query($query_sercourse, $coonect) or die(mysql_error());
@@ -145,8 +145,8 @@ $totalRows_sercourse = mysql_num_rows($sercourse);
             </tr>
 			 <?php	
 
-//$kategori=$_GET['cat'];
-$nokursus=$_GET['nokursus'];
+// $kategori = addslashes($_GET['cat']);
+$nokursus = addslashes($_GET['nokursus']);
 include '../configpagi.php';
 $tbl_name="costu_all"; // Table name 
 
@@ -171,7 +171,7 @@ mysql_select_db("$db_name")or die("cannot select DB");
 	/* Setup vars for query. */
 	$targetpage = "kehadiran.php? nokursus=$nokursus&"; 	//your file name  (the name of this file)
 	$limit = 15; 								//how many items to show per page
-	$page = $_GET['page'];
+	$page = addslashes($_GET['page']);
 	if($page) 
 		$start = ($page - 1) * $limit; 			//first item to display on this page
 	else

@@ -13,8 +13,8 @@ if(isset($_POST['pid'])){
 
 $tkhisi = date('Y-m-d');
 	
-$key = $_POST['kodrawak']; 
-$number = $_POST['vercode'];
+$key 	= addslashes($_POST['kodrawak']); 
+$number = addslashes($_POST['vercode']);
 
 # start captcha
 if(($number!=$key)||($number=="")){

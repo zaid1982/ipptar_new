@@ -15,7 +15,7 @@ else {
 }
 
 if(isset($_GET['search']) && $_GET['search'] != ""){
-	$search = $_GET['search'];
+	$search = addslashes($_GET['search']);
 	$cond01 = "(b_name LIKE '%$search%' OR k_code LIKE '%$search%' OR k_name LIKE '%$search%') AND";
 }else{
 	$search = "";
@@ -23,7 +23,7 @@ if(isset($_GET['search']) && $_GET['search'] != ""){
 }
 
 if(isset($_GET['kluster']) && $_GET['kluster'] != ""){
-	$kluster = (int)$_GET['kluster'];
+	$kluster = (int)addslashes($_GET['kluster']);
 	$cond02 = "b_id LIKE $kluster AND";
 }else{
 	$kluster = "";
@@ -32,9 +32,9 @@ if(isset($_GET['kluster']) && $_GET['kluster'] != ""){
 
 if(isset($_GET['terai']) && $_GET['terai'] == "kurdel"){
 
-$_SESSION['terai'] = $_GET['terai'];	
-$_SESSION['kodrawak'] = $_POST['kodrawak']; 
-$_SESSION['vercode'] = $_POST['vercode'];
+$_SESSION['terai']    = addslashes($_GET['terai']);	
+$_SESSION['kodrawak'] = addslashes($_POST['kodrawak']); 
+$_SESSION['vercode']  = addslashes($_POST['vercode']);
 
 $_SESSION['kid']	=	$_POST['kid'];
 ?>
@@ -52,26 +52,26 @@ $(document).ready(function () {
 <?php
 }elseif(isset($_POST['terai']) && $_POST['terai'] == "kurnew"){
 
-$_SESSION['terai'] = $_POST['terai'];	
-$_SESSION['kodrawak'] = $_POST['kodrawak']; 
-$_SESSION['vercode'] = $_POST['vercode'];
-$_SESSION['k_code']	=	$_POST['k_code'];
-$_SESSION['k_name']	=	$_POST['k_name'];
-$_SESSION['k_obj']	=	$_POST['k_obj'];
-$_SESSION['k_loc']	=	$_POST['k_loc'];
-$_SESSION['k_duration']	=	$_POST['k_duration'];
-$_SESSION['st']	=	$_POST['st'];
-$_SESSION['sm']	=	$_POST['sm'];
-$_SESSION['sh']	=	$_POST['sh'];
-$_SESSION['et']	=	$_POST['et'];
-$_SESSION['em']	=	$_POST['em'];
-$_SESSION['eh']	=	$_POST['eh'];
-$_SESSION['k_bid']	=	$_POST['k_bid'];
-$_SESSION['k_terms']	=	$_POST['k_terms'];
-$_SESSION['k_fee']	=	$_POST['k_fee'];
-$_SESSION['k_status']	=	$_POST['k_status'];
-$_SESSION['k_aid']	=	$_POST['k_aid'];
-$_SESSION['k_wlkin']	=	$_POST['k_wlkin'];
+$_SESSION['terai']      = addslashes($_POST['terai']);	
+$_SESSION['kodrawak']   = addslashes($_POST['kodrawak']); 
+$_SESSION['vercode']    = addslashes($_POST['vercode']);
+$_SESSION['k_code']	    = addslashes($_POST['k_code']);
+$_SESSION['k_name']	    = addslashes($_POST['k_name']);
+$_SESSION['k_obj']	    = addslashes($_POST['k_obj']);
+$_SESSION['k_loc']	    = addslashes($_POST['k_loc']);
+$_SESSION['k_duration']	= addslashes($_POST['k_duration']);
+$_SESSION['st']	        = addslashes($_POST['st']);
+$_SESSION['sm']	        = addslashes($_POST['sm']);
+$_SESSION['sh']	        = addslashes($_POST['sh']);
+$_SESSION['et']	        = addslashes($_POST['et']);
+$_SESSION['em']	        = addslashes($_POST['em']);
+$_SESSION['eh']	        = addslashes($_POST['eh']);
+$_SESSION['k_bid']	    = addslashes($_POST['k_bid']);
+$_SESSION['k_terms']	  = addslashes($_POST['k_terms']);
+$_SESSION['k_fee']	    = addslashes($_POST['k_fee']);
+$_SESSION['k_status']	  = addslashes($_POST['k_status']);
+$_SESSION['k_aid']	    = addslashes($_POST['k_aid']);
+$_SESSION['k_wlkin']	  = addslashes($_POST['k_wlkin']);
 ?>
 <script type='text/javascript'>//<![CDATA[
 $(window).load(function(){
@@ -87,28 +87,28 @@ $(document).ready(function () {
 <?php
 }elseif(isset($_POST['terai']) && $_POST['terai'] == "kuredit"){
 
-$_SESSION['terai'] = $_POST['terai'];	
-$_SESSION['kodrawak'] = $_POST['kodrawak']; 
-$_SESSION['vercode'] = $_POST['vercode'];
+$_SESSION['terai']      = addslashes($_POST['terai']);	
+$_SESSION['kodrawak']   = addslashes($_POST['kodrawak']); 
+$_SESSION['vercode']    = addslashes($_POST['vercode']);
 
-$_SESSION['kid']	=	$_POST['kid'];
-$_SESSION['k_code']	=	$_POST['k_code'];
-$_SESSION['k_name']	=	$_POST['k_name'];
-$_SESSION['k_obj']	=	$_POST['k_obj'];
-$_SESSION['k_loc']	=	$_POST['k_loc'];
-$_SESSION['k_duration']	=	$_POST['k_duration'];
-$_SESSION['st']	=	$_POST['st'];
-$_SESSION['sm']	=	$_POST['sm'];
-$_SESSION['sh']	=	$_POST['sh'];
-$_SESSION['et']	=	$_POST['et'];
-$_SESSION['em']	=	$_POST['em'];
-$_SESSION['eh']	=	$_POST['eh'];
-$_SESSION['k_terms']	=	$_POST['k_terms'];
-$_SESSION['k_fee']	=	$_POST['k_fee'];
-$_SESSION['k_status']	=	$_POST['k_status'];
-$_SESSION['k_remark']	=	$_POST['k_remark'];
-$_SESSION['k_aid']	=	$_POST['k_aid'];
-$_SESSION['k_wlkin']	=	$_POST['k_wlkin'];
+$_SESSION['kid']	      = addslashes($_POST['kid']);
+$_SESSION['k_code']	    = addslashes($_POST['k_code']);
+$_SESSION['k_name']	    = addslashes($_POST['k_name']);
+$_SESSION['k_obj']	    = addslashes($_POST['k_obj']);
+$_SESSION['k_loc']	    = addslashes($_POST['k_loc']);
+$_SESSION['k_duration']	= addslashes($_POST['k_duration']);
+$_SESSION['st']	        = addslashes($_POST['st']);
+$_SESSION['sm']	        = addslashes($_POST['sm']);
+$_SESSION['sh']	        = addslashes($_POST['sh']);
+$_SESSION['et']	        = addslashes($_POST['et']);
+$_SESSION['em']	        = addslashes($_POST['em']);
+$_SESSION['eh']	        = addslashes($_POST['eh']);
+$_SESSION['k_terms']	  = addslashes($_POST['k_terms']);
+$_SESSION['k_fee']	    = addslashes($_POST['k_fee']);
+$_SESSION['k_status']	  = addslashes($_POST['k_status']);
+$_SESSION['k_remark']	  = addslashes($_POST['k_remark']);
+$_SESSION['k_aid']	    = addslashes($_POST['k_aid']);
+$_SESSION['k_wlkin']	  = addslashes($_POST['k_wlkin']);
 ?>
 <script type='text/javascript'>//<![CDATA[
 $(window).load(function(){

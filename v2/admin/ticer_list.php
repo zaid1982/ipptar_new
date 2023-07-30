@@ -17,7 +17,7 @@ if($_SESSION['MyLevel'] == "1" && $_SESSION['MyLevel'] == "5"){
 
 #start cari keyword
 if(isset($_GET['search']) && $_GET['search'] != ""){
-	$search = $_GET['search'];
+	$search = addslashes($_GET['search']);
 	$cond01 = "AND t_nama LIKE '%$search%' OR k_name LIKE '%$search%'";
 }else{
 	$search = "";
@@ -27,7 +27,7 @@ if(isset($_GET['search']) && $_GET['search'] != ""){
 
 #start cari kursus
 if(isset($_GET['kursus']) && ($_GET['kursus'] >= 1 && $_GET['kursus'] <= 200)){
-	$kursus = $_GET['kursus'];
+	$kursus = addslashes($_GET['kursus']);
 	$cond02 = " AND c.k_id LIKE '$kursus'";	
 }else{
 	$kursus = "";
@@ -52,14 +52,13 @@ if(isset($_POST['terai']) && $_POST['terai'] == "ticedit"){
 
 $_POST['nama'] = str_replace("'", "&#39;", $_POST['nama']); #add on 20170710
 	
-$_SESSION['terai'] = $_POST['terai'];
-$_SESSION['kodrawak'] = $_POST['kodrawak']; 
-$_SESSION['vercode'] = $_POST['vercode'];
-	
-$_SESSION['tid']	=	$_POST['tid'];
-$_SESSION['nama']	=	$_POST['nama'];
-$_SESSION['kursus']	=	$_POST['kursus'];
+$_SESSION['terai'] 		= addslashes($_POST['terai']);
+$_SESSION['kodrawak'] = addslashes($_POST['kodrawak']); 
+$_SESSION['vercode'] 	= addslashes($_POST['vercode']);
 
+$_SESSION['tid'] 		  = addslashes($_POST['tid']);
+$_SESSION['nama']     = addslashes($_POST['nama']); 
+$_SESSION['kursus'] 	= addslashes($_POST['kursus']);
 ?>
 <script type='text/javascript'>//<![CDATA[
 $(window).load(function(){
@@ -75,10 +74,9 @@ $(document).ready(function () {
 <?php
 }elseif(isset($_POST['terai']) && $_POST['terai'] == "ticstat"){
 	
-$_SESSION['terai'] = $_POST['terai'];
-	
-$_SESSION['tid']	=	$_POST['tid'];
-$_SESSION['status']	=	$_POST['status'];
+$_SESSION['terai'] 	= addslashes($_POST['terai']);
+$_SESSION['tid'] 		= addslashes($_POST['tid']);
+$_SESSION['status'] = addslashes($_POST['status']);
 
 ?>
 <script type='text/javascript'>//<![CDATA[

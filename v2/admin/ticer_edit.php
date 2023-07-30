@@ -10,7 +10,7 @@
 include("../conn.php");
 
 #SQL Injection fix
-$adm = $_GET["adm"];
+$adm = addslashes($_GET["adm"]);
 if (strlen($adm)>11){
 exit;
 }
@@ -97,7 +97,7 @@ if($_SESSION['MyLevel'] == "1" && $_SESSION['MyLevel'] == "5"){
 }
 
 #SQL Injection fix
-$tid = $_GET["tid"];
+$tid = addslashes($_GET["tid"]);
 if (strlen($tid)>11){
 exit;
 }

@@ -73,7 +73,7 @@ $result = mysql_query($sql) or die(mysql_error());
 }else{
 	
 #SQL Injection fix
-$kid = $_GET["kid"];
+$kid = addslashes($_GET['kid']);
 if (strlen($kid)>11){
 exit;
 }

@@ -114,8 +114,8 @@ $totalRows_viewad = mysql_num_rows($viewad);
 	    <div class="clear"></div>
 			 <?php	
 
-//$kategori=$_GET['cat'];
-$nokursus=$_GET['nokursus'];
+$kategori = addslashes($_GET['cat']);
+$nokursus = addslashes($_GET['nokursus']);
 if ( $nokursus=='') { 
 include '../configpagi.php';
 $tbl_name="costu_all"; // Table name 
@@ -141,7 +141,7 @@ mysql_select_db("$db_name")or die("cannot select DB");
 	/* Setup vars for query. */
 	$targetpage = "permohonanterkini.php?"; 	//your file name  (the name of this file)
 	$limit = 15; 								//how many items to show per page
-	$page = $_GET['page'];
+	$page = addslashes($_GET['page']);
 	if($page) 
 		$start = ($page - 1) * $limit; 			//first item to display on this page
 	else
@@ -289,8 +289,8 @@ mysql_select_db("$db_name")or die("cannot select DB");
 		<?  } ?>
 		   <?php	
 
-//$kategori=$_GET['cat'];
-$nokursus=$_GET['nokursus'];
+$kategori = addslashes($_GET['cat']);
+$nokursus = addslashes($_GET['nokursus']);
 if ( $nokursus!='') { 
 include '../configpagi.php';
 $tbl_name="costu_all"; // Table name 
@@ -316,7 +316,7 @@ mysql_select_db("$db_name")or die("cannot select DB");
 	/* Setup vars for query. */
 	$targetpage = "permohonanterkini.php?nokursus=$nokursus&"; 	//your file name  (the name of this file)
 	$limit = 15; 								//how many items to show per page
-	$page = $_GET['page'];
+	$page = addslashes($_GET['page']);
 	if($page) 
 		$start = ($page - 1) * $limit; 			//first item to display on this page
 	else

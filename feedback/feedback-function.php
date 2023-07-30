@@ -2,10 +2,10 @@
 #feedback
 function usrFeedback()
 {
-	$uname = $_POST['uname'];
-	$emel = $_POST['emel'];
-	$fon = $_POST['fon'];
-	$comments = $_POST['comments'];
+	$uname 		= addslashes($_POST['uname']);
+	$emel 		= addslashes($_POST['emel']);
+	$fon 		= addslashes($_POST['fon']);
+	$comments 	= addslashes($_POST['comments']);
 		
 	#emel start
 	ini_set("include_path", ".:/");

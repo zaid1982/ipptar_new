@@ -16,7 +16,7 @@ $row_viewpro = mysql_fetch_assoc($viewpro);
 $id=$row_viewpro['u_id'];
 
 $totalRows_viewpro = mysql_num_rows($viewpro);
-$iduser=$_GET['iduser'];
+$iduser = addslashes($_GET['iduser']);
 
  ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
@@ -91,7 +91,7 @@ $iduser=$_GET['iduser'];
           </div>
 		   <div class="field">
             <label for="nama"><? 
-$valid=$_GET['validation'];
+$valid = addslashes($_GET['validation']);
 if ($valid=="yes") {
  ?>
 <p align="center" class="style1">Maaf kata laluan lama anda tidak sepadan.</p> 

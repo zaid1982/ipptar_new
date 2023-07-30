@@ -130,7 +130,7 @@ $iduser=$row_viewpro['u_idnum'];
           </tr>
           <?php
 					  
-$numcat=$_GET["idcat"];	
+$numcat = addslashes($_GET["idcat"]);	
 if ( $numcat!=""){
 //echo $numcat;		  
 $numcat2=$numcat;
@@ -158,7 +158,7 @@ mysql_select_db("$db_name")or die("cannot select DB");
 	/* Setup vars for query. */
 	$targetpage = "kursusaktif.php? idcat=$numcat&"; 	//your file name  (the name of this file)
 		$limit =15; 							//how many items to show per page
-	$page = $_GET['page'];
+	$page = addslashes($_GET['page']);
 	if($page) 
 		$start = ($page - 1) * $limit; 			//first item to display on this page
 	else

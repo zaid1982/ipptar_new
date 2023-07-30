@@ -29,7 +29,7 @@ $result = mysql_query($sql) or die(mysql_error());
 }else{
 
 #SQL Injection fix
-$uid = $_GET["uid"];
+$uid = addslashes($_GET["uid"]);
 if (strlen($uid)>11){
 exit;
 }

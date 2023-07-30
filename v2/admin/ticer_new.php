@@ -6,12 +6,12 @@ if(isset($_POST['terai']) && $_POST['terai'] == "ticbaru"){
 
 $_POST['nama'] = str_replace("'", "&#39;", $_POST['nama']); #add on 20170710
 	
-$_SESSION['terai'] = $_POST['terai'];
-$_SESSION['kodrawak'] = $_POST['kodrawak']; 
-$_SESSION['vercode'] = $_POST['vercode'];
-	
-$_SESSION['nama']	=	$_POST['nama'];
-$_SESSION['kursus']	=	$_POST['kursus'];
+$_SESSION['terai'] 		= addslashes($_POST['terai']);
+$_SESSION['kodrawak'] 	= addslashes($_POST['kodrawak']); 
+$_SESSION['vercode']	= addslashes($_POST['vercode']);
+
+$_SESSION['nama']		= addslashes($_POST['nama']); 
+$_SESSION['kursus']		= addslashes($_POST['kursus']);
 
 ?>
 <script type='text/javascript'>//<![CDATA[

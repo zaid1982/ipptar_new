@@ -2,7 +2,7 @@
 include("conn.php");
 
 #SQL Injection fix
-$pid = $_GET["pid"];
+$pid = addslashes($_GET["pid"]);
 if (strlen($pid)>11){
 exit;
 }

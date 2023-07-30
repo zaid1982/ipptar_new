@@ -39,7 +39,7 @@ require_once './libraries/header_meta_style.inc.php';
                 // If the values are in an array
                 if (isset($_GET['values']) && is_array($_GET['values'])) {
                      // then this page was called from itself via the "Add a value", "Drop" or "Go" buttons
-                    $values = $_GET['values'];
+                    $values = addslashes($_GET['values']);
                     foreach ($values as $key => $value) {
                         $values[$key] = htmlentities($value);
                     }

@@ -64,7 +64,7 @@ Saya dengan segala hormatnya merujuk kepada perkara tersebut di atas.
 3. Tuan/Puan boleh menyemak tajuk dan objektif kursus yang dipohon melalui URL http://ekursus.ipptar.gov<br/><br/> 
 4.    Sehubungan dengan itu, sekiranya tuan/puan bersetuju untuk pegawai di bawah seliaan tuan menghadiri kursus tersebut, sila sahkan sokongan kehadiran menerusi pautan berikut:
 <br/><br/>
-[ <a href=http://ekursus.ipptar.gov.my/v2/mohon_verify.php?pid=$pid&kid=$_GET[kid]&s=1>DISOKONG</a> ]&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[ <a href=http://ekursus.ipptar.gov.my/v2/mohon_verify.php?pid=$pid&kid=$_GET[kid]&s=2>TIDAK DISOKONG</a> ]
+[ <a href=http://ekursus.ipptar.gov.my/v2/mohon_verify.php?pid=$pid&kid= $_GET[kid]&s=1>DISOKONG</a> ]&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[ <a href=http://ekursus.ipptar.gov.my/v2/mohon_verify.php?pid=$pid&kid= $_GET[kid]&s=2>TIDAK DISOKONG</a> ]
 <br/><br/>
 
 <br/><br/>

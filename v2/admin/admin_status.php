@@ -28,7 +28,7 @@ $result = mysql_query($sql) or die(mysql_error());
 }else{
 
 #SQL Injection fix
-$aid = $_GET["aid"];
+$aid = addslashes($_GET["aid"]);
 if (strlen($aid)>11){
 exit;
 }

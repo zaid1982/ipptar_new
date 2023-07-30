@@ -14,7 +14,7 @@ $viewad = mysql_query($query_viewad, $coonect) or die(mysql_error());
 $row_viewad = mysql_fetch_assoc($viewad);
 $totalRows_viewad = mysql_num_rows($viewad);
 
-$idad=$_GET['idad'];
+$idad = addslashes($_GET['idad']);
 mysql_select_db($database_coonect, $coonect);
 $query_infoad = "SELECT * FROM a_pro where ad_id='$idad'";
 $infoad = mysql_query($query_infoad, $coonect) or die(mysql_error());

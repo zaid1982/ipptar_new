@@ -16,17 +16,15 @@ $totalRows_viewad = mysql_num_rows($viewad);
 
 if($_POST['kemaskiniadmin']) {
 
-$hiddenadminid=strtoupper($_POST['hiddenadminid']);
-$adname=strtoupper($_POST['adnama']);
-$adpos=strtoupper($_POST['adjawatan']);
-$adgred=strtoupper($_POST['adgred']);
-$adjabatan=strtoupper($_POST['adjabatan']);
-$adkp=strtoupper($_POST['adkp']);
-$ademel=$_POST['ademel'];
-$adtelhp=strtoupper($_POST['adtelhp']);
-$adteloff=strtoupper($_POST['adteloff']);
-
-//$a=$_POST[''];
+$hiddenadminid  = strtoupper(addslashes($_POST['hiddenadminid']));
+$adname         = strtoupper(addslashes($_POST['adnama']));
+$adpos          = strtoupper(addslashes($_POST['adjawatan']));
+$adgred         = strtoupper(addslashes($_POST['adgred']));
+$adjabatan      = strtoupper(addslashes($_POST['adjabatan']));
+$adkp           = strtoupper(addslashes($_POST['adkp']));
+$ademel         = addslashes($_POST['ademel']);
+$adtelhp        = strtoupper(addslashes($_POST['adtelhp']));
+$adteloff       = strtoupper(addslashes($_POST['adteloff']));
 
 /*update user profile
 

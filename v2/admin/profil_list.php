@@ -5,7 +5,7 @@ include("../conn.php");
 <?php
 #start cari keyword
 if(isset($_GET['search']) && $_GET['search'] != ""){
-	$search = $_GET['search'];
+	$search = addslashes($_GET['search']);
 	$cond01 = "WHERE u_nama LIKE '%$search%' OR u_emel LIKE '%$search%'";
 }else{
 	$search = "";

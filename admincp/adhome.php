@@ -51,7 +51,7 @@ $adminakses=$row_viewad['ad_akses'];
     <link rel="stylesheet" href="../jquery.jgrowl.css" type="text/css"/>
 		
 <? 
-$value=$_GET['value'];
+$value = addslashes($_GET['value']);
 if ($value=="true") {
 ?>		
 		

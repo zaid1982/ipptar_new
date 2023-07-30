@@ -7,7 +7,7 @@ $rawak = substr(str_shuffle('abcdefghijklmnopqrstuvwxyz1234567890'), 0, 6); //se
 <?php
 #start cari keyword
 if(isset($_POST['search']) && $_POST['search'] != ""){
-	$search = $_POST['search'];
+	$search = addslashes($_POST['search']);
 	$cond01 = "AND (u_nama LIKE '%$search%' OR u_emel LIKE '%$search%' OR u_idnum LIKE '%$search%')";
 }else{
 	$search = "";
@@ -31,8 +31,8 @@ else {
 if(isset($_POST['terai']) && $_POST['terai'] == "usrdel"){
 
 	
-$_SESSION['terai'] = $_POST['terai'];
-$_SESSION['uid']	=	$_POST['uid'];
+$_SESSION['terai']  = addslashes($_POST['terai']);
+$_SESSION['uid'] 		= addslashes($_POST['uid']);
 ?>
 <script type='text/javascript'>//<![CDATA[
 $(window).load(function(){
@@ -50,18 +50,16 @@ $(document).ready(function () {
 
 $_POST['nama'] = str_replace("'", "&#39;", $_POST['nama']); #add on 20170710
 
+$_SESSION['terai'] 		= addslashes($_POST['terai']);
+$_SESSION['kodrawak'] = addslashes($_POST['kodrawak']); 
+$_SESSION['vercode'] 	= addslashes($_POST['vercode']);
 	
-$_SESSION['terai'] = $_POST['terai'];
-$_SESSION['kodrawak'] = $_POST['kodrawak']; 
-$_SESSION['vercode'] = $_POST['vercode'];
-	
-$_SESSION['uid']	=	$_POST['uid'];
-$_SESSION['idnum']	=	$_POST['idnum'];
-$_SESSION['pwd']	=	md5($_POST['pwd']);
-$_SESSION['nama']	=	$_POST['nama'];
-$_SESSION['tel']	=	$_POST['tel'];
-$_SESSION['emel']	=	$_POST['emel'];
-
+$_SESSION['uid']      = addslashes($_POST['uid']);
+$_SESSION['idnum']		= addslashes($_POST['idnum']);
+$_SESSION['pwd']	    =	md5($_POST['pwd']);
+$_SESSION['nama'] 		= addslashes($_POST['nama']);
+$_SESSION['tel']      = addslashes($_POST['tel']);
+$_SESSION['emel'] 		= addslashes($_POST['emel']);
 ?>
 <script type='text/javascript'>//<![CDATA[
 $(window).load(function(){
@@ -77,10 +75,10 @@ $(document).ready(function () {
 <?php
 }elseif(isset($_POST['terai']) && $_POST['terai'] == "usrstat"){
 	
-$_SESSION['terai'] = $_POST['terai'];
+$_SESSION['terai']  = addslashes($_POST['terai']);
 	
-$_SESSION['uid']	=	$_POST['uid']	;
-$_SESSION['status']	=	$_POST['status']	;
+$_SESSION['uid']    = addslashes($_POST['uid']);
+$_SESSION['status'] = addslashes($_POST['status']);
 
 ?>
 <script type='text/javascript'>//<![CDATA[

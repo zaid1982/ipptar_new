@@ -12,7 +12,7 @@ include("conn.php");
 $rawak = substr(str_shuffle('abcdefghijklmnopqrstuvwxyz1234567890'), 0, 6); //set your characters or numbers and the amount of text here.
 
 #SQL Injection fix
-$pid = $_GET["pid"];
+$pid = addslashes($_GET["pid"]);
 if (strlen($pid)>11){
 exit;
 }

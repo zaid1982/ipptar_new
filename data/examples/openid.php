@@ -95,9 +95,9 @@ OpenID: <input type="text" name="identifier" /><br />
 
 /* Grab identifier */
 if (isset($_POST['identifier'])) {
-    $identifier = $_POST['identifier'];
+    $identifier = addslashes($_POST['identifier']);
 } else if (isset($_SESSION['identifier'])) {
-    $identifier = $_SESSION['identifier'];
+    $identifier = addslashes($_SESSION['identifier']);
 } else {
     $identifier = null;
 }
