@@ -28,8 +28,9 @@ function sqlSelect ($sql, $inputs, $isMultipleRows=false) {
         $stmt->execute($inputs);
         $results = $isMultipleRows ? $stmt->fetchAll() : $stmt->fetch();
         $stmt = null;
-        if (!empty($results))
-            var_dump($results);
+        //if (!empty($results))
+        //    var_dump($results);
+        return $results;
     } catch(PDOException $e) {
         echo 'Could not connect:';
         die('Could not connect: ' .  $e->getMessage());
@@ -43,7 +44,7 @@ function sqlInsert ($sql, $inputs) {
         $stmt->execute($inputs);
         $lastInsertedId = $conn->lastInsertId();
         $stmt = null;
-        echo ($lastInsertedId);
+        //echo ($lastInsertedId);
         return $lastInsertedId;
     } catch(PDOException $e) {
         echo 'Could not connect:';
@@ -58,7 +59,7 @@ function sqlUpdate ($sql, $inputs) {
         $stmt->execute($inputs);
         $lastInsertedId = $stmt->rowCount();
         $stmt = null;
-        echo ($lastInsertedId);
+        //echo ($lastInsertedId);
         return $lastInsertedId;
     } catch(PDOException $e) {
         echo 'Could not connect:';
@@ -73,7 +74,7 @@ function sqlDelete ($sql, $inputs) {
         $stmt->execute($inputs);
         $lastInsertedId = $stmt->rowCount();
         $stmt = null;
-        echo ($lastInsertedId);
+        //echo ($lastInsertedId);
         return $lastInsertedId;
     } catch(PDOException $e) {
         echo 'Could not connect:';
