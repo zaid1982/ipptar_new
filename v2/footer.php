@@ -46,4 +46,6 @@ $(function() {
 });
 </script>
 
-<?php include("bottom.php"); ?>
+<?php
+$conn = null;
+include("bottom.php"); ?>
