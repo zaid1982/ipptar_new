@@ -11,32 +11,107 @@ include("../conn.php");
 
 $qstr=$_SERVER['QUERY_STRING'];
 
-if(isset($_SESSION['terai']) && $_SESSION['terai'] == "profil"){
+if(isset($_SESSION['terai']) && $_SESSION['terai'] == "profil") {
 
-$tkhlahir = $_SESSION['tltahun']."-".$_SESSION['tlbulan']."-".$_SESSION['tlhari'];
-$tkhlantik = $_SESSION['tahun_lantik']."-".$_SESSION['bulan_lantik']."-".$_SESSION['hari_lantik'];	
+	$tkhlahir 	= $_SESSION['tltahun']."-".$_SESSION['tlbulan']."-".$_SESSION['tlhari'];
+	$tkhlantik 	= $_SESSION['tahun_lantik']."-".$_SESSION['bulan_lantik']."-".$_SESSION['hari_lantik'];	
 
-$select = "
-SELECT *
-FROM user
-WHERE u_idnum LIKE '$_SESSION[idnum]'
-ORDER BY u_id ASC
-";
-$result = mysql_query($select) or die("Query failed");
-$row = mysql_fetch_assoc($result);
-$numrows = mysql_num_rows($result);
+	/* $select = "
+	SELECT *
+	FROM user
+	WHERE u_idnum LIKE '$_SESSION[idnum]'
+	ORDER BY u_id ASC
+	";
+	$result = mysql_query($select) or die("Query failed");
+	$row = mysql_fetch_assoc($result);
+	$numrows = mysql_num_rows($result); */
 
-	if($numrows == "1"){
+	// add parameterized query
+	$rowCount = sqlSelect(
+		'SELECT count(*) AS total FROM user WHERE u_idnum = ? ORDER BY u_id ASC', 
+		array($_SESSION['idnum'])
+	);
+	$result = sqlSelect(
+		'SELECT * FROM user WHERE u_idnum = ? ORDER BY u_id ASC', 
+		array($_SESSION['idnum'])
+	);
 
-		$sql = "UPDATE user SET u_nama = '$_SESSION[nama]', u_jantina = '$_SESSION[jantina]', u_dob = '$tkhlahir', u_tel = '$_SESSION[tel]', u_jwt = '$_SESSION[jawatan]', u_jwttingkat = '$_SESSION[peringkat]', u_jwtklas = '$_SESSION[klasifikasi]', u_jwtgred = '$_SESSION[gred]', u_jwttaraf = '$_SESSION[taraf]', u_jkhidmat = '$_SESSION[khidmat]', u_tkhlantik = '$tkhlantik', u_emel = '$_SESSION[emel]', u_knama = '$_SESSION[ketua]', u_kjwt = '$_SESSION[ketuajwt]', u_kemel = '$_SESSION[ketuaemel]', u_alamatkjab = '$_SESSION[alamatkjab]', u_jab = '$_SESSION[jab]', u_jabaddr1 = '$_SESSION[jabaddr1]', u_jabaddr2 = '$_SESSION[jabaddr2]', u_jabpkod = '$_SESSION[jabpkod]', u_jabbandar = '$_SESSION[jabbandar]', u_jabnegeri = '$_SESSION[jabnegeri]', u_jabtel = '$_SESSION[jabtel]', u_jabfax = '$_SESSION[jabfax]', u_skop = '$_SESSION[skop]' WHERE u_idnum = '$_SESSION[idnum]'";
-		$result = mysql_query($sql) or die(mysql_error());
+	// if($numrows == "1") {
+	if ($rowCount['total'] == 1) {
+
+		/* $sql = "UPDATE user SET u_nama = '$_SESSION[nama]', u_jantina = '$_SESSION[jantina]', u_dob = '$tkhlahir', u_tel = '$_SESSION[tel]', u_jwt = '$_SESSION[jawatan]', u_jwttingkat = '$_SESSION[peringkat]', u_jwtklas = '$_SESSION[klasifikasi]', u_jwtgred = '$_SESSION[gred]', u_jwttaraf = '$_SESSION[taraf]', u_jkhidmat = '$_SESSION[khidmat]', u_tkhlantik = '$tkhlantik', u_emel = '$_SESSION[emel]', u_knama = '$_SESSION[ketua]', u_kjwt = '$_SESSION[ketuajwt]', u_kemel = '$_SESSION[ketuaemel]', u_alamatkjab = '$_SESSION[alamatkjab]', u_jab = '$_SESSION[jab]', u_jabaddr1 = '$_SESSION[jabaddr1]', u_jabaddr2 = '$_SESSION[jabaddr2]', u_jabpkod = '$_SESSION[jabpkod]', u_jabbandar = '$_SESSION[jabbandar]', u_jabnegeri = '$_SESSION[jabnegeri]', u_jabtel = '$_SESSION[jabtel]', u_jabfax = '$_SESSION[jabfax]', u_skop = '$_SESSION[skop]' WHERE u_idnum = '$_SESSION[idnum]'";
+		$result = mysql_query($sql) or die(mysql_error()); */
+
+		// add parameterized query
+		$sql = sqlUpdate(
+			'UPDATE user SET u_nama = ?, u_jantina = ?, u_dob = ?, u_tel = ?, u_jwt = ?, u_jwttingkat = ?, u_jwtklas = ?, u_jwtgred = ?, u_jwttaraf = ?, u_jkhidmat = ?, u_tkhlantik = ?, u_emel = ?, u_knama = ?, u_kjwt = ?, u_kemel = ?, u_alamatkjab = ?, u_jab = ?, u_jabaddr1 = ?, u_jabaddr2 = ?, u_jabpkod = ?, u_jabbandar = ?, u_jabnegeri = ?, u_jabtel = ?, u_jabfax = ?, u_skop = ? WHERE u_idnum = ?', 
+			array(
+				$_SESSION['nama'], 
+				$_SESSION['jantina'], 
+				$tkhlahir, 
+				$_SESSION['tel'], 
+				$_SESSION['jawatan'], 
+				$_SESSION['peringkat'], 
+				$_SESSION['klasifikasi'], 
+				$_SESSION['gred'], 
+				$_SESSION['taraf'], 
+				$_SESSION['khidmat'], 
+				$tkhlantik, 
+				$_SESSION['emel'], 
+				$_SESSION['ketua'], 
+				$_SESSION['ketuajwt'], 
+				$_SESSION['ketuaemel'], 
+				$_SESSION['alamatkjab'], 
+				$_SESSION['jab'], 
+				$_SESSION['jabaddr1'], 
+				$_SESSION['jabaddr2'], 
+				$_SESSION['jabpkod'], 
+				$_SESSION['jabbandar'], 
+				$_SESSION['jabnegeri'], 
+				$_SESSION['jabtel'], 
+				$_SESSION['jabfax'], 
+				$_SESSION['skop'], 
+				$_SESSION['idnum']
+			)
+		);
 		
-	}else{
+	} else {
 		
-		$sql = "INSERT INTO user (u_idnum,u_nama,u_jantina,u_dob,u_tel,u_jwt,u_jwttingkat,u_jwtklas,u_jwtgred,u_jwttaraf,u_jkhidmat,u_tkhlantik,u_emel,u_knama,u_kjwt,u_kemel,u_alamatkjab,u_jab,u_jabaddr1,u_jabaddr2,u_jabpkod,u_jabbandar,u_jabnegeri,u_jabtel,u_jabfax)
+		/* $sql = "INSERT INTO user (u_idnum, u_nama, u_jantina, u_dob, u_tel, u_jwt, u_jwttingkat, u_jwtklas, u_jwtgred, u_jwttaraf, u_jkhidmat, u_tkhlantik, u_emel, u_knama, u_kjwt, u_kemel, u_alamatkjab, u_jab, u_jabaddr1, u_jabaddr2, u_jabpkod, u_jabbandar, u_jabnegeri, u_jabtel, u_jabfax)
 		VALUES ('$_SESSION[idnum]', '$_SESSION[nama]', '$_SESSION[jantina]', '$tkhlahir','$_SESSION[tel]','$_SESSION[jawatan]','$_SESSION[peringkat]','$_SESSION[klasifikasi]','$_SESSION[gred]','$_SESSION[taraf]','$_SESSION[khidmat]','$tkhlantik','$_SESSION[emel]','$_SESSION[ketua]','$_SESSION[ketuajwt]','$_SESSION[ketuaemel]','$_SESSION[alamatkjab]','$_SESSION[jab]','$_SESSION[jabaddr1]','$_SESSION[jabaddr2]','$_SESSION[jabpkod]','$_SESSION[jabbandar]','$_SESSION[jabnegeri]','$_SESSION[jabtel]','$_SESSION[jabfax]')";
-		$result = mysql_query($sql) or die(mysql_error());
-		
+		$result = mysql_query($sql) or die(mysql_error()); */
+
+		// add parameterized query
+		$sql = sqlInsert(
+			'INSERT INTO user (u_idnum, u_nama, u_jantina, u_dob, u_tel, u_jwt, u_jwttingkat, u_jwtklas, u_jwtgred, u_jwttaraf, u_jkhidmat, u_tkhlantik, u_emel, u_knama, u_kjwt, u_kemel, u_alamatkjab, u_jab, u_jabaddr1, u_jabaddr2, u_jabpkod, u_jabbandar, u_jabnegeri, u_jabtel, u_jabfax) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)', 
+			array(
+				$_SESSION['idnum'],
+				$_SESSION['nama'],
+				$_SESSION['jantina'],
+				$tkhlahir,
+				$_SESSION['tel'],
+				$_SESSION['jawatan'],
+				$_SESSION['peringkat'],
+				$_SESSION['klasifikasi'],
+				$_SESSION['gred'],
+				$_SESSION['taraf'],
+				$_SESSION['khidmat'],
+				$tkhlantik,
+				$_SESSION['emel'],
+				$_SESSION['ketua'],
+				$_SESSION['ketuajwt'],
+				$_SESSION['ketuaemel'],
+				$_SESSION['alamatkjab'],
+				$_SESSION['jab'],
+				$_SESSION['jabaddr1'],
+				$_SESSION['jabaddr2'],
+				$_SESSION['jabpkod'],
+				$_SESSION['jabbandar'],
+				$_SESSION['jabnegeri'],
+				$_SESSION['jabtel'],
+				$_SESSION['jabfax']
+			)
+		);
 	}
 	
 	unset($_SESSION['terai']);
@@ -48,26 +123,32 @@ $numrows = mysql_num_rows($result);
 	include("../kosong.php");
 	exit;
 
-}else{
+} else {
 	
-$select = "
-SELECT *
-FROM user
-WHERE u_idnum LIKE '$_GET[idnum]'
-ORDER BY u_id ASC
-";
-$result = mysql_query($select) or die("Query failed");
-$row = mysql_fetch_assoc($result);
+	/* $select = "
+	SELECT *
+	FROM user
+	WHERE u_idnum LIKE '$_GET[idnum]'
+	ORDER BY u_id ASC
+	";
+	$result = mysql_query($select) or die("Query failed");
+	$row = mysql_fetch_assoc($result); */
 
-$pieces01 = explode("-", $row['u_dob']);
-$dtahun = $pieces01[0];
-$dbulan = $pieces01[1];
-$dhari = $pieces01[2];
+	// add parameterized query
+	$row = sqlSelect(
+		'SELECT * FROM user WHERE u_idnum LIKE ? ORDER BY u_id ASC', 
+		array(addslashes($_GET['idnum']))
+	);
 
-$pieces02 = explode("-", $row['u_tkhlantik']);
-$ltahun = $pieces02[0];
-$lbulan = $pieces02[1];
-$lhari = $pieces02[2];
+	$pieces01 = explode("-", $row['u_dob']);
+	$dtahun = $pieces01[0];
+	$dbulan = $pieces01[1];
+	$dhari = $pieces01[2];
+
+	$pieces02 = explode("-", $row['u_tkhlantik']);
+	$ltahun = $pieces02[0];
+	$lbulan = $pieces02[1];
+	$lhari = $pieces02[2];
 }
 ?>
 <div id="content"> 

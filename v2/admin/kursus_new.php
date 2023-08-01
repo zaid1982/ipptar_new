@@ -9,39 +9,70 @@
 <?php
 include("../conn.php");
 
-if(isset($_SESSION['terai']) && $_SESSION['terai'] == "kurnew"){
+if(isset($_SESSION['terai']) && $_SESSION['terai'] == "kurnew") {
 
-$sdate = $_SESSION['st']."-".$_SESSION['sm']."-".$_SESSION['sh'];
-$edate = $_SESSION['et']."-".$_SESSION['em']."-".$_SESSION['eh'];
-	
-#ckh wlkin reg
-if(isset($_SESSION['k_wlkin'])){
-	$wlkin = "1";
-}else{
-	$wlkin = "0";
-}
+	$sdate = $_SESSION['st']."-".$_SESSION['sm']."-".$_SESSION['sh'];
+	$edate = $_SESSION['et']."-".$_SESSION['em']."-".$_SESSION['eh'];
+		
+	#ckh wlkin reg
+	if(isset($_SESSION['k_wlkin'])) {
+		$wlkin = "1";
+	}else{
+		$wlkin = "0";
+	}
 
-$sql = "INSERT INTO kursus(k_code,k_name,k_obj,k_loc,k_duration,k_sdate,k_edate,k_bid,k_fee,k_terms,k_status,k_aid,k_wlkin)
-VALUES ('$_SESSION[k_code]','$_SESSION[k_name]','$_SESSION[k_obj]','$_SESSION[k_loc]','$_SESSION[k_duration]','$sdate','$edate','$_SESSION[k_bid]','$_SESSION[k_fee]','$_SESSION[k_terms]','$_SESSION[k_status]','$_SESSION[k_aid]','$wlkin')";
-$result = mysql_query($sql) or die(mysql_error());
+	/* $sql = "INSERT INTO kursus(k_code,k_name,k_obj,k_loc,k_duration,k_sdate,k_edate,k_bid,k_fee,k_terms,k_status,k_aid,k_wlkin)
+	VALUES ('$_SESSION[k_code]','$_SESSION[k_name]','$_SESSION[k_obj]','$_SESSION[k_loc]','$_SESSION[k_duration]','$sdate','$edate','$_SESSION[k_bid]','$_SESSION[k_fee]','$_SESSION[k_terms]','$_SESSION[k_status]','$_SESSION[k_aid]','$wlkin')";
+	$result = mysql_query($sql) or die(mysql_error());
 
-$kID = mysql_insert_id();
-$tkhins = date('Y-m-d H:i:s');
+	$kID = mysql_insert_id(); */
 
-$sql = "INSERT INTO kursus_log (kid, date, status, uid, uname)
-	VALUES ('$kID', '$tkhins', 'Insert', '$_SESSION[MyID]', '$_SESSION[MyNama]' )";
-$result = mysql_query($sql) or die(mysql_error());
+	// add parameterized query
+	$result = sqlInsert(
+		'INSERT INTO kursus (k_code, k_name, k_obj, k_loc, k_duration, k_sdate, k_edate, k_bid, k_fee, k_terms, k_status, k_aid, k_wlkin) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)', 
+		array(
+			$_SESSION['k_code'],
+			$_SESSION['k_name'],
+			$_SESSION['k_obj'],
+			$_SESSION['k_loc'],
+			$_SESSION['k_duration'],
+			$sdate,
+			$edate,
+			$_SESSION['k_bid'],
+			$_SESSION['k_fee'],
+			$_SESSION['k_terms'],
+			$_SESSION['k_status'],
+			$_SESSION['k_aid'],
+			$wlkin
+		)
+	);
+
+	$kID = $result;
+
+	$tkhins = date('Y-m-d H:i:s');
+
+	/* $sql = "INSERT INTO kursus_log (kid, date, status, uid, uname)
+		VALUES ('$kID', '$tkhins', 'Insert', '$_SESSION[MyID]', '$_SESSION[MyNama]' )";
+	$result = mysql_query($sql) or die(mysql_error()); */
+
+	// add parameterized query
+	$result = sqlInsert(
+		'INSERT INTO kursus_log (kid, date, status, uid, uname) VALUES (?, ?, ?, ?, ?)', 
+		array(
+			$kID, $tkhins, 'Insert', $_SESSION['MyID'], $_SESSION['MyNama']
+		)
+	);
 
 	unset($_SESSION['terai']);
 
-	$_SESSION['alert'] = "Tambah kursus baru berjaya.";
-	$_SESSION['redirek'] = "katalog.php";
-	$_SESSION['toplus'] = "";
+	$_SESSION['alert'] 		= "Tambah kursus baru berjaya.";
+	$_SESSION['redirek'] 	= "katalog.php";
+	$_SESSION['toplus'] 	= "";
 	$pageTitle = 'Kursus Baru';
 	include("../kosong.php");
 	exit;
 
-}else{}
+} else {}
 ?>
 <div id="content"> 
 

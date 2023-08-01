@@ -8,7 +8,7 @@ include("top.php");
 <?php
 $kid = (int)$_GET['kid'];
 	
-$select = "
+/* $select = "
 SELECT *
 FROM user
 WHERE u_id LIKE '$_SESSION[UsrID]'
@@ -16,7 +16,10 @@ ORDER BY u_id ASC
 LIMIT 1
 ";
 $result = mysql_query($select) or die("Query failed");
-$row = mysql_fetch_assoc($result);
+$row = mysql_fetch_assoc($result); */
+
+// add parameterized query
+$row = sqlSelect('SELECT * FROM user WHERE u_id = ? ORDER BY u_id ASC', array(addslashes($_SESSION['UsrID'])));
 
 $pieces01 = explode("-", $row['u_dob']);
 $dtahun = $pieces01[0];
@@ -28,7 +31,7 @@ $ltahun = $pieces02[0];
 $lbulan = $pieces02[1];
 $lhari = $pieces02[2];
 
-$select2 = "
+/* $select2 = "
 SELECT *
 FROM kursus
 WHERE k_id LIKE '$kid'
@@ -36,7 +39,10 @@ ORDER BY k_id ASC
 LIMIT 1
 ";
 $result2 = mysql_query($select2) or die("Query failed");
-$row2 = mysql_fetch_assoc($result2);
+$row2 = mysql_fetch_assoc($result2); */
+
+// add parameterized query
+$row2 = sqlSelect('SELECT * FROM kursus WHERE k_id LIKE ? ORDER BY k_id ASC', array(addslashes($kid)));
 
 ?>
 <div id="content"> 
@@ -68,10 +74,14 @@ $row2 = mysql_fetch_assoc($result2);
 <select name="tlhari">
 <option value="" disabled selected>hari</option>
 <?php
-$sqlh01 = "SELECT * FROM hari ORDER BY h_id ASC";	
-$resulth01 = mysql_query($sqlh01) or die(mysql_error());
+/* $sqlh01 = "SELECT * FROM hari ORDER BY h_id ASC";	
+$resulth01 = mysql_query($sqlh01) or die(mysql_error()); */
 
-while ($rowh01 = mysql_fetch_assoc($resulth01)) {
+// add parameterized query
+$resulth01 = sqlSelect('SELECT * FROM hari ORDER BY h_id ASC', NULL, true);
+
+foreach ($resulth01 as $rowh01) {
+// while ($rowh01 = mysql_fetch_assoc($resulth01)) {
 if($rowh01['h_name'] == $dhari){
 	$tunjukh01 = "selected";
 }else{
@@ -367,19 +377,19 @@ print "<option value='$rowm02[m_code]' $tunjukm02>$rowm02[m_name]</option>";
 -->
 <tr>
 <td colspan="3" align="center">
-<?php $_SESSION['u_idnum'] =  $row['u_idnum'] ?>
-<?php $_SESSION['u_nama'] =  $row['u_nama'] ?>
-<?php $_SESSION['u_emel'] =  $row['u_emel'] ?>
-<?php $_SESSION['u_jab'] =  $row['u_jab'] ?>
-<?php $_SESSION['u_knama'] =  $row['u_knama'] ?>
-<?php $_SESSION['u_kemel'] =  $row['u_kemel'] ?>
-<?php $_SESSION['k_code'] =  $row2['k_code'] ?>
-<?php $_SESSION['k_name'] =  $row2['k_name'] ?>
-<?php $_SESSION['k_loc'] =  $row2['k_loc'] ?>
-<?php $_SESSION['k_obj'] =  $row2['k_obj'] ?>
-<?php $_SESSION['k_sdate'] =  $row2['k_sdate'] ?>
-<?php $_SESSION['k_edate'] =  $row2['k_edate'] ?>
-<?php $_SESSION['k_time'] =  $row2['k_time'] ?>
+<?php $_SESSION['u_idnum'] 	=  $row['u_idnum'] ?>
+<?php $_SESSION['u_nama'] 	=  $row['u_nama'] ?>
+<?php $_SESSION['u_emel'] 	=  $row['u_emel'] ?>
+<?php $_SESSION['u_jab'] 		=  $row['u_jab'] ?>
+<?php $_SESSION['u_knama'] 	=  $row['u_knama'] ?>
+<?php $_SESSION['u_kemel'] 	=  $row['u_kemel'] ?>
+<?php $_SESSION['k_code'] 	=  $row2['k_code'] ?>
+<?php $_SESSION['k_name'] 	=  $row2['k_name'] ?>
+<?php $_SESSION['k_loc'] 		=  $row2['k_loc'] ?>
+<?php $_SESSION['k_obj'] 		=  $row2['k_obj'] ?>
+<?php $_SESSION['k_sdate'] 	=  $row2['k_sdate'] ?>
+<?php $_SESSION['k_edate'] 	=  $row2['k_edate'] ?>
+<?php $_SESSION['k_time'] 	=  $row2['k_time'] ?>
 <input type="hidden" name="kid" id="kid" value="<?php print $kid ?>">
 <input type="hidden" name="terai" id="terai" value="3">
 <input type="submit" name="button" id="button" value="  MOHON KURSUS  ">

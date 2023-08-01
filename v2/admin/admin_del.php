@@ -9,18 +9,24 @@
 <?php
 include("../conn.php");
 
-if(isset($_SESSION['terai']) && $_SESSION['terai'] == "admdel"){
+if(isset($_SESSION['terai']) && $_SESSION['terai'] == "admdel") {
 
-$tkhedit = date('Y-m-d H:i:s');
+	$tkhedit = date('Y-m-d H:i:s');
 
-$sql = "UPDATE admin SET a_status = '3' WHERE a_id = '$_SESSION[aid]'";
-$result = mysql_query($sql) or die(mysql_error());
+	/* $sql = "UPDATE admin SET a_status = '3' WHERE a_id = '$_SESSION[aid]'";
+	$result = mysql_query($sql) or die(mysql_error()); */
+
+	// add parameterized query
+	$result = sqlUpdate(
+		'UPDATE admin SET a_status = ? WHERE a_id = ?', 
+		array('3', $_SESSION['aid'])
+	);
 
 	unset($_SESSION['terai']);
 
-	$_SESSION['alert'] = "Proses padam maklumat admin berjaya.";
-	$_SESSION['redirek'] = "admin_list.php";
-	$_SESSION['toplus'] = "";
+	$_SESSION['alert'] 		= "Proses padam maklumat admin berjaya.";
+	$_SESSION['redirek'] 	= "admin_list.php";
+	$_SESSION['toplus'] 	= "";
 	$pageTitle = 'Kemaskini Admin';
 	include("../kosong.php");
 	exit;

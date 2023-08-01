@@ -9,39 +9,51 @@
 <?php
 include("../conn.php");
 
-if(isset($_SESSION['terai']) && $_SESSION['terai'] == "usrdel"){
+if(isset($_SESSION['terai']) && $_SESSION['terai'] == "usrdel") {
 
-$tkhedit = date('Y-m-d H:i:s');
+	$tkhedit = date('Y-m-d H:i:s');
 
-$sql = "UPDATE user SET u_status = '3' WHERE u_id = '$_SESSION[uid]'";
-$result = mysql_query($sql) or die(mysql_error());
+	/* $sql = "UPDATE user SET u_status = '3' WHERE u_id = '$_SESSION[uid]'";
+	$result = mysql_query($sql) or die(mysql_error()); */
+
+	// add parameterized query
+	$result = sqlUpdate(
+		'UPDATE user SET u_status = ? WHERE u_id = ?', 
+		array('3', $_SESSION['uid'])
+	);
 
 	unset($_SESSION['terai']);
 
-	$_SESSION['alert'] = "Proses padam maklumat user berjaya.";
-	$_SESSION['redirek'] = "user_list.php";
-	$_SESSION['toplus'] = "";
+	$_SESSION['alert'] 		= "Proses padam maklumat user berjaya.";
+	$_SESSION['redirek'] 	= "user_list.php";
+	$_SESSION['toplus'] 	= "";
 	$pageTitle = 'Kemaskini User';
 	include("../kosong.php");
 	exit;
 
-}else{
+} else {
 
-#SQL Injection fix
-$uid = addslashes($_GET["uid"]);
-if (strlen($uid)>11){
-exit;
-}
-$uid = (int)$uid;
-	
-$select = "
-SELECT u_id
-FROM user
-WHERE u_id LIKE '$uid'
-ORDER BY u_id ASC
-";
-$result = mysql_query($select) or die("Query failed");
-$row = mysql_fetch_assoc($result);
+	#SQL Injection fix
+	$uid = addslashes($_GET["uid"]);
+	if (strlen($uid) > 11) {
+		exit;
+	}
+	$uid = (int)$uid;
+		
+	/* $select = "
+	SELECT u_id
+	FROM user
+	WHERE u_id LIKE '$uid'
+	ORDER BY u_id ASC
+	";
+	$result = mysql_query($select) or die("Query failed");
+	$row = mysql_fetch_assoc($result); */
+
+	// add parameterized query
+	$row = sqlSelect(
+		'SELECT u_id FROM user WHERE u_id LIKE ? ORDER BY u_id ASC', 
+		array($uid)
+	);
 
 }
 ?>

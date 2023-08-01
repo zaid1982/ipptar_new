@@ -14,49 +14,61 @@
 #include("header.php");
 include("../conn.php");
 
-if(isset($_POST['submit'])){
+if(isset($_POST['submit'])) {
 
-$sql = "UPDATE user SET u_status = '$_POST[status]' WHERE u_id = '$_POST[uid]'";
-$result = mysql_query($sql) or die(mysql_error());
+	/* $sql = "UPDATE user SET u_status = '$_POST[status]' WHERE u_id = '$_POST[uid]'";
+	$result = mysql_query($sql) or die(mysql_error()); */
 
-	$_SESSION['alert'] = "Kemaskini berjaya.";
-	$_SESSION['redirek'] = "profil_list.php";
-	$_SESSION['toplus'] = "";
+	// add parameterized query
+	$result = sqlUpdate(
+		'UPDATE user SET u_status = ? WHERE u_id = ?', 
+		array($_POST['status'], $_POST['uid'])
+	);
+
+	$_SESSION['alert'] 		= "Kemaskini berjaya.";
+	$_SESSION['redirek'] 	= "profil_list.php";
+	$_SESSION['toplus'] 	= "";
 	$pageTitle = 'Kemaskini Pemohon';
 	include("../kosong.php");
 	exit;
 
-}else{
+} else {
 
-#SQL Injection fix
-$uid = addslashes($_GET["uid"]);
-if (strlen($uid)>11){
-exit;
-}
-$uid = (int)$uid;
-	
-$select = "
-SELECT u_status
-FROM user
-WHERE u_id LIKE '$uid'
-ORDER BY u_id ASC
-";
-$result = mysql_query($select) or die("Query failed");
-$row = mysql_fetch_assoc($result);
+	#SQL Injection fix
+	$uid = addslashes($_GET["uid"]);
+	if (strlen($uid) > 11) {
+	exit;
+	}
+	$uid = (int)$uid;
+		
+	/* $select = "
+	SELECT u_status
+	FROM user
+	WHERE u_id LIKE '$uid'
+	ORDER BY u_id ASC
+	";
+	$result = mysql_query($select) or die("Query failed");
+	$row = mysql_fetch_assoc($result); */
 
-if($row['u_status'] == "AKTIF"){
-	$pilih01 = "selected";
-	$pilih02 = "";
-	$pilih03 = "";
-}elseif($row['u_status'] == "TIDAK AKTIF"){
-	$pilih01 = "";
-	$pilih02 = "selected";
-	$pilih03 = "";
-}else{
-	$pilih01 = "";
-	$pilih02 = "";
-	$pilih03 = "selected";
-}
+	// add parameterized query
+	$row = sqlSelect(
+		'SELECT u_status FROM user WHERE u_id LIKE ? ORDER BY u_id ASC', 
+		array($uid)
+	);
+
+	if($row['u_status'] == "AKTIF"){
+		$pilih01 = "selected";
+		$pilih02 = "";
+		$pilih03 = "";
+	}elseif($row['u_status'] == "TIDAK AKTIF"){
+		$pilih01 = "";
+		$pilih02 = "selected";
+		$pilih03 = "";
+	}else{
+		$pilih01 = "";
+		$pilih02 = "";
+		$pilih03 = "selected";
+	}
 
 }
 ?>
@@ -93,4 +105,4 @@ if($row['u_status'] == "AKTIF"){
 
 </div><!--close container-->
 
-<?php include("bott
+<?php include("bottom.php"); ?>

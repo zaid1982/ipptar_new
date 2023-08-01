@@ -12,39 +12,63 @@ session_start();
 <?php
 include("../conn.php");
 
-if(isset($_SESSION['terai']) && $_SESSION['terai'] == "usredit"){
+if(isset($_SESSION['terai']) && $_SESSION['terai'] == "usredit") {
 	
-$key = $_SESSION['kodrawak']; 
-$number = $_SESSION['vercode'];
-# start captcha
-if(($number!=$key)||($number=="")){
-	
-	session_destroy();
-			
-	$_SESSION['alert'] = "Kod tidak valid. Sila cuba sekali lagi.";
-	$_SESSION['redirek'] = "user_list.php";
-	$_SESSION['toplus'] = "";
-	$pageTitle = 'Kemaskini User';
-	include("../kosong.php");
-	exit;
-	
-} else {}
-# end captcha	
+	$key 		= $_SESSION['kodrawak']; 
+	$number = $_SESSION['vercode'];
+	# start captcha
+	if(($number!=$key) || ($number=="")) {
+		
+		session_destroy();
+				
+		$_SESSION['alert'] 		= "Kod tidak valid. Sila cuba sekali lagi.";
+		$_SESSION['redirek'] 	= "user_list.php";
+		$_SESSION['toplus'] 	= "";
+		$pageTitle = 'Kemaskini User';
+		include("../kosong.php");
+		exit;
+		
+	} else {}
+	# end captcha	
 
-$select = "
-SELECT *
-FROM user
-WHERE u_id LIKE '$_SESSION[uid]'
-ORDER BY u_id ASC
-";
-$result = mysql_query($select) or die("Query failed");
-$row = mysql_fetch_assoc($result);
-$numrows = mysql_num_rows($result);
+	/* $select = "
+	SELECT *
+	FROM user
+	WHERE u_id LIKE '$_SESSION[uid]'
+	ORDER BY u_id ASC
+	";
+	$result = mysql_query($select) or die("Query failed");
+	$row = mysql_fetch_assoc($result);
+	$numrows = mysql_num_rows($result); */
 
-	if($numrows == "1"){
+	// add parameterized query
+	$row = sqlSelect(
+		'SELECT * FROM user WHERE u_id LIKE ? ORDER BY u_id ASC', 
+		array($_SESSION['uid'])
+	);
+	$rowCount	= sqlSelect(
+		'SELECT count(*) AS total FROM user WHERE u_id LIKE ? ORDER BY u_id ASC', 
+		array($_SESSION['uid'])
+	);
 
-		$sql = "UPDATE user SET u_pwd = '$_SESSION[pwd]', u_idnum = '$_SESSION[idnum]', u_nama = '$_SESSION[nama]', u_tel = '$_SESSION[tel]', u_emel = '$_SESSION[emel]' WHERE u_id = '$_SESSION[uid]'";
-		$result = mysql_query($sql) or die(mysql_error());
+	// if($numrows == "1"){
+	if ($rowCount['total'] == 1) {
+
+		/* $sql = "UPDATE user SET u_pwd = '$_SESSION[pwd]', u_idnum = '$_SESSION[idnum]', u_nama = '$_SESSION[nama]', u_tel = '$_SESSION[tel]', u_emel = '$_SESSION[emel]' WHERE u_id = '$_SESSION[uid]'";
+		$result = mysql_query($sql) or die(mysql_error()); */
+
+		// add parameterized query
+		$result = sqlUpdate(
+			'UPDATE user SET u_pwd = ?, u_idnum = ?, u_nama = ?, u_tel = ?, u_emel = ? WHERE u_id = ?', 
+			array(
+				$_SESSION['pwd'], 
+				$_SESSION['idnum'], 
+				$_SESSION['nama'], 
+				$_SESSION['tel'],
+				$_SESSION['emel'],
+				$_SESSION['uid']
+			)
+		);
 		
 		unset($_SESSION['terai']);
 		
@@ -57,15 +81,27 @@ $numrows = mysql_num_rows($result);
 		
 	}else{
 		
-		$sql = "INSERT INTO user (u_pwd,u_idnum,u_nama,u_tel,u_emel)
+		/* $sql = "INSERT INTO user (u_pwd,u_idnum,u_nama,u_tel,u_emel)
 		VALUES ('$_SESSION[pwd]', '$_SESSION[idnum]', '$_SESSION[nama]', '$_SESSION[tel]', '$_SESSION[emel]')";
-		$result = mysql_query($sql) or die(mysql_error());
+		$result = mysql_query($sql) or die(mysql_error()); */
+
+		// add parameterized query
+		$result = sqlInsert(
+			'INSERT INTO user (u_pwd, u_idnum, u_nama, u_tel, u_emel) VALUES (?, ?, ?, ?, ?)', 
+			array(
+				$_SESSION['pwd'], 
+				$_SESSION['idnum'], 
+				$_SESSION['nama'], 
+				$_SESSION['tel'], 
+				$_SESSION['emel']
+			)
+		);
 		
 		unset($_SESSION['terai']);
 		
-		$_SESSION['alert'] = "Tambah user berjaya.";
-		$_SESSION['redirek'] = "user_list.php";
-		$_SESSION['toplus'] = "";
+		$_SESSION['alert'] 		= "Tambah user berjaya.";
+		$_SESSION['redirek'] 	= "user_list.php";
+		$_SESSION['toplus'] 	= "";
 		$pageTitle = 'Kemaskini User';
 		include("../kosong.php");
 		exit;

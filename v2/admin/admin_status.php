@@ -11,37 +11,49 @@ include("../conn.php");
 
 if(isset($_SESSION['terai']) && $_SESSION['terai'] == "admstat"){
 
-$aid = (int)$_SESSION['aid'];
+	$aid = (int)$_SESSION['aid'];
 
-$sql = "UPDATE admin SET a_status = '$_SESSION[status]' WHERE a_id = '$aid'";
-$result = mysql_query($sql) or die(mysql_error());
+	/* $sql = "UPDATE admin SET a_status = '$_SESSION[status]' WHERE a_id = '$aid'";
+	$result = mysql_query($sql) or die(mysql_error()); */
+
+	// add parameterized query
+	$result = sqlUpdate(
+		'UPDATE admin SET a_status = ? WHERE a_id = ?', 
+		array($_SESSION['status'], $aid)
+	);
 
 	unset($_SESSION['terai']);
 
-	$_SESSION['alert'] = "Kemaskini berjaya.";
-	$_SESSION['redirek'] = "admin_list.php";
-	$_SESSION['toplus'] = "";
+	$_SESSION['alert'] 		= "Kemaskini berjaya.";
+	$_SESSION['redirek'] 	= "admin_list.php";
+	$_SESSION['toplus'] 	= "";
 	$pageTitle = 'Kemaskini Admin';
 	include("../kosong.php");
 	exit;
 
-}else{
+} else {
 
 #SQL Injection fix
 $aid = addslashes($_GET["aid"]);
-if (strlen($aid)>11){
-exit;
+if (strlen($aid)>11) {
+	exit;
 }
 $aid = (int)$aid;
 	
-$select = "
+/* $select = "
 SELECT a_status
 FROM admin
 WHERE a_id LIKE '$aid'
 ORDER BY a_id ASC
 ";
 $result = mysql_query($select) or die("Query failed");
-$row = mysql_fetch_assoc($result);
+$row = mysql_fetch_assoc($result); */
+
+// add parameterized query
+$row = sqlSelect(
+	'SELECT a_status FROM admin WHERE a_id LIKE ? ORDER BY a_id ASC', 
+	array($aid)
+);
 
 }
 ?>

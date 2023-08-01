@@ -12,22 +12,60 @@
 #include("header.php");
 include("../conn.php");
 
-if(isset($_POST['idnum'])){
+if(isset($_POST['idnum'])) {
 
-$sql = "INSERT INTO user (u_idnum,u_nama,u_jantina,u_dob,u_tel,u_jwt,u_jwttingkat,u_jwtklas,u_jwtgred,u_jwttaraf,u_jkhidmat,u_tkhlantik,u_emel,u_knama,u_kjwt,u_kemel,u_alamatkjab,u_jab,u_jabaddr1,u_jabaddr2,u_jabpkod,u_jabbandar,u_jabnegeri,u_jabtel,u_jabfax)
-VALUES ('$_POST[idnum]', '$_POST[nama]', '$_POST[jantina]', '$_POST[tlhari].$_POST[tlbulan].$_POST[tltahun]','$_POST[tel]','$_POST[jawatan]','$_POST[peringkat]','$_POST[klasifikasi]','$_POST[gred]','$_POST[taraf]','$_POST[khidmat]','$_POST[hari_lantik].$_POST[bulan_lantik].$_POST[tahun_lantik]','$_POST[emel]','$_POST[ketua]','$_POST[ketuajwt]','$_POST[ketuaemel]''$_POST[jab]','$_POST[jabaddr1]','$_POST[jabaddr2]','$_POST[jabpkod]','$_POST[jabbandar]','$_POST[jabnegeri]','$_POST[jabnegeri]','$_POST[jabtel]','$_POST[jabfax]')";
-$result = mysql_query($sql) or die(mysql_error());
+  /* $sql = "INSERT INTO user (u_idnum,u_nama,u_jantina,u_dob,u_tel,u_jwt,u_jwttingkat,u_jwtklas,u_jwtgred,u_jwttaraf,u_jkhidmat,u_tkhlantik,u_emel,u_knama,u_kjwt,u_kemel,u_alamatkjab,u_jab,u_jabaddr1,u_jabaddr2,u_jabpkod,u_jabbandar,u_jabnegeri,u_jabtel,u_jabfax)
+  VALUES ('$_POST[idnum]', '$_POST[nama]', '$_POST[jantina]', '$_POST[tlhari].$_POST[tlbulan].$_POST[tltahun]','$_POST[tel]','$_POST[jawatan]','$_POST[peringkat]','$_POST[klasifikasi]','$_POST[gred]','$_POST[taraf]','$_POST[khidmat]','$_POST[hari_lantik].$_POST[bulan_lantik].$_POST[tahun_lantik]','$_POST[emel]','$_POST[ketua]','$_POST[ketuajwt]','$_POST[ketuaemel]''$_POST[jab]','$_POST[jabaddr1]','$_POST[jabaddr2]','$_POST[jabpkod]','$_POST[jabbandar]','$_POST[jabnegeri]','$_POST[jabnegeri]','$_POST[jabtel]','$_POST[jabfax]')";
+  $result = mysql_query($sql) or die(mysql_error()); */
 
-}else{
+  // add parameterized query
+  $result = sqlInsert(
+    'INSERT INTO user (u_idnum, u_nama, u_jantina, u_dob, u_tel, u_jwt, u_jwttingkat, u_jwtklas, u_jwtgred, u_jwttaraf, u_jkhidmat, u_tkhlantik, u_emel, u_knama, u_kjwt, u_kemel, u_alamatkjab, u_jab, u_jabaddr1, u_jabaddr2, u_jabpkod, u_jabbandar, u_jabnegeri, u_jabtel, u_jabfax) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)', 
+    array(
+      $_POST['idnum'],
+      $_POST['nama'],
+      $_POST['jantina'],
+      $_POST['tlhari'].$_POST['tlbulan'].$_POST['tltahun'],
+      $_POST['tel'],
+      $_POST['jawatan'],
+      $_POST['peringkat'],
+      $_POST['klasifikasi'],
+      $_POST['gred'],
+      $_POST['taraf'],
+      $_POST['khidmat'],
+      $_POST['hari_lantik'].$_POST['bulan_lantik'].$_POST['tahun_lantik'],
+      $_POST['emel'],
+      $_POST['ketua'],
+      $_POST['ketuajwt'],
+      $_POST['ketuaemel'],
+      $_POST['alamatkjab'],
+      $_POST['jab'],
+      $_POST['jabaddr1'],
+      $_POST['jabaddr2'],
+      $_POST['jabpkod'],
+      $_POST['jabbandar'],
+      $_POST['jabnegeri'],
+      $_POST['jabtel'],
+      $_POST['jabfax']
+    )
+  );
+
+} else {
 	
-$select = "
-SELECT *
-FROM user
-WHERE u_idnum LIKE '%$_GET[idnum]%'
-ORDER BY u_id ASC
-";
-$result = mysql_query($select) or die("Query failed");
-$row = mysql_fetch_assoc($result);
+  /* $select = "
+  SELECT *
+  FROM user
+  WHERE u_idnum LIKE '%$_GET[idnum]%'
+  ORDER BY u_id ASC
+  ";
+  $result = mysql_query($select) or die("Query failed");
+  $row = mysql_fetch_assoc($result); */
+
+  // add parameterized query
+	$row = sqlSelect(
+		'SELECT * FROM user WHERE u_idnum LIKE ? ORDER BY u_id ASC', 
+		array($_GET['idnum'])
+	);
 
 }
 ?>

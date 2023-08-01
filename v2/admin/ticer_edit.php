@@ -16,101 +16,130 @@ exit;
 }
 $adm = (int)$adm;
 
-if(isset($_SESSION['terai']) && $_SESSION['terai'] == "ticedit"){
+if(isset($_SESSION['terai']) && $_SESSION['terai'] == "ticedit") {
 	
-$key = $_SESSION['kodrawak']; 
-$number = $_SESSION['vercode'];
-# start captcha
-if(($number!=$key)||($number=="")){
-	
-	session_destroy();
-			
-	$_SESSION['alert'] = "Kod tidak valid. Sila cuba sekali lagi.";
-	$_SESSION['redirek'] = "ticer_list.php";
-	$_SESSION['toplus'] = "";
-	$pageTitle = 'Kemaskini Pengajar';
-	include("../kosong.php");
-	exit;
-	
-} else {}
-# end captcha	
+	$key 		= $_SESSION['kodrawak']; 
+	$number = $_SESSION['vercode'];
+	# start captcha
+	if(($number!=$key)||($number=="")){
+		
+		session_destroy();
+				
+		$_SESSION['alert'] 		= "Kod tidak valid. Sila cuba sekali lagi.";
+		$_SESSION['redirek'] 	= "ticer_list.php";
+		$_SESSION['toplus'] 	= "";
+		$pageTitle = 'Kemaskini Pengajar';
+		include("../kosong.php");
+		exit;
+		
+	} else {}
+	# end captcha	
 
-$select = "
-SELECT *
-FROM ticer
-WHERE t_id LIKE '$_SESSION[tid]'
-ORDER BY t_id ASC
-";
-$result = mysql_query($select) or die("Query failed");
-$row = mysql_fetch_assoc($result);
-$numrows = mysql_num_rows($result);
+	$select = "
+	SELECT *
+	FROM ticer
+	WHERE t_id LIKE '$_SESSION[tid]'
+	ORDER BY t_id ASC
+	";
+	$result = mysql_query($select) or die("Query failed");
+	$row = mysql_fetch_assoc($result);
+	$numrows = mysql_num_rows($result);
 
-	if($numrows == "1"){
+	// add parameterized query
+	$rowCount = sqlSelect(
+		'SELECT count(*) AS total FROM ticer WHERE t_id = ? ORDER BY t_id ASC', 
+		array($_SESSION['tid'])
+	);
+	$result = sqlSelect(
+		'SELECT * FROM ticer WHERE t_id = ? ORDER BY t_id ASC', 
+		array($_SESSION['tid'])
+	);
 
-		$sql = "UPDATE ticer SET t_nama = '$_SESSION[nama]', t_kid = '$_SESSION[kursus]' WHERE t_id = '$_SESSION[tid]'";
-		$result = mysql_query($sql) or die(mysql_error());
+	// if($numrows == "1"){
+	if($rowCount['total'] == 0){
+
+		/* $sql = "UPDATE ticer SET t_nama = '$_SESSION[nama]', t_kid = '$_SESSION[kursus]' WHERE t_id = '$_SESSION[tid]'";
+		$result = mysql_query($sql) or die(mysql_error()); */
+
+		// add parameterized query
+		$result = sqlUpdate(
+			'UPDATE ticer SET t_nama = ?, t_kid = ? WHERE t_id = ?', 
+			array($_SESSION['nama'], $_SESSION['kursus'], $_SESSION['tid'])
+		);
 		
 		unset($_SESSION['terai']);
 		
-		$_SESSION['alert'] = "Kemaskini maklumat pengajar berjaya.";
-		$_SESSION['redirek'] = "ticer_list.php";
-		$_SESSION['toplus'] = "";
+		$_SESSION['alert'] 		= "Kemaskini maklumat pengajar berjaya.";
+		$_SESSION['redirek'] 	= "ticer_list.php";
+		$_SESSION['toplus'] 	= "";
 		$pageTitle = 'Kemaskini Pengajar';
 		include("../kosong.php");
 		exit;
 		
 	}else{
 		
-		$sql = "INSERT INTO ticer (t_nama,t_kid)
+		/* $sql = "INSERT INTO ticer (t_nama,t_kid)
 		VALUES ('$_SESSION[nama]', '$_SESSION[kid]')";
-		$result = mysql_query($sql) or die(mysql_error());
+		$result = mysql_query($sql) or die(mysql_error()); */
+
+		// add parameterized query
+		$result = sqlInsert(
+			'INSERT INTO ticer (t_nama, t_kid) VALUES (?, ?)', 
+			array($_SESSION['nama'], $_SESSION['kid'])
+		);
 		
 		unset($_SESSION['terai']);
 		
-		$_SESSION['alert'] = "Tambah pengajar baru telah berjaya.";
-		$_SESSION['redirek'] = "ticer_list.php";
-		$_SESSION['toplus'] = "";
+		$_SESSION['alert'] 		= "Tambah pengajar baru telah berjaya.";
+		$_SESSION['redirek'] 	= "ticer_list.php";
+		$_SESSION['toplus'] 	= "";
 		$pageTitle = 'Tambah Pengajar Baru';
 		include("../kosong.php");
 		exit;
 		
 	}
 	
-}elseif(isset($adm) && $adm == "1"){
+} elseif(isset($adm) && $adm == "1") {
 	
 	$row['t_id'] = "";
 	$row['t_nama'] = "";
 	$row['t_kid'] = "";
 		
-}else{	
+} else {	
 	
-$rawak = substr(str_shuffle('abcdefghijklmnopqrstuvwxyz1234567890'), 0, 6); //set your characters or numbers and the amount of text here.
+	$rawak = substr(str_shuffle('abcdefghijklmnopqrstuvwxyz1234567890'), 0, 6); //set your characters or numbers and the amount of text here.
 
-if($_SESSION['MyLevel'] == "1" && $_SESSION['MyLevel'] == "5"){
-	$lvl = "k_bid < '4'";
-}elseif($_SESSION['MyLevel'] == "2"){
-	$lvl = "k_bid = '1'";
-}elseif($_SESSION['MyLevel'] == "3"){
-	$lvl = "k_bid = '2'";
-}else{
-	$lvl = "k_bid = '3'";
-}
+	if($_SESSION['MyLevel'] == "1" && $_SESSION['MyLevel'] == "5") {
+		$lvl = "k_bid < '4'";
+	} elseif($_SESSION['MyLevel'] == "2") {
+		$lvl = "k_bid = '1'";
+	} elseif($_SESSION['MyLevel'] == "3") {
+		$lvl = "k_bid = '2'";
+	} else {
+		$lvl = "k_bid = '3'";
+	}
 
-#SQL Injection fix
-$tid = addslashes($_GET["tid"]);
-if (strlen($tid)>11){
-exit;
-}
-$tid = (int)$tid;
-	
-$select = "
-SELECT *
-FROM ticer a, kursus b
-WHERE a.t_kid = b.k_id AND a.t_id LIKE '$tid' AND b.$lvl
-ORDER BY a.t_id ASC
-";
-$result = mysql_query($select) or die("Query failed");
-$row = mysql_fetch_assoc($result);
+	#SQL Injection fix
+	$tid = addslashes($_GET["tid"]);
+	if (strlen($tid)>11){
+	exit;
+	}
+	$tid = (int)$tid;
+		
+	$select = "
+	SELECT *
+	FROM ticer a, kursus b
+	WHERE a.t_kid = b.k_id AND a.t_id LIKE '$tid' AND b.$lvl
+	ORDER BY a.t_id ASC
+	";
+	$result = mysql_query($select) or die("Query failed");
+	$row = mysql_fetch_assoc($result);
+
+	// add parameterized query
+	/* $row = sqlSelect(
+		'SELECT * FROM ticer a, kursus b WHERE a.t_kid = b.k_id AND a.t_id LIKE ? AND b.? ORDER BY a.t_id ASC', 
+		array($tid, $lvl)
+	); */
 
 }
 ?>

@@ -13,54 +13,71 @@
 <?php
 include("../conn.php");
 
-if(isset($_POST['submit'])){
+if(isset($_POST['submit'])) {
 
-if($_POST['pwd'] == $_POST['pwd2']){
+  if($_POST['pwd'] == $_POST['pwd2']) {
 
-$select = "
-SELECT a_idnum
-FROM admin
-WHERE a_idnum = '$_POST[idnum]'
-ORDER BY a_id ASC
-";
-$result = mysql_query($select) or die("Query failed");
-$row = mysql_fetch_assoc($result);
+    /* $select = "
+    SELECT a_idnum
+    FROM admin
+    WHERE a_idnum = '$_POST[idnum]'
+    ORDER BY a_id ASC
+    ";
+    $result = mysql_query($select) or die("Query failed");
+    $row = mysql_fetch_assoc($result); */
 
-if (mysql_num_rows($result) == 1) {
+    // add parameterized query
+    $rowCount = sqlSelect(
+      'SELECT count(a_idnum) AS total FROM admin WHERE a_idnum = ? ORDER BY a_id ASC', 
+      array($_POST['idnum'])
+    );
+    $result = sqlSelect(
+      'SELECT a_idnum FROM admin WHERE a_idnum = ? ORDER BY a_id ASC', 
+      array($_POST['idnum'])
+    );
 
-$new_pwd = md5($_POST['pwd']);
+    // if (mysql_num_rows($result) == 1) {
+    if ($rowCount['total'] == 1) {
 
-$sql = "UPDATE admin SET a_status = '1', a_pwd = '$new_pwd' WHERE a_idnum = '$_POST[idnum]'";
-$result = mysql_query($sql) or die(mysql_error());
+      $new_pwd = md5($_POST['pwd']);
 
-$_SESSION['alert'] = "Kata laluan baru telah disimpan.";
-$_SESSION['redirek'] = "index.php";
-$_SESSION['toplus'] = "";
-$pageTitle = 'Lupa Kata Laluan';
-include("../kosong.php");
-exit;
+      /* $sql = "UPDATE admin SET a_status = '1', a_pwd = '$new_pwd' WHERE a_idnum = '$_POST[idnum]'";
+      $result = mysql_query($sql) or die(mysql_error()); */
 
-}else{
+      // add parameterized query
+      $result = sqlUpdate(
+        'UPDATE admin SET a_status = ?, a_pwd = ? WHERE a_idnum = ?', 
+        array('1', $new_pwd, $_POST['idnum'])
+      );
 
-$_SESSION['alert'] = "Emel tidak wujud. Sila hubungi Webmaster.";
-$_SESSION['redirek'] = "index.php";
-$_SESSION['toplus'] = "";
-$pageTitle = 'Lupa Kata Laluan';
-include("../kosong.php");
-exit;
+      $_SESSION['alert']    = "Kata laluan baru telah disimpan.";
+      $_SESSION['redirek']  = "index.php";
+      $_SESSION['toplus']   = "";
+      $pageTitle = 'Lupa Kata Laluan';
+      include("../kosong.php");
+      exit;
 
-}
+    } else {
 
-}else{}
+      $_SESSION['alert']    = "Emel tidak wujud. Sila hubungi Webmaster.";
+      $_SESSION['redirek']  = "index.php";
+      $_SESSION['toplus']   = "";
+      $pageTitle = 'Lupa Kata Laluan';
+      include("../kosong.php");
+      exit;
 
-}else{
+    }
 
-#SQL Injection fix
-$id = addslashes($_GET["id"]);
-if (strlen($id)>12){
-exit;
-}
-$id = $id;
+  } else {}
+
+} else {
+
+  #SQL Injection fix
+  $id = addslashes($_GET["id"]);
+  if (strlen($id) > 12){
+    exit;
+  }
+  $id = $id;
 
 }
 ?>

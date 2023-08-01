@@ -11,71 +11,98 @@ include("../conn.php");
 
 $qstr=$_SERVER['QUERY_STRING'];
 
-if(isset($_SESSION['terai']) && $_SESSION['terai'] == "mohedit"){
+if(isset($_SESSION['terai']) && $_SESSION['terai'] == "mohedit") {
 
-$_SESSION['k_sdate'] = date('d-m-Y', strtotime($_SESSION['k_sdate']));
-$_SESSION['k_edate'] = date('d-m-Y', strtotime($_SESSION['k_edate']));
-$tkhlulus = date('Y-m-d H:i:s');
-$tkhedit = date('Y-m-d H:i:s');
+	$_SESSION['k_sdate'] = date('d-m-Y', strtotime($_SESSION['k_sdate']));
+	$_SESSION['k_edate'] = date('d-m-Y', strtotime($_SESSION['k_edate']));
 
-#$sql = "UPDATE pilih SET p_status = '$_SESSION[status]', p_tkhlulus = '$tkhlulus' WHERE p_id = '$_SESSION[pid]'";
-#$result = mysql_query($sql) or die(mysql_error());
+	$tkhlulus = date('Y-m-d H:i:s');
+	$tkhedit 	= date('Y-m-d H:i:s');
 
-#$sql = "INSERT INTO pilih_log (p_status, p_tkhlulus, p_id, p_aid, p_aname, p_tkhedit, p_action) VALUES ('$_SESSION[status]', '$tkhlulus', '$_SESSION[pid]', '$_SESSION[MyID]', '$_SESSION[MyNama]', '$tkhedit', 'Status Mohon' )";
-#$result = mysql_query($sql) or die(mysql_error());
+	#$sql = "UPDATE pilih SET p_status = '$_SESSION[status]', p_tkhlulus = '$tkhlulus' WHERE p_id = '$_SESSION[pid]'";
+	#$result = mysql_query($sql) or die(mysql_error());
 
-if($_SESSION['status'] == '5'){
-include("mohon_emel_lulus.php");
-//include("e.php");
-}elseif($_SESSION['status'] == '6'){
-include("mohon_emel_gagal.php");
-}else{}
+	#$sql = "INSERT INTO pilih_log (p_status, p_tkhlulus, p_id, p_aid, p_aname, p_tkhedit, p_action) VALUES ('$_SESSION[status]', '$tkhlulus', '$_SESSION[pid]', '$_SESSION[MyID]', '$_SESSION[MyNama]', '$tkhedit', 'Status Mohon' )";
+	#$result = mysql_query($sql) or die(mysql_error());
 
-unset($_SESSION['terai']);
+	if($_SESSION['status'] == '5') {
+		include("mohon_emel_lulus.php");
+		//include("e.php");
+	} elseif($_SESSION['status'] == '6') {
+		include("mohon_emel_gagal.php");
+	} else {}
 
-#start update
-#echo "xxx".$_SESSION['qstr'];
-#if($_SESSION['xxx'] != "ok"){
+	unset($_SESSION['terai']);
 
-$sql = "UPDATE pilih SET p_status = '$_SESSION[status]', p_tkhlulus = '$tkhlulus', p_hadir = '10' WHERE p_id = '$_SESSION[pid]'";
-$result = mysql_query($sql) or die(mysql_error());
+	#start update
+	#echo "xxx".$_SESSION['qstr'];
+	#if($_SESSION['xxx'] != "ok"){
 
-$sql = "INSERT INTO pilih_log (p_status, p_tkhlulus, p_id, p_aid, p_aname, p_tkhedit, p_action)
-		VALUES ('$_SESSION[status]', '$tkhlulus', '$_SESSION[pid]', '$_SESSION[MyID]', '$_SESSION[MyNama]', '$tkhedit', 'Status Mohon' )";
-$result = mysql_query($sql) or die(mysql_error());
+	/* $sql = "UPDATE pilih SET p_status = '$_SESSION[status]', p_tkhlulus = '$tkhlulus', p_hadir = '10' WHERE p_id = '$_SESSION[pid]'";
+	$result = mysql_query($sql) or die(mysql_error()); */
 
-$_SESSION['alert'] = "Kemaskini berjaya.";
+	// add parameterized query
+	$result = sqlUpdate(
+		'UPDATE pilih SET p_status = ?, p_tkhlulus = ?, p_hadir = ? WHERE p_id = ?', 
+		array($_SESSION['status'], $tkhlulus, '10', $_SESSION['pid'])
+	);
 
-#}else{
+	/* $sql = "INSERT INTO pilih_log (p_status, p_tkhlulus, p_id, p_aid, p_aname, p_tkhedit, p_action)
+			VALUES ('$_SESSION[status]', '$tkhlulus', '$_SESSION[pid]', '$_SESSION[MyID]', '$_SESSION[MyNama]', '$tkhedit', 'Status Mohon' )";
+	$result = mysql_query($sql) or die(mysql_error()); */
 
-#$_SESSION['alert'] = "Kemaskini tidak berjaya... Sila cuba sebentar lagi.";
+	// add parameterized query
+	$result = sqlInsert(
+		'INSERT INTO pilih_log (p_status, p_tkhlulus, p_id, p_aid, p_aname, p_tkhedit, p_action) VALUES (?, ?, ?, ?, ?, ?, ?)', 
+		array(
+			$_SESSION['status'], 
+			$tkhlulus,
+			$_SESSION['pid'], 
+			$_SESSION['MyID'], 
+			$_SESSION['MyNama'], 
+			$tkhedit, 
+			'Status Mohon'
+		)
+	);
 
-#}
-#end update
+	$_SESSION['alert'] = "Kemaskini berjaya.";
 
-$_SESSION['redirek'] = "mohon.php?".$_SESSION['qstr'];
-$_SESSION['toplus'] = "";
-$pageTitle = 'Kemaskini Permohonan';
-include("../kosong.php");
-exit;
+	#}else{
 
-}else{
+	#$_SESSION['alert'] = "Kemaskini tidak berjaya... Sila cuba sebentar lagi.";
 
-#SQL Injection fix
-$pid = addslashes($_GET["pid"]);
-if (strlen($pid)>11){
-exit;
-}
-$pid = (int)$pid;
-	
-$select = "
-SELECT *
-FROM pilih a, user b, kursus c
-WHERE a.p_uid = b.u_id AND a.p_kid = c.k_id AND p_id LIKE '$pid'
-ORDER BY p_id ASC
-";
-$result = mysql_query($select) or die("Query failed");
-$row = mysql_fetch_assoc($result);
+	#}
+	#end update
+
+	$_SESSION['redirek'] 	= "mohon.php?".$_SESSION['qstr'];
+	$_SESSION['toplus'] 	= "";
+	$pageTitle 						= 'Kemaskini Permohonan';
+	include("../kosong.php");
+	exit;
+
+} else {
+
+	#SQL Injection fix
+	$pid = addslashes($_GET["pid"]);
+	if (strlen($pid) > 11) {
+		exit;
+	}
+	$pid = (int)$pid;
+		
+	/* $select = "
+	SELECT *
+	FROM pilih a, user b, kursus c
+	WHERE a.p_uid = b.u_id AND a.p_kid = c.k_id AND p_id LIKE '$pid'
+	ORDER BY p_id ASC
+	";
+	$result = mysql_query($select) or die("Query failed");
+	$row = mysql_fetch_assoc($result); */
+
+	// add parameterized query
+	$row = sqlSelect(
+		'SELECT * FROM pilih a, user b, kursus c WHERE a.p_uid = b.u_id AND a.p_kid = c.k_id AND p_id LIKE ? ORDER BY p_id ASC', 
+		array($pid)
+	);
 
 }
 ?>

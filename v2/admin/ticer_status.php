@@ -9,39 +9,51 @@
 <?php
 include("../conn.php");
 
-if(isset($_SESSION['terai']) && $_SESSION['terai'] == "ticstat"){
+if(isset($_SESSION['terai']) && $_SESSION['terai'] == "ticstat") {
 
-$tid = (int)$_SESSION['tid'];
+	$tid = (int)$_SESSION['tid'];
 
-$sql = "UPDATE ticer SET t_status = '$_SESSION[status]' WHERE t_id = '$tid'";
-$result = mysql_query($sql) or die(mysql_error());
+	/* $sql = "UPDATE ticer SET t_status = '$_SESSION[status]' WHERE t_id = '$tid'";
+	$result = mysql_query($sql) or die(mysql_error()); */
+
+	// add parameterized query
+	$result = sqlUpdate(
+		'UPDATE ticer SET t_status = ? WHERE t_id = ?', 
+		array($_SESSION['status'], $tid)
+	);
 
 	unset($_SESSION['terai']);
 
-	$_SESSION['alert'] = "Kemaskini berjaya.";
-	$_SESSION['redirek'] = "misc.php";
-	$_SESSION['toplus'] = "";
+	$_SESSION['alert'] 		= "Kemaskini berjaya.";
+	$_SESSION['redirek'] 	= "misc.php";
+	$_SESSION['toplus'] 	= "";
 	$pageTitle = 'Kemaskini Pengajar';
 	include("../kosong.php");
 	exit;
 
-}else{
+} else {
 
-#SQL Injection fix
-$tid = addslashes($_GET["tid"]);
-if (strlen($tid)>11){
-exit;
-}
-$tid = (int)$tid;
-	
-$select = "
-SELECT t_status
-FROM ticer
-WHERE t_id LIKE '$tid'
-ORDER BY t_id ASC
-";
-$result = mysql_query($select) or die("Query failed");
-$row = mysql_fetch_assoc($result);
+	#SQL Injection fix
+	$tid = addslashes($_GET["tid"]);
+	if (strlen($tid) > 11) {
+		exit;
+	}
+	$tid = (int)$tid;
+		
+	/* $select = "
+	SELECT t_status
+	FROM ticer
+	WHERE t_id LIKE '$tid'
+	ORDER BY t_id ASC
+	";
+	$result = mysql_query($select) or die("Query failed");
+	$row = mysql_fetch_assoc($result); */
+
+	// add parameterized query
+	$row = sqlSelect(
+		'SELECT t_status FROM ticer WHERE t_id LIKE ? ORDER BY t_id ASC', 
+		array($tid)
+	);
 
 }
 ?>

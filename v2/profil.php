@@ -4,76 +4,83 @@ include("conn.php");
 
 if(isset($_POST['terai']) && $_POST['terai'] == "profil"){
 	
-	$_SESSION['terai'] 			=	addslashes($_POST['terai']);
-	$_SESSION['kodrawak'] 		= 	addslashes($_POST['kodrawak']); 
-	$_SESSION['vercode'] 		= 	addslashes($_POST['vercode']);
+	$_SESSION['terai'] 				=	addslashes($_POST['terai']);
+	$_SESSION['kodrawak'] 		= addslashes($_POST['kodrawak']); 
+	$_SESSION['vercode'] 			= addslashes($_POST['vercode']);
 		
-	$_SESSION['idnum']			=	addslashes($_POST['idnum']);
-	$_SESSION['pwd']			=	$_POST['pwd'];
-	$_SESSION['nama']			=	addslashes($_POST['nama']);
-	$_SESSION['jantina']		=	addslashes($_POST['jantina']);
-	$_SESSION['tltahun']		=	addslashes($_POST['tltahun']);
-	$_SESSION['tlbulan']		=	addslashes($_POST['tlbulan']);
-	$_SESSION['tlhari']			=	addslashes($_POST['tlhari']);
-	$_SESSION['tel']			=	addslashes($_POST['tel']);
-	$_SESSION['jawatan']		=	addslashes($_POST['jawatan']);
+	$_SESSION['idnum']				=	addslashes($_POST['idnum']);
+	$_SESSION['pwd']					=	$_POST['pwd'];
+	$_SESSION['nama']					=	addslashes($_POST['nama']);
+	$_SESSION['jantina']			=	addslashes($_POST['jantina']);
+	$_SESSION['tltahun']			=	addslashes($_POST['tltahun']);
+	$_SESSION['tlbulan']			=	addslashes($_POST['tlbulan']);
+	$_SESSION['tlhari']				=	addslashes($_POST['tlhari']);
+	$_SESSION['tel']					=	addslashes($_POST['tel']);
+	$_SESSION['jawatan']			=	addslashes($_POST['jawatan']);
 	$_SESSION['peringkat']		=	addslashes($_POST['peringkat']);
 	$_SESSION['klasifikasi']	=	addslashes($_POST['klasifikasi']);
-	$_SESSION['gred']			=	addslashes($_POST['gred']);
-	$_SESSION['taraf']			=	addslashes($_POST['taraf']);
-	$_SESSION['khidmat']		=	addslashes($_POST['khidmat']);
+	$_SESSION['gred']					=	addslashes($_POST['gred']);
+	$_SESSION['taraf']				=	addslashes($_POST['taraf']);
+	$_SESSION['khidmat']			=	addslashes($_POST['khidmat']);
 	$_SESSION['tahun_lantik']	=	addslashes($_POST['tahun_lantik']);
 	$_SESSION['bulan_lantik']	=	addslashes($_POST['bulan_lantik']);
 	$_SESSION['hari_lantik']	=	addslashes($_POST['hari_lantik']);
-	$_SESSION['emel']			=	addslashes($_POST['emel']);
-	$_SESSION['ketua']			=	addslashes($_POST['ketua']);
-	$_SESSION['ketuajwt']		=	addslashes($_POST['ketuajwt']);
+	$_SESSION['emel']					=	addslashes($_POST['emel']);
+	$_SESSION['ketua']				=	addslashes($_POST['ketua']);
+	$_SESSION['ketuajwt']			=	addslashes($_POST['ketuajwt']);
 	$_SESSION['ketuaemel']		=	addslashes($_POST['ketuaemel']);
 	$_SESSION['alamatkjab']		=	addslashes($_POST['alamatkjab']);
-	$_SESSION['jab']			=	addslashes($_POST['jab']);
-	$_SESSION['jabaddr1']		=	addslashes($_POST['jabaddr1']);
-	$_SESSION['jabaddr2']		=	addslashes($_POST['jabaddr2']);
-	$_SESSION['jabpkod']		=	addslashes($_POST['jabpkod']);
+	$_SESSION['jab']					=	addslashes($_POST['jab']);
+	$_SESSION['jabaddr1']			=	addslashes($_POST['jabaddr1']);
+	$_SESSION['jabaddr2']			=	addslashes($_POST['jabaddr2']);
+	$_SESSION['jabpkod']			=	addslashes($_POST['jabpkod']);
 	$_SESSION['jabbandar']		=	addslashes($_POST['jabbandar']);
 	$_SESSION['jabnegeri']		=	addslashes($_POST['jabnegeri']);
-	$_SESSION['jabtel']			=	addslashes($_POST['jabtel']);
+	$_SESSION['jabtel']				=	addslashes($_POST['jabtel']);
+	$_SESSION['jabfax']				=	addslashes($_POST['jabfax']);
 
-?>
-<script type='text/javascript'>//<![CDATA[
-$(window).load(function(){
-$(document).ready(function () {
+	?>
+	<script type='text/javascript'>//<![CDATA[
+	$(window).load(function(){
+	$(document).ready(function () {
 
-    $("#profil").click(function (e) {
-        e.preventDefault();
-    });
-    $('#profil').trigger('click');
-});
-});//]]> 
-</script>
-<?php
-}else{
+			$("#profil").click(function (e) {
+					e.preventDefault();
+			});
+			$('#profil').trigger('click');
+	});
+	});//]]> 
+	</script>
+	<?php
+} else {
 	
-$rawak = substr(str_shuffle('abcdefghijklmnopqrstuvwxyz1234567890'), 0, 6); //set your characters or numbers and the amount of text here.	
+	$rawak = substr(str_shuffle('abcdefghijklmnopqrstuvwxyz1234567890'), 0, 6); //set your characters or numbers and the amount of text here.
 
-$select = "
-SELECT *
-FROM user
-WHERE u_id LIKE '$_SESSION[UsrID]'
-ORDER BY u_id ASC
-";
-$result = mysql_query($select) or die("Query failed");
-$row = mysql_fetch_assoc($result);
+	/* $select = "
+	SELECT *
+	FROM user
+	WHERE u_id LIKE '$_SESSION[UsrID]'
+	ORDER BY u_id ASC
+	";
+	$result = mysql_query($select) or die("Query failed");
+	$row = mysql_fetch_assoc($result); */
 
-$pieces01 = explode("-", $row['u_dob']);
-$dtahun = $pieces01[0];
-$dbulan = $pieces01[1];
-$dhari = $pieces01[2];
+	// add parameterized query
+	$row = sqlSelect(
+		'SELECT * FROM user WHERE u_id LIKE ? ORDER BY u_id ASC', 
+		array(addslashes($_SESSION['UsrID']))
+	);
 
-$pieces02 = explode("-", $row['u_tkhlantik']);
-$ltahun = $pieces02[0];
-$lbulan = $pieces02[1];
-$lhari = $pieces02[2];	
-	
+	$pieces01 = explode("-", $row['u_dob']);
+	$dtahun = $pieces01[0];
+	$dbulan = $pieces01[1];
+	$dhari = $pieces01[2];
+
+	$pieces02 = explode("-", $row['u_tkhlantik']);
+	$ltahun = $pieces02[0];
+	$lbulan = $pieces02[1];
+	$lhari = $pieces02[2];	
+		
 }
 ?>
 <div id="content">

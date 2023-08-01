@@ -9,66 +9,95 @@
 <?php
 include("../conn.php");
 
-if(isset($_SESSION['terai']) && $_SESSION['terai'] == "penedit"){
+if(isset($_SESSION['terai']) && $_SESSION['terai'] == "penedit") {
 	
-$select = "
-SELECT *
-FROM pengarah
-WHERE p_id LIKE '$_SESSION[pid]'
-ORDER BY p_id ASC
-";
-$result = mysql_query($select) or die("Query failed");
-$row = mysql_fetch_assoc($result);
-$numrows = mysql_num_rows($result);
+	/* $select = "
+	SELECT *
+	FROM pengarah
+	WHERE p_id LIKE '$_SESSION[pid]'
+	ORDER BY p_id ASC
+	";
+	$result = mysql_query($select) or die("Query failed");
+	$row = mysql_fetch_assoc($result);
+	$numrows = mysql_num_rows($result); */
 
-	if($numrows == "1"){
+	// add parameterized query
+	$row = sqlSelect(
+		'SELECT * FROM pengarah WHERE p_id LIKE ? ORDER BY p_id ASC', 
+		array($_SESSION['pid'])
+	);
+	$rowCount	= sqlSelect(
+		'SELECT count(*) AS total FROM pengarah WHERE p_id LIKE ? ORDER BY p_id ASC', 
+		array($_SESSION['pid'])
+	);
 
-		$sql = "UPDATE pengarah SET p_nama = '$_SESSION[nama]', p_sign = '$_SESSION[sign]' WHERE p_id = '$_SESSION[pid]'";
-		$result = mysql_query($sql) or die(mysql_error());
+	// if($numrows == "1"){
+	if($rowCount['total'] == 1){
+
+		/* $sql = "UPDATE pengarah SET p_nama = '$_SESSION[nama]', p_sign = '$_SESSION[sign]' WHERE p_id = '$_SESSION[pid]'";
+		$result = mysql_query($sql) or die(mysql_error()); */
+
+		// add parameterized query
+		$result = sqlUpdate(
+			'UPDATE pengarah SET p_nama = ?, p_sign = ? WHERE p_id = ?', 
+			array($_SESSION['nama'], $_SESSION['sign'], $_SESSION['pid'])
+		);
 		
 		unset($_SESSION['terai']);
 		
-		$_SESSION['alert'] = "Kemaskini pengarah berjaya.";
-		$_SESSION['redirek'] = "misc.php";
-		$_SESSION['toplus'] = "";
+		$_SESSION['alert'] 		= "Kemaskini pengarah berjaya.";
+		$_SESSION['redirek'] 	= "misc.php";
+		$_SESSION['toplus'] 	= "";
 		$pageTitle = 'Kemaskini Pengarah';
 		include("../kosong.php");
 		exit;
 		
 	}else{
 		
-		$sql = "INSERT INTO admin (p_nama,p_sign)
+		/* $sql = "INSERT INTO admin (p_nama,p_sign)
 		VALUES ('$_SESSION[nama]', '$_SESSION[sign]')";
-		$result = mysql_query($sql) or die(mysql_error());
+		$result = mysql_query($sql) or die(mysql_error()); */
+
+		// add parameterized query
+		$result = sqlInsert(
+			'INSERT INTO admin (p_nama, p_sign) VALUES (?, ?)', 
+			array($_SESSION['nama'], $_SESSION['sign'])
+		);
 		
 		unset($_SESSION['terai']);
 		
-		$_SESSION['alert'] = "Tambah pengarah berjaya.";
-		$_SESSION['redirek'] = "misc.php";
-		$_SESSION['toplus'] = "";
+		$_SESSION['alert'] 		= "Tambah pengarah berjaya.";
+		$_SESSION['redirek']	= "misc.php";
+		$_SESSION['toplus'] 	= "";
 		$pageTitle = 'Tambah Pengarah';
 		include("../kosong.php");
 		exit;
 		
 	}
 	
-}else{	
+} else {	
 	
-#SQL Injection fix
-$pid = addslashes($_GET["pid"]);
-if (strlen($pid)>11){
-exit;
-}
-$pid = (int)$pid;
-	
-$select = "
-SELECT *
-FROM pengarah
-WHERE p_id LIKE '$pid'
-ORDER BY p_id ASC
-";
-$result = mysql_query($select) or die("Query failed");
-$row = mysql_fetch_assoc($result);
+	#SQL Injection fix
+	$pid = addslashes($_GET["pid"]);
+	if (strlen($pid) > 11){
+		exit;
+	}
+	$pid = (int)$pid;
+		
+	/* $select = "
+	SELECT *
+	FROM pengarah
+	WHERE p_id LIKE '$pid'
+	ORDER BY p_id ASC
+	";
+	$result = mysql_query($select) or die("Query failed");
+	$row = mysql_fetch_assoc($result); */
+
+	// add parameterized query
+	$row = sqlSelect(
+		'SELECT * FROM pengarah WHERE p_id LIKE ? ORDER BY p_id ASC', 
+		array($pid)
+	);
 
 }
 ?>

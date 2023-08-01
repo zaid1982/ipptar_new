@@ -13,20 +13,39 @@ $qstr=$_SERVER['QUERY_STRING'];
 
 if(isset($_SESSION['terai']) && $_SESSION['terai'] == "haredit"){
 
-$tkhedit = date('Y-m-d H:i:s');
+	$tkhedit = date('Y-m-d H:i:s');
 
-$sql = "UPDATE pilih SET p_hadir = '$_SESSION[status]' WHERE p_id = '$_SESSION[pid]'";
-$result = mysql_query($sql) or die(mysql_error());
+	/* $sql = "UPDATE pilih SET p_hadir = '$_SESSION[status]' WHERE p_id = '$_SESSION[pid]'";
+	$result = mysql_query($sql) or die(mysql_error()); */
 
-$sql = "INSERT INTO pilih_log (p_hadir, p_id, p_aid, p_aname, p_tkhedit, p_action)
-		VALUES ('$_SESSION[status]', '$_SESSION[pid]', '$_SESSION[MyID]', '$_SESSION[MyNama]', '$tkhedit', 'Status Kehadiran' )";
-$result = mysql_query($sql) or die(mysql_error());
+	// add parameterized query
+	$result = sqlUpdate(
+		'UPDATE pilih SET p_hadir = ? WHERE p_id = ?', 
+		array($_SESSION['status'], $_SESSION['pid'])
+	);
+
+	/* $sql = "INSERT INTO pilih_log (p_hadir, p_id, p_aid, p_aname, p_tkhedit, p_action)
+			VALUES ('$_SESSION[status]', '$_SESSION[pid]', '$_SESSION[MyID]', '$_SESSION[MyNama]', '$tkhedit', 'Status Kehadiran' )";
+	$result = mysql_query($sql) or die(mysql_error()); */
+
+	// add parameterized query
+	$result = sqlInsert(
+		'INSERT INTO pilih_log (p_hadir, p_id, p_aid, p_aname, p_tkhedit, p_action) VALUES (?, ?, ?, ?, ?, ?)', 
+		array(
+			$_SESSION['status'],
+			$_SESSION['pid'],
+			$_SESSION['MyID'],
+			$_SESSION['MyNama'],
+			$tkhedit,
+			'Status Kehadiran'
+		)
+	);
 
 	unset($_SESSION['terai']);
 
-	$_SESSION['alert'] = "Kemaskini berjaya.";
-	$_SESSION['redirek'] = "mohon.php?".$_SESSION['qstr'];
-	$_SESSION['toplus'] = "";
+	$_SESSION['alert'] 		= "Kemaskini berjaya.";
+	$_SESSION['redirek'] 	= "mohon.php?".$_SESSION['qstr'];
+	$_SESSION['toplus'] 	= "";
 	$pageTitle = 'Kemaskini Permohonan';
 	include("../kosong.php");
 	exit;
@@ -36,18 +55,24 @@ $result = mysql_query($sql) or die(mysql_error());
 #SQL Injection fix
 $pid = addslashes($_GET["pid"]);
 if (strlen($pid)>11){
-exit;
+	exit;
 }
 $pid = (int)$pid;
 	
-$select = "
+/* $select = "
 SELECT p_hadir
 FROM pilih
 WHERE p_id LIKE '$pid'
 ORDER BY p_id ASC
 ";
 $result = mysql_query($select) or die("Query failed");
-$row = mysql_fetch_assoc($result);
+$row = mysql_fetch_assoc($result); */
+
+// add parameterized query
+$row = sqlSelect(
+	'SELECT p_hadir FROM pilih WHERE p_id LIKE ? ORDER BY p_id ASC', 
+	array($pid)
+);
 
 }
 ?>

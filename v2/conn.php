@@ -21,6 +21,16 @@ try {
     die('Could not connect: ' .  $e->getMessage());
 }
 
+function prepares($inputs) {
+    $values = array();
+    foreach($inputs as $input) {
+        $input = stripslashes($input);
+        // $input = mysql_real_escape_string(stripslashes($input));
+        $values[] = $input;
+    }
+    return $values;
+}
+
 function sqlSelect ($sql, $inputs, $isMultipleRows=false) {
     try {
         global $conn;
@@ -38,6 +48,7 @@ function sqlSelect ($sql, $inputs, $isMultipleRows=false) {
 }
 
 function sqlInsert ($sql, $inputs) {
+    $inputs = prepares($inputs);
     try {
         global $conn;
         $stmt = $conn->prepare($sql);
@@ -53,6 +64,7 @@ function sqlInsert ($sql, $inputs) {
 }
 
 function sqlUpdate ($sql, $inputs) {
+    $inputs = prepares($inputs);
     try {
         global $conn;
         $stmt = $conn->prepare($sql);

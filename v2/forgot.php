@@ -30,7 +30,7 @@ if(($number!=$key)||($number=="")){
 } else {}
 # end captcha
 
-$select = "
+/* $select = "
 SELECT u_idnum,u_emel
 FROM user
 WHERE u_idnum= '$_SESSION[nokp]'
@@ -38,35 +38,53 @@ ORDER BY u_id ASC
 ";
 
 $result = mysql_query($select) or die("Query failed");
-$row = mysql_fetch_assoc($result);
-$emelkepada= $row['u_emel'];
+$row = mysql_fetch_assoc($result); */
 
-if (mysql_num_rows($result) == 1) {
+// add parameterized query
+$rowCount = sqlSelect(
+	'SELECT count(u_idnum) AS total FROM user WHERE u_idnum = ? ORDER BY u_id ASC', 
+	array($_SESSION['nokp'])
+);
+$row = sqlSelect(
+	'SELECT u_idnum, u_emel FROM user WHERE u_idnum = ? ORDER BY u_id ASC', 
+	array($_SESSION['nokp'])
+);
 
-$sql = "UPDATE user SET u_status = '2' WHERE u_idnum = '$_SESSION[nokp]'";
-$result = mysql_query($sql) or die(mysql_error());
+$emelkepada = $row['u_emel'];
 
-include("forgot_emel.php");
+// if (mysql_num_rows($result) == 1) {
+if ($rowCount['total'] == 1) {
 
-session_destroy();
+	/* $sql = "UPDATE user SET u_status = '2' WHERE u_idnum = '$_SESSION[nokp]'";
+	$result = mysql_query($sql) or die(mysql_error()); */
 
-$_SESSION['alert'] = "Emel telah berjaya dihantar ke akaun $emelkepada .";
-$_SESSION['redirek'] = "index.php";
-$_SESSION['toplus'] = "";
-$pageTitle = 'Lupa Kata Laluan';
-include("kosong.php");
-exit;
+	// add parameterized query
+	$result = sqlUpdate(
+		'UPDATE user SET u_status = ? WHERE u_idnum = ?', 
+		array('2', $_SESSION['nokp'])
+	);
 
-}else{
+	include("forgot_emel.php");
+
+	session_destroy();
+
+	$_SESSION['alert'] 		= "Emel telah berjaya dihantar ke akaun $emelkepada .";
+	$_SESSION['redirek'] 	= "index.php";
+	$_SESSION['toplus'] 	= "";
+	$pageTitle = 'Lupa Kata Laluan';
+	include("kosong.php");
+	exit;
+
+} else {
 	
 session_destroy();
 
-$_SESSION['alert'] = "Emel tidak wujud. Sila hubungi Webmaster.";
-$_SESSION['redirek'] = "index.php";
-$_SESSION['toplus'] = "";
-$pageTitle = 'Lupa Kata Laluan';
-include("kosong.php");
-exit;
+	$_SESSION['alert'] 		= "Emel tidak wujud. Sila hubungi Webmaster.";
+	$_SESSION['redirek'] 	= "index.php";
+	$_SESSION['toplus'] 	= "";
+	$pageTitle = 'Lupa Kata Laluan';
+	include("kosong.php");
+	exit;
 
 }
 

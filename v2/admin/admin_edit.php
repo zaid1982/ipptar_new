@@ -11,41 +11,77 @@ include("../conn.php");
 
 if(isset($_SESSION['terai']) && $_SESSION['terai'] == "admedit"){
 	
-$select = "
-SELECT *
-FROM admin
-WHERE a_id LIKE '$_SESSION[aid]'
-ORDER BY a_id ASC
-";
-$result = mysql_query($select) or die("Query failed");
-$row = mysql_fetch_assoc($result);
-$numrows = mysql_num_rows($result);
+	/* $select = "
+	SELECT *
+	FROM admin
+	WHERE a_id LIKE '$_SESSION[aid]'
+	ORDER BY a_id ASC
+	";
+	$result = mysql_query($select) or die("Query failed");
+	$row = mysql_fetch_assoc($result);
+	$numrows = mysql_num_rows($result); */
 
-	if($numrows == "1"){
+	// add parameterized query
+	$rowCount = sqlSelect(
+		'SELECT count(*) AS total FROM admin WHERE a_id = ? ORDER BY a_id ASC', 
+		array($_SESSION['aid'])
+	);
+	$result = sqlSelect(
+		'SELECT * FROM admin WHERE a_id = ? ORDER BY a_id ASC', 
+		array($_SESSION['aid'])
+	);
 
-		$sql = "UPDATE admin SET a_pwd = '$_SESSION[pwd]', a_nama = '$_SESSION[nama]', a_tel = '$_SESSION[tel]', a_emel = '$_SESSION[emel]', a_level = '$_SESSION[level]' WHERE a_id = '$_SESSION[aid]'";
-		$result = mysql_query($sql) or die(mysql_error());
+	if($rowCount['total'] == 1) {
+
+		/* $sql = "UPDATE admin SET a_pwd = '$_SESSION[pwd]', a_nama = '$_SESSION[nama]', a_tel = '$_SESSION[tel]', a_emel = '$_SESSION[emel]', a_level = '$_SESSION[level]' WHERE a_id = '$_SESSION[aid]'";
+		$result = mysql_query($sql) or die(mysql_error()); */
+
+		// add parameterized query
+		$result = sqlUpdate(
+			'UPDATE admin SET a_pwd = ?, a_nama = ?, a_tel = ?, a_emel = ?, a_level = ? WHERE a_id = ?', 
+			array(
+				$_SESSION['pwd'], 
+				$_SESSION['nama'], 
+				$_SESSION['tel'], 
+				$_SESSION['emel'],
+				$_SESSION['level'],
+				$_SESSION['aid']
+			)
+		);
 		
 		unset($_SESSION['terai']);
 		
-		$_SESSION['alert'] = "Kemaskini admin berjaya.";
-		$_SESSION['redirek'] = "admin_list.php";
-		$_SESSION['toplus'] = "";
+		$_SESSION['alert'] 		= "Kemaskini admin berjaya.";
+		$_SESSION['redirek'] 	= "admin_list.php";
+		$_SESSION['toplus'] 	= "";
 		$pageTitle = 'Kemaskini Admin';
 		include("../kosong.php");
 		exit;
 		
 	}else{
 		
-		$sql = "INSERT INTO admin (a_pwd,a_idnum,a_nama,a_tel,a_emel,a_level)
+		/* $sql = "INSERT INTO admin (a_pwd,a_idnum,a_nama,a_tel,a_emel,a_level)
 		VALUES ('$_SESSION[pwd]', '$_SESSION[idnum]', '$_SESSION[nama]', '$_SESSION[tel]', '$_SESSION[emel]', '$_SESSION[level]')";
-		$result = mysql_query($sql) or die(mysql_error());
+		$result = mysql_query($sql) or die(mysql_error()); */
+
+		// add parameterized query
+		$result = sqlInsert(
+			'INSERT INTO admin (a_pwd, a_idnum, a_nama, a_tel, a_emel, a_level) VALUES (?, ?, ?, ?, ?, ?)', 
+			array(
+				$_SESSION['pwd'],
+				$_SESSION['idnum'],
+				$_SESSION['nama'],
+				$_SESSION['tel'],
+				$_SESSION['emel'],
+				$_SESSION['level']
+			)
+		);
 		
 		unset($_SESSION['terai']);
 		
-		$_SESSION['alert'] = "Tambah admin berjaya.";
-		$_SESSION['redirek'] = "admin_list.php";
-		$_SESSION['toplus'] = "";
+		$_SESSION['alert'] 		= "Tambah admin berjaya.";
+		$_SESSION['redirek'] 	= "admin_list.php";
+		$_SESSION['toplus'] 	= "";
 		$pageTitle = 'Kemaskini Admin';
 		include("../kosong.php");
 		exit;
@@ -61,14 +97,20 @@ exit;
 }
 $aid = (int)$aid;
 	
-$select = "
+/* $select = "
 SELECT *
 FROM admin
 WHERE a_id LIKE '$aid'
 ORDER BY a_id ASC
 ";
 $result = mysql_query($select) or die("Query failed");
-$row = mysql_fetch_assoc($result);
+$row = mysql_fetch_assoc($result); */
+
+// add parameterized query
+$row = sqlSelect(
+	'SELECT * FROM admin WHERE a_id LIKE ? ORDER BY a_id ASC', 
+	array($aid)
+);
 
 }
 ?>

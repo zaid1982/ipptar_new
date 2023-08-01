@@ -21,73 +21,118 @@ include("../conn.php");
 
 if(isset($_SESSION['terai']) && $_SESSION['terai'] == "kurdel"){
 
-$sql = "DELETE FROM kursus WHERE k_id = '$_SESSION[kid]'";
-$result = mysql_query($sql) or die(mysql_error());
+	/* $sql = "DELETE FROM kursus WHERE k_id = '$_SESSION[kid]'";
+	$result = mysql_query($sql) or die(mysql_error()); */
 
-$tkhdel = date('Y-m-d H:i:s');
+	// add parameterized query
+	$result = sqlDelete('DELETE FROM kursus WHERE k_id = ?', array($_SESSION['kid']));
 
-$sql = "INSERT INTO kursus_log (kid, date, status, uid, uname)
-	VALUES ('$_SESSION[kid]', '$tkhdel', 'Delete', '$_SESSION[MyID]', '$_SESSION[MyNama]' )";
-$result = mysql_query($sql) or die(mysql_error());
+	$tkhdel = date('Y-m-d H:i:s');
+
+	/* $sql = "INSERT INTO kursus_log (kid, date, status, uid, uname)
+		VALUES ('$_SESSION[kid]', '$tkhdel', 'Delete', '$_SESSION[MyID]', '$_SESSION[MyNama]' )";
+	$result = mysql_query($sql) or die(mysql_error()); */
+
+	// add parameterized query
+	$result = sqlInsert(
+		'INSERT INTO kursus_log (kid, date, status, uid, uname) VALUES (?, ?, ?, ?, ?)', 
+		array(
+			$_SESSION['kid'], $tkhdel, 'Delete', $_SESSION['MyID'], $_SESSION['MyNama']
+		)
+	);
 
 	unset($_SESSION['terai']);
 
-	$_SESSION['alert'] = "Rekod kursus telah berjaya dihapus.";
-	$_SESSION['redirek'] = "katalog.php";
-	$_SESSION['toplus'] = "";
+	$_SESSION['alert'] 		= "Rekod kursus telah berjaya dihapus.";
+	$_SESSION['redirek'] 	= "katalog.php";
+	$_SESSION['toplus'] 	= "";
 	$pageTitle = 'Hapus Kursus';
 	include("../kosong.php");
 	exit;
 
-}elseif(isset($_SESSION['terai']) && $_SESSION['terai'] == "kuredit"){
+} elseif(isset($_SESSION['terai']) && $_SESSION['terai'] == "kuredit") {
 
-$sdate = $_SESSION['st']."-".$_SESSION['sm']."-".$_SESSION['sh'];
-$edate = $_SESSION['et']."-".$_SESSION['em']."-".$_SESSION['eh'];
-	
-#ckh wlkin reg
-#print "xxx".$_SESSION['k_wlkin'];
-if(isset($_SESSION['k_wlkin'])){
-	$wlkin = "1";
-}else{
-	$wlkin = "0";
-}
+	$sdate = $_SESSION['st']."-".$_SESSION['sm']."-".$_SESSION['sh'];
+	$edate = $_SESSION['et']."-".$_SESSION['em']."-".$_SESSION['eh'];
+		
+	#ckh wlkin reg
+	#print "xxx".$_SESSION['k_wlkin'];
+	if(isset($_SESSION['k_wlkin'])) {
+		$wlkin = "1";
+	} else {
+		$wlkin = "0";
+	}
 
-$sql = "UPDATE kursus SET k_code = '$_SESSION[k_code]', k_name = '$_SESSION[k_name]', k_obj = '$_SESSION[k_obj]', k_loc = '$_SESSION[k_loc]', k_duration = '$_SESSION[k_duration]', k_sdate = '$sdate', k_edate = '$edate', k_fee = '$_SESSION[k_fee]', k_terms = '$_SESSION[k_terms]', k_status = '$_SESSION[k_status]', k_remark = '$_SESSION[k_remark]', k_aid = '$_SESSION[k_aid]', k_wlkin = '$wlkin' WHERE k_id = '$_SESSION[kid]'";
-$result = mysql_query($sql) or die(mysql_error());
+	/* $sql = "UPDATE kursus SET k_code = '$_SESSION[k_code]', k_name = '$_SESSION[k_name]', k_obj = '$_SESSION[k_obj]', k_loc = '$_SESSION[k_loc]', k_duration = '$_SESSION[k_duration]', k_sdate = '$sdate', k_edate = '$edate', k_fee = '$_SESSION[k_fee]', k_terms = '$_SESSION[k_terms]', k_status = '$_SESSION[k_status]', k_remark = '$_SESSION[k_remark]', k_aid = '$_SESSION[k_aid]', k_wlkin = '$wlkin' WHERE k_id = '$_SESSION[kid]'";
+	$result = mysql_query($sql) or die(mysql_error()); */
 
-$tkhupd = date('Y-m-d H:i:s');
+	// add parameterized query
+	$result = sqlUpdate(
+		'UPDATE kursus SET k_code = ?, k_name = ?, k_obj = ?, k_loc = ?, k_duration = ?, k_sdate = ?, k_edate = ?, k_fee = ?, k_terms = ?, k_status = ?, k_remark = ?, k_aid = ?, k_wlkin = ? WHERE k_id = ?', 
+		array(
+			$_SESSION['k_code'],
+			$_SESSION['k_name'],
+			$_SESSION['k_obj'],
+			$_SESSION['k_loc'],
+			$_SESSION['k_duration'],
+			$sdate,
+			$edate,
+			$_SESSION['k_fee'],
+			$_SESSION['k_terms'],
+			$_SESSION['k_status'],
+			$_SESSION['k_remark'],
+			$_SESSION['k_aid'],
+			$wlkin,
+			$_SESSION['kid']
+		)
+	);
 
-$sql = "INSERT INTO kursus_log (kid, date, status, uid, uname)
-	VALUES ('$_SESSION[kid]', '$tkhupd', 'Update', '$_SESSION[MyID]', '$_SESSION[MyNama]' )";
-$result = mysql_query($sql) or die(mysql_error());
+	$tkhupd = date('Y-m-d H:i:s');
+
+	/* $sql = "INSERT INTO kursus_log (kid, date, status, uid, uname)
+		VALUES ('$_SESSION[kid]', '$tkhupd', 'Update', '$_SESSION[MyID]', '$_SESSION[MyNama]' )";
+	$result = mysql_query($sql) or die(mysql_error()); */
+
+	// add parameterized query
+	$result = sqlInsert(
+		'INSERT INTO kursus_log (kid, date, status, uid, uname) VALUES (?, ?, ?, ?, ?)', 
+		array(
+			$_SESSION['kid'], $tkhupd, 'Update', $_SESSION['MyID'], $_SESSION['MyNama']
+		)
+	);
 
 	unset($_SESSION['terai']);
 
-	$_SESSION['alert'] = "Kemaskini berjaya.";
-	$_SESSION['redirek'] = "katalog.php";
-	$_SESSION['toplus'] = "";
+	$_SESSION['alert'] 		= "Kemaskini berjaya.";
+	$_SESSION['redirek'] 	= "katalog.php";
+	$_SESSION['toplus'] 	= "";
 	$pageTitle = 'Kemaskini Kursus';
 	include("../kosong.php");
 	exit;
 
-}else{
+} else {
 	
-#SQL Injection fix
-$kid = addslashes($_GET['kid']);
-if (strlen($kid)>11){
-exit;
-}
-$kid = (int)$kid;
-	
-$select = "
-SELECT *
-FROM kursus
-WHERE k_id LIKE '$kid'
-ORDER BY k_id ASC
-";
-$result = mysql_query($select) or die("Query failed");
-$row = mysql_fetch_assoc($result);
+	#SQL Injection fix
+	$kid = addslashes($_GET['kid']);
+	if (strlen($kid) > 11){
+		exit;
+	}
+	$kid = (int)$kid;
+		
+	/* $select = "
+	SELECT *
+	FROM kursus
+	WHERE k_id LIKE '$kid'
+	ORDER BY k_id ASC
+	";
+	$result = mysql_query($select) or die("Query failed");
+	$row = mysql_fetch_assoc($result); */
 
+	// add parameterized query
+	$row = sqlSelect(
+		'SELECT * FROM kursus WHERE k_id LIKE ? ORDER BY k_id ASC', 
+		array($kid)
+	);
 }
 ?>
 <div id="content"> 
@@ -306,7 +351,7 @@ if($row['k_wlkin'] == "1"){
 <td>
 <select name="k_aid" id="k_aid" onchange="showhideremark(this)">
 <?php  
-if($_SESSION[MyLevel] == "1"){
+if($_SESSION['MyLevel'] == "1"){
 	$chklvl = "a_level IN ('1','2','3','4')";
 }else{
 	$chklvl = "a_level = '$_SESSION[MyLevel]'";
